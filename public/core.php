@@ -33,15 +33,13 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$ids = array_keys($items);
-
-			foreach($ids as $id)
-				$data[] = array(':item' => $id, ':user' => (int)$user);
+			foreach($items as $id)
+				$data[] = array(':item' => (int)$id, ':user' => (int)$user);
 
 			$query = "INSERT IGNORE INTO view (user, item) VALUES (:user, :item)";
 	
 			return $db->multiple($query, $data);
-    	}                                           
+		}                                           
 		catch(Exception $e) {
 			return false;
 		}    
@@ -51,16 +49,14 @@ class Core {
 		try{
 			$db = $this->_db;   
 
-			$ids = array_keys($items);
-
- 			foreach($ids as $id)
-				$data[] = array(':item' => $id, ':user' => (int)$user, ':vote' => 'left');        
+ 			foreach($items as $id => $vote)
+				$data[] = array(':item' => (int)$id, ':user' => (int)$user, ':vote' => $vote);        
 
 			$query  = "INSERT INTO view (user, item, vote) VALUES (:user, :item, :vote) ON DUPLICATE KEY UPDATE vote = :vote;";
  			$query .= "UPDATE item SET left_vote = left_vote + 1 WHERE id = :item;"; 
 
 			return $db->multiple($query, $data);
-    	}                                           
+		}                                           
 		catch(Exception $e) {
 			return false;
 		}    
@@ -74,7 +70,7 @@ class Core {
 
 			$query = "SELECT id, left_text, right_text, left_vote, right_vote FROM item ORDER BY RAND() LIMIT " . (int)$count;
 			$items = $db->select($query);
-    	}                                           
+		}                                           
 		catch(Exception $e) {
 			return false;
 		}
@@ -88,7 +84,7 @@ class Core {
 
 			$query = "SELECT item.id, left_text, right_text, left_vote, right_vote FROM item LEFT JOIN view ON item.id = view.item WHERE view.user <> ? OR view.item IS NULL ORDER BY RAND() LIMIT " . (int)$count;
 			$items = $db->select($query, array((int)$user));
-    	}                                           
+		}                                           
 		catch(Exception $e) {
 			return false;
 		}
@@ -103,17 +99,23 @@ class Core {
 		return $this->_get_user_items($user, $count);
 	}
 
-	public function view() {
-
+	public function view($user, $data) {
+		return $this->_set_viewed($user, $data);
 	}
 
-	public function vote() {
+	public function vote($user, $data) {
+        $valid = array('left', 'right');
 
+		foreach($data as $id => $vote)
+			if(!in_array($vote, $valid))
+				unset($data[$id]);
+
+ 		return $this->_set_voated($user, $data);    	
 	}
 
 	public function init() {
 
-
+		$this->vote(1, array(1 => 'left', 2 => 'right', 3 => 'x'));
 
 	} 
 }
