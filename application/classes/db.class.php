@@ -100,6 +100,39 @@ class DB {
 
 		return true;
 	} 
+
+	public function lastid($query, $data = array()){
+		$link = $this->_dbh; 
+
+		try{ 
+			$link->beginTransaction();
+
+			$prepare = $link->prepare($query);  
+			$prepare->execute($data); 
+
+			$id = $link->lastInsertId(); 
+			$link->commit();
+
+			return $id;
+		}
+		catch(PDOException $e) {
+			$link->rollBack();
+			
+			throw new Exception("lastid"); 
+		}    
+
+		return true;
+	}            
+
+	public function num_rows($query, $data = array()){
+		$link = $this->_dbh;          
+
+		$result = $link->prepare($query);  
+		$result->execute($data);      
+
+		return $result->fetchColumn();
+	}
+           
 /*
 	public function row($query, $data = false){
 		$link = $this->_dbh;  
@@ -110,32 +143,5 @@ class DB {
 		return false;
 	}
 
-	public function num_rows($query, $data = array()){
-		$link = $this->_dbh;          
-
-		$result = $link->prepare($query);  
-		$result->execute($data);      
-
-		return $result->fetchColumn();
-	}
-
-	public function query($query, $data = array()){
-		$link = $this->_dbh; 
-
-		try{ 
-			$link->beginTransaction();
-
-			$prepare = $link->prepare($query);  
-			$prepare->execute($data); 
-
-			$link->commit();
-		}
-		catch(PDOException $e) {
-			$link->rollBack();
-			
-			return false;
-		}    
-
-		return true;
-	}     */
+   */
 }
