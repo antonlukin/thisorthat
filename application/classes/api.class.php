@@ -131,7 +131,6 @@ class API {
 	}
 
 	public function response($result) {
-		return $result;
 		return json_encode($result);
 	}
 }

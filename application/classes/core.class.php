@@ -7,6 +7,7 @@
 * @link http://lukin.me
 **/
 
+
 if (!class_exists('db')) 
 	require_once ABSPATH . $config['paths']['db'];
 	
