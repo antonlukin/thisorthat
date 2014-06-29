@@ -26,6 +26,6 @@ require_once ABSPATH . $config['paths']['api'];
 	$result = $api->process($_SERVER['REQUEST_URI'], $api_events);
 	$output = $api->response($result);
 
-//	header('Content-Type: application/json');
-	print_r($output);
+	header('Content-Type: application/json');
+	exit($output);
 }

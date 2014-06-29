@@ -6,9 +6,9 @@
 * @license http://www.opensource.org/licenses/bsd-license.php BSD License
 * @link http://lukin.me
 **/
-      
 
-if (!class_exists('core')) 
+
+if (!class_exists('core'))
 	require_once ABSPATH . $config['paths']['core'];
 
 class API {
@@ -34,14 +34,14 @@ class API {
 			throw new Exception("User id does not match", 400);
 
 		$this->authorization($user);
-		
+
 		if(!isset($atts[3]))
-			return $_->get_items($user); 
+			return $_->get_items($user);
 
 		if($count = $_->attribute($atts, 3, '^[\d]{0,3}$'))
-			return $_->get_items($user, $count); 
+			return $_->get_items($user, $count);
 
-		throw new Exception("Wrong count value format", 400); 
+		throw new Exception("Wrong count value format", 400);
 	}
 
 	/**
@@ -55,17 +55,17 @@ class API {
 
 		$raw = $_->dataset();
 
-		if(!$source = $_->attribute($raw, 'client', '^[a-z0-9-_]{0,16}$')) 
+		if(!$source = $_->attribute($raw, 'client', '^[a-z0-9-_]{0,16}$'))
 			throw new Exception("Client value required", 400);
 
- 		if(!$unique = $_->attribute($raw, 'unique', '^[a-z0-9-_]{0,64}$')) 
+ 		if(!$unique = $_->attribute($raw, 'unique', '^[a-z0-9-_]{0,64}$'))
 			throw new Exception("Unique value required", 400);
 
 		return $_->register($source, $unique);
-	}             
+	}
 
 	/**
-	 * Request: /vote/add/[:user]
+	 * Request: /views/add/[:user]
 	 * Method: POST
 	 * Data: :views => %array
 	 * Answer: [user] => %i, [token] => %s
@@ -76,28 +76,27 @@ class API {
 		$raw = $_->dataset();
 
 		if(!$user = $_->attribute($atts, 2, '^[\d]{0,9}$'))
-			throw new Exception("User id does not match", 400);  
-		
-		if(!$views = $_->attribute($raw, 'views', 'array', true)) 
-			throw new Exception("Views array required", 400);  
+			throw new Exception("User id does not match", 400);
 
-		$this->authorization($user);  
+		if(!$views = $_->attribute($raw, 'views', 'array', true))
+			throw new Exception("Views array required", 400);
+
+		$this->authorization($user);
 
 		return $_->add_views($user, $views);
-	}             
-                                              
+	}
+
 	protected function authorization($user) {
-		$_ = $this->_core; 
+		$_ = $this->_core;
 
 		if(!isset($_SERVER['HTTP_AUTHORIZATION']))
-			throw new Exception("Authorization required", 401); 
-		
+			throw new Exception("Authorization required", 401);
+
 		if(!preg_match('~^Token\s+?([a-f0-9]{32})$~i', $_SERVER['HTTP_AUTHORIZATION'], $token))
-			throw new Exception("Wrong authorization format", 401);  
- 
-//		$token[0] = '5d41402abc4b2a76b9719d911017c592';
+			throw new Exception("Wrong authorization format", 401);
+
 		if(!$_->authenticate($user, $token[1]))
-			throw new Exception("Token mismatch user id", 401);   
+			throw new Exception("Token mismatch user id", 401);
 	}
 
 	public function process($request, $events) {
@@ -106,7 +105,7 @@ class API {
 		foreach($events[$http] as $func => $match) {
 			if(!preg_match("~{$match}~i", $request))
 				continue;
-			
+
 			$method = $func;
 			break;
 		}
@@ -118,6 +117,11 @@ class API {
 
 		try{
 			$result = $this->$method($atts);
+		}
+ 		catch(CoreException $e){
+			$description = $e->getDescription();
+
+			$result = $this->error(500, $description);
 		}
 		catch(Exception $e){
 			$result = $this->error($e->getCode(), $e->getMessage());

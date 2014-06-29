@@ -8,15 +8,15 @@
 **/
 
 
-if (!class_exists('db')) 
+if (!class_exists('db'))
 	require_once ABSPATH . $config['paths']['db'];
-	
+
 class Core {
 
 	protected $_db = null;
 
 	function __construct($config) {
-		$this->_db = new DB($config['db']); 
+		$this->_db = new DB($config['db']);
 	}
 
 	private function _normilize_array($in, $out = array()) {
@@ -30,30 +30,38 @@ class Core {
 
 	private function _set_viewed($user, $items) {
 		try{
-			$db = $this->_db;   
+			$db = $this->_db;
 
  			foreach($items as $id => $vote)
-				$data[] = array('item' => (int)$id, 'user' => (int)$user, 'vote' => $vote);        
+				$data[] = array('item' => (int)$id, 'user' => (int)$user, 'vote' => $vote);
 
-			$query  = "INSERT INTO view (user, item, vote) VALUES (:user, :item, :vote) ON DUPLICATE KEY UPDATE vote = :vote;";
- 			$query .= "UPDATE item SET left_vote = left_vote + 1 WHERE id = :item;"; 
+			$query  = "INSERT IGNORE INTO view (user, item, vote) VALUES (:user, :item, :vote);";
 
 			return $db->multiple($query, $data);
-		}                                           
-		catch(Exception $e) {
-			return false;
-		}    
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
 	}
 
 	private function _get_random_items($count) {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT id, left_text, right_text, left_vote, right_vote FROM item ORDER BY RAND() LIMIT " . (int)$count;
+			$query = "SELECT item.id, left_text, right_text, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
+				FROM item
+				LEFT OUTER JOIN
+				(
+					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
+					FROM view
+					GROUP BY item
+				) AS v ON (v.item = id)
+				ORDER BY RAND() LIMIT " . (int)$count;
+
 			$items = $db->select($query);
-		}                                           
-		catch(Exception $e) {
-			return false;
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
 		}
 
 		return $this->_normilize_array($items);
@@ -63,15 +71,28 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT item.id, left_text, right_text, left_vote, right_vote FROM item LEFT JOIN view ON item.id = view.item WHERE view.user <> ? OR view.item IS NULL ORDER BY RAND() LIMIT " . (int)$count;
+			$query = "SELECT item.id, left_text, right_text, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
+				FROM item
+				LEFT OUTER JOIN
+				(
+					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
+					FROM view
+					GROUP BY item
+				) AS v ON (v.item = id)
+				LEFT JOIN view
+				ON item.id = view.item
+				WHERE item.id NOT IN
+				(SELECT view.item FROM view WHERE view.user = ?)
+				ORDER BY RAND() LIMIT " . (int)$count;
+
 			$items = $db->select($query, array((int)$user));
-		}                                           
-		catch(Exception $e) {
-			return false;
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
 		}
 
-		return $this->_normilize_array($items);       
-	} 
+		return $this->_normilize_array($items);
+	}
 
 	private function _add_new_user($data) {
 		try{
@@ -80,11 +101,11 @@ class Core {
 			$query = "INSERT INTO user (secret, client, `unique`) VALUES (:secret, :client, :unique)";
 
 			return $db->lastid($query, $data);
-		}                                           
-		catch(Exception $e) {
-			return false;
 		}
-	}           
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
+	}
 
 	private function _check_user_token($user, $secret) {
 		try{
@@ -92,16 +113,21 @@ class Core {
 
 			$query = "SELECT id FROM user WHERE id = ? AND secret = ? LIMIT 1";
 			$count = $db->num_rows($query, array((int)$user, $secret));
-		}                                           
-		catch(Exception $e) {
-			return false;
-		} 
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
 
 		return $count > 0;
 	}
 
 	private function _get_secret($token) {
-		return substr(hash('sha256', $token), 10, 32);
+		try{
+			return substr(hash('sha256', $token), 10, 32);
+		}
+		catch(Exception $e) {
+			throw new CoreException("function not found", 1);
+		}
 	}
 
 	public function get_items($user = false, $count = 10) {
@@ -112,14 +138,14 @@ class Core {
 	}
 
 	public function add_views($user, $data) {
-        $valid = array('left', 'right');
+        $valid = array('left', 'right', 'skip');
 
 		foreach($data as $id => $vote)
 			if(!in_array($vote, $valid))
-				unset($data[$id]);
+				@unset($data[$id]);
 
- 		return $this->_set_viewed($user, $data);    	
-	}         
+ 		return $this->_set_viewed($user, $data);
+	}
 
 	public function authenticate($user, $token) {
 		$secret = $this->_get_secret($token);
@@ -128,7 +154,7 @@ class Core {
 	}
 
 	public function register($client, $unique) {
-		$token = md5(uniqid(rand(), true)); 
+		$token = md5(uniqid(rand(), true));
 
 		$data = array (
 			'secret' => $this->_get_secret($token),
@@ -149,17 +175,45 @@ class Core {
 			return false;
 
 		if(true === $type)
-			return $list[$offset]; 
+			return $list[$offset];
 
 		if(!preg_match("/{$regex}/i", $list[$offset]))
 			return false;
 
 		return $list[$offset];
-	}  
+	}
 
 	public function dataset() {
 		$raw = file_get_contents("php://input");
 
 		return json_decode($raw, true);
 	}
+}
+
+class CoreException extends Exception{
+
+	protected $message;
+	protected $code;
+	protected $case;
+
+    public function __construct($message, $code = 0, Exception $previous = null) {
+
+		$this->case = array(
+			0 => "Database error: can't process ",
+ 			1 => "Internal server error: "
+		);
+
+        $this->message = $message;
+		$this->code = $code;
+
+        parent::__construct($message, $code, $previous);
+
+    }
+
+	public function getDescription(){
+		$code = $this->code;
+ 		$case = $this->case;
+
+		return isset($case[$code]) ? $case[$code] . $this->message : $this->message;
+    }
 }
