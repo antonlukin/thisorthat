@@ -142,7 +142,7 @@ class Core {
 
 		foreach($data as $id => $vote)
 			if(!in_array($vote, $valid))
-				@unset($data[$id]);
+				unset($data[$id]);
 
  		return $this->_set_viewed($user, $data);
 	}
@@ -190,30 +190,30 @@ class Core {
 	}
 }
 
-class CoreException extends Exception{
+class CoreException extends Exception {
 
 	protected $message;
 	protected $code;
 	protected $case;
 
-    public function __construct($message, $code = 0, Exception $previous = null) {
+	public function __construct($message, $code = 0, Exception $previous = null) {
 
 		$this->case = array(
 			0 => "Database error: can't process ",
- 			1 => "Internal server error: "
+			1 => "Internal server error: "
 		);
 
-        $this->message = $message;
+		$this->message = $message;
 		$this->code = $code;
 
-        parent::__construct($message, $code, $previous);
+		parent::__construct($message, $code, $previous);
 
-    }
+	}
 
 	public function getDescription(){
 		$code = $this->code;
- 		$case = $this->case;
+		$case = $this->case;
 
 		return isset($case[$code]) ? $case[$code] . $this->message : $this->message;
-    }
+	}
 }

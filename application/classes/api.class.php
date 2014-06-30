@@ -83,7 +83,10 @@ class API {
 
 		$this->authorization($user);
 
-		return $_->add_views($user, $views);
+		if(!$_->add_views($user, $views))
+			throw new Exception("Views array required", 400);
+
+		return $this->success("Completed successfully", 202);
 	}
 
 	protected function authorization($user) {
@@ -111,7 +114,7 @@ class API {
 		}
 
 		if(!isset($method) || !method_exists($this, $method))
-			return $this->error(400, "Method does not exist");
+			return $this->error("Method does not exist", 400);
 
 		$atts = explode("/", trim($request, "/"));
 
@@ -121,17 +124,27 @@ class API {
  		catch(CoreException $e){
 			$description = $e->getDescription();
 
-			$result = $this->error(500, $description);
+			$result = $this->error($description, 500);
 		}
 		catch(Exception $e){
-			$result = $this->error($e->getCode(), $e->getMessage());
+			$result = $this->error($e->getMessage(), $e->getCode());
 		}
 
 		return $result;
 	}
 
-	public function error($code, $description) {
+	public function error($description, $code) {
+		if(function_exists('http_response_code'))
+			http_response_code($code);
+
 		return array("error" => $code, "description" => $description);
+	}
+
+	public function success($description, $code) {
+		if(function_exists('http_response_code'))
+			http_response_code($code);
+
+		return array("success" => $code, "description" => $description);
 	}
 
 	public function response($result) {
