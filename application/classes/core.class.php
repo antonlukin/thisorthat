@@ -79,8 +79,6 @@ class Core {
 					FROM view
 					GROUP BY item
 				) AS v ON (v.item = id)
-				LEFT JOIN view
-				ON item.id = view.item
 				WHERE item.id NOT IN
 				(SELECT view.item FROM view WHERE view.user = ?)
 				ORDER BY RAND() LIMIT " . (int)$count;
