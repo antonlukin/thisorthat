@@ -44,6 +44,21 @@ class Core {
 		}
 	}
 
+	private function _add_new_question($user, $data) {
+		try{
+			$db = $this->_db;
+
+			$data['user'] = (int)$user;
+
+			$query  = "INSERT INTO item (user, left_text, right_text, added) VALUES (:user, :left_text, :right_text, NOW());";
+
+			return $db->query($query, $data);
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
+	}
+
 	private function _get_random_items($count) {
 		try{
 			$db = $this->_db;
@@ -133,6 +148,22 @@ class Core {
 			return $this->_get_random_items($count);
 
 		return $this->_get_user_items($user, $count);
+	}
+
+	public function add_items($user, $data) {
+		$valid = array('left_text' => '', 'right_text' => '');
+
+		foreach($data as $key => $q) {
+			if(!array_key_exists($key, $valid))
+				return false;
+
+			$valid[$key] = $q;
+		}
+
+		foreach($valid as $v)
+			if(empty($v)) return false;
+
+		return $this->_add_new_question($user, $valid);
 	}
 
 	public function add_views($user, $data) {

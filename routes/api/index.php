@@ -17,6 +17,7 @@ require_once ABSPATH . $config['paths']['api'];
 		),
 		'POST' => array(
 			'_add_views' => '^/views/add/[\d]{1,9}$',
+			'_add_items' => '^/items/add/[\d]{1,9}$',
 			'_add_user' => '^/users/add/?$'
 		)
 	);

@@ -45,6 +45,31 @@ class API {
 	}
 
 	/**
+	 * Request: /items/add/[:user]
+	 * Method: POST
+	 * Data: :items => %array
+	 * Answer: [status] => %i, [description] => %s
+	**/
+	private function _add_items($atts) {
+		$_ = $this->_core;
+
+		$raw = $_->dataset();
+
+		if(!$user = $_->attribute($atts, 2, '^[\d]{0,9}$'))
+			throw new Exception("User id does not match", 400);
+
+		if(!$items = $_->attribute($raw, 'items', 'array', true))
+			throw new Exception("Items array required", 400);
+
+		$this->authorization($user);
+
+		if(!$_->add_items($user, $items))
+			throw new Exception("Items array wrong format", 400);
+
+		return $this->success("Completed successfully", 202);
+	}
+
+	/**
 	 * Request: /users/add/
 	 * Method: POST
 	 * Data: :client => %s, :unique => %s
@@ -68,7 +93,7 @@ class API {
 	 * Request: /views/add/[:user]
 	 * Method: POST
 	 * Data: :views => %array
-	 * Answer: [user] => %i, [token] => %s
+	 * Answer: [status] => %i, [description] => %s
 	**/
 	private function _add_views($atts) {
 		$_ = $this->_core;
