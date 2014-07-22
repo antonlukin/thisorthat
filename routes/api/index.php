@@ -13,7 +13,7 @@ require_once ABSPATH . $config['paths']['api'];
 {
 	$api_events = array(
 		'GET' => array(
-			'_get_items' => '^/items/get/?',
+			'_get_items' => '^/items/get/[\d]{1,9}/?',
 		),
 		'POST' => array(
 			'_add_views' => '^/views/add/[\d]{1,9}$',
@@ -24,7 +24,8 @@ require_once ABSPATH . $config['paths']['api'];
 
 	$api = new API($config);
 
-	$result = $api->process($_SERVER['REQUEST_URI'], $api_events);
+	$query  = $api->strip($_SERVER['REQUEST_URI']);
+	$result = $api->process($query, $api_events);
 	$output = $api->response($result);
 
 	header('Content-Type: application/json');

@@ -14,8 +14,10 @@ if (!class_exists('core'))
 class API {
 
 	protected $_core = null;
+	protected $_conf = null; 
 
 	function __construct($config) {
+		$this->_conf = $config;
 		$this->_core = new Core($config);
 	}
 
@@ -27,7 +29,8 @@ class API {
 	private function _get_items($atts) {
 		$_ = $this->_core;
 
-		if(!isset($atts[2]))
+        // Temporarily reject unregistered users
+		if(!isset($atts[2]) && false)
 			return $_->get_items();
 
 		if(!$user = $_->attribute($atts, 2, '^[\d]{0,9}$'))
@@ -156,6 +159,15 @@ class API {
 		}
 
 		return $result;
+	}
+
+	public function strip($request) {
+		$api_path = $this->_conf['urls']['api'];
+
+		if(substr($request, 0, strlen($api_path)) == $api_path)
+			return substr($request, strlen($api_path));
+
+		return $request;
 	}
 
 	public function error($description, $code) {
