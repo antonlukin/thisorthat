@@ -52,11 +52,34 @@ class Core {
 
 			$query  = "INSERT INTO item (user, left_text, right_text, added) VALUES (:user, :left_text, :right_text, NOW());";
 
-			return $db->query($query, $data);
+			return (int)$db->lastid($query, $data);
 		}
 		catch(DBException $e) {
 			throw new CoreException($e->getMessage(), 0);
 		}
+	}
+
+	private function _show_items($ids) {
+		try{
+			$db = $this->_db;
+
+			$query = "SELECT item.id, left_text, right_text, approve, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
+				FROM item
+				LEFT OUTER JOIN
+				(
+					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
+					FROM view
+					GROUP BY item
+				) AS v ON (v.item = id)
+				WHERE item.id IN (" . implode(",", $ids) . ")";
+
+			$items = $db->select($query);
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
+
+		return $this->_normilize_array($items);  
 	}
 
 	private function _get_random_items($count) {
@@ -71,7 +94,7 @@ class Core {
 					FROM view
 					GROUP BY item
 				) AS v ON (v.item = id)
-				ORDER BY RAND() LIMIT " . (int)$count;
+				WHERE item.approve = 1 ORDER BY RAND() LIMIT " . (int)$count;
 
 			$items = $db->select($query);
 		}
@@ -94,7 +117,7 @@ class Core {
 					FROM view
 					GROUP BY item
 				) AS v ON (v.item = id)
-				WHERE item.id NOT IN
+				WHERE item.approve = 1 AND item.id NOT IN
 				(SELECT view.item FROM view WHERE view.user = ?)
 				ORDER BY RAND() LIMIT " . (int)$count;
 
@@ -120,7 +143,7 @@ class Core {
 		}
 	}
 
-	private function _check_user_token($user, $secret) {
+	private function _check_user_secret($user, $secret) {
 		try{
 			$db = $this->_db;
 
@@ -150,20 +173,41 @@ class Core {
 		return $this->_get_user_items($user, $count);
 	}
 
+	public function show_items($user, $items) {
+		$ids = array_unique(explode(",", $items));
+		$ids = array_slice($ids, 0, 20);
+		$ids = array_filter($ids, 'is_numeric');
+
+		return $this->_show_items($ids);
+	} 
+
 	public function add_items($user, $data) {
 		$valid = array('left_text' => '', 'right_text' => '');
 
-		foreach($data as $key => $q) {
-			if(!array_key_exists($key, $valid))
-				return false;
+		$return = array();
 
-			$valid[$key] = $q;
+		foreach($data as $array) {
+			if(!is_array($array))
+				continue;
+
+			foreach($array as $key => $q) {
+
+				if(!array_key_exists($key, $valid))
+					return false; 
+				
+				if(mb_strlen($q, 'UTF-8') < 4 || mb_strlen($q, 'UTF-8') > 150)
+					return false;
+
+				$valid[$key] = $q;
+			} 
+		
+			$return[] = $this->_add_new_question($user, $valid);
 		}
+	
+		if(empty($return))
+			return false; 
 
-		foreach($valid as $v)
-			if(empty($v)) return false;
-
-		return $this->_add_new_question($user, $valid);
+		return $return;
 	}
 
 	public function add_views($user, $data) {
@@ -176,10 +220,10 @@ class Core {
  		return $this->_set_viewed($user, $data);
 	}
 
-	public function authenticate($user, $token) {
-		$secret = $this->_get_secret($token);
+	public function authenticate($user, $password) {
+		$secret = $this->_get_secret($password);
 
-		return $this->_check_user_token($user, $secret);
+		return $this->_check_user_secret($user, $secret);
 	}
 
 	public function register($client, $unique) {
