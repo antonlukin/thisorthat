@@ -59,6 +59,23 @@ class Core {
 		}
 	}
 
+	private function _self_items($user) {
+		try{
+			$db = $this->_db;
+
+			$query = "SELECT id FROM item WHERE user = ?";
+
+			$items = $db->select($query, array((int)$user));
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}
+
+		$items = $this->_normilize_array($items);
+
+		return array("items" => array_keys($items));
+	}              
+
 	private function _show_items($ids) {
 		try{
 			$db = $this->_db;
@@ -180,6 +197,10 @@ class Core {
 
 		return $this->_show_items($ids);
 	} 
+
+ 	public function self_items($user) {
+		return $this->_self_items($user);
+	}  
 
 	public function add_items($user, $data) {
 		$valid = array('left_text' => '', 'right_text' => '');

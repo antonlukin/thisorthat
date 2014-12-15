@@ -22,7 +22,6 @@ class API {
 
 	/**
 	 * Request: /items/get/[:count]
-	 * Data: [:count] => %i
 	 * Method: GET
 	 * Answer: [item_id] => array('left_text' => %s, 'right_text' => %s, 'left_count' => %i, 'right_count' => %i)
 	**/
@@ -41,10 +40,26 @@ class API {
 	}
 
  	/**
-	 * Request: /items/show/:ids
-	 * Data: :ids => %s [comma-separated ids | <= 20]
+	 * Request: /items/self
 	 * Method: GET
-	 * Answer: [item_id] => array('left_text' => %s, 'right_text' => %s, 'left_count' => %i, 'right_count' => %i, 'status' => %i)
+	 * Answer: [items] => %array
+	**/
+	private function _self_items($atts) {
+		$_ = $this->_core;
+
+		$user = $this->authorization();
+
+		if($items = $_->self_items($user))
+			return $items;
+
+		throw new Exception("Something went wrong", 400);
+	} 
+
+ 	/**
+	 * Request: /items/show/:ids
+	 * Data: [ids] => %s [comma-separated ids | <= 20]
+	 * Method: GET
+	 * Answer: [%i] => array('left_text' => %s, 'right_text' => %s, 'left_count' => %i, 'right_count' => %i, 'status' => %i)
 	**/
 	private function _show_items($atts) {
 		$_ = $this->_core;
@@ -63,7 +78,7 @@ class API {
 	/**
 	 * Request: /items/add/
 	 * Method: POST
-	 * Data: :items => %array
+	 * Data: [items] => %array
 	 * Answer: [status] => %i, [description] => %s
 	**/
 	private function _add_items($atts) {
@@ -85,7 +100,7 @@ class API {
 	/**
 	 * Request: /users/add/
 	 * Method: POST
-	 * Data: :client => %s, :unique => %s
+	 * Data: [client] => %s, [unique] => %s
 	 * Answer: [user] => %i, [token] => %s
 	**/
 	private function _add_user($atts) {
@@ -105,7 +120,7 @@ class API {
 	/**
 	 * Request: /views/add/
 	 * Method: POST
-	 * Data: :views => %array
+	 * Data: [views] => %array
 	 * Answer: [status] => %i, [description] => %s
 	**/
 	private function _add_views($atts) {
@@ -208,11 +223,12 @@ class API {
 {
 	$api_events = array(
 		'GET' => array(
-			'_get_items' => '^/items/get/[\d]*/?',
- 			'_show_items' => '^/items/show/[\d,]+/?', 
+			'_get_items' => '^/items/get/?[\d]*/?',
+ 			'_show_items' => '^/items/show/[\d,]+/?',
+  			'_self_items' => '^/items/self/?',
 		),
 		'POST' => array(
-			'_add_views' => '^/views/add/[\d]{1,9}$',
+			'_add_views' => '^/views/add/?$',
 			'_add_items' => '^/items/add/?$',
 			'_add_user' => '^/users/add/?$'
 		)
