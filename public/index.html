@@ -1,1 +1,65 @@
-Public site html
+<!DOCTYPE html>
+<html class="no-js" lang="ru"> 
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>То или это / Определись в предпочтениях</title>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">	
+ 	<meta name="title" content="">
+	<meta name="description" content=""> 
+	<link rel="canonical" href="https://thisorthat.ru">
+
+	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="//thisorthat.ru/assets/css/normalize.css">
+	<link rel="stylesheet" href="//thisorthat.ru/assets/css/style.css">
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="" sizes="16x16 32x32 48x48">
+	<link rel="shortcut icon" type="image/x-icon" href="" sizes="16x16">
+	<link rel="icon" type="image/x-icon" href="" sizes="16x16">
+	<link rel="apple-touch-icon-precomposed" type="image/png" href="" sizes="114x114">
+	<meta name="apple-mobile-web-app-title" content="ThisOrThat">
+
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+	<header>
+		<!--<h1></h1>-->
+	</header>
+	
+	<section id="ui-questions" class="questions container">
+		<article class="question question-left">
+			<div class="question-table">
+				<div class="question-cell" id="q-left">
+					<h3><b>0</b>%</h3> 
+					<h2></h2>
+				</div>
+			</div>
+		</article><!--
+		
+	 	--><article class="question question-right">
+ 			<div class="question-table">
+				<div class="question-cell" id="q-right">
+					<h3><b>0</b>%</h3>
+					<h2></h2> 
+				</div>
+			</div> 
+		</article>
+		
+		<div id="ui-versus" class="versus onload">
+			<h5><b>или</b></h5>
+
+			<div class="preloader"></div>
+			<canvas id="ui-result" width="120" height="120">
+		</div>
+	</section>
+	
+	<footer></footer>
+	
+ 	<script src="//thisorthat.ru/assets/js/jquery.min.js"></script> 
+	<script src="//thisorthat.ru/assets/js/chart.js"></script>
+	<script src="//thisorthat.ru/assets/js/main.js"></script>
+</body>
+</html>
