@@ -1,0 +1,58 @@
+html * {max-height:99999px;}
+
+body {
+	background:#3a3a3c;
+	color:#000;
+	font-family:"Roboto Condensed", sans-serif;
+	font-weight:400;
+	font-size:16px;
+}
+
+section.main {
+	width:40em;
+	margin:1em auto;
+	padding:1em 0;
+	background:#fff;
+
+	border-radius:3px;
+	box-shadow:3px 3px 3px 1px #222;
+}
+
+	section.main > h2 { 
+		text-align:center;
+		font-size:1.5em;
+		font-weight:300;
+	}
+
+	section.main > div {
+		box-sizing:border-box;
+		width:100%;
+		padding:1em 2em;
+		text-align:center;
+	}
+
+ 	section.main > div:nth-child(2n) { 
+		background:#eee;
+	}
+
+		section.main > div .buttons { 
+			text-align:center;
+			margin:1em 0;
+		}
+
+			section.main > div .buttons > button {  
+				margin:0 .25em;
+			}
+
+		section.main textarea {
+			width:40%;
+			height:100px;
+		}
+
+	section.main > .q.m-approve {
+		background:#dfd;
+	}
+
+ 	section.main > .q.m-decline {
+		background:#fdd;
+	} 
