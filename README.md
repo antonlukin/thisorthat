@@ -4,4 +4,4 @@
 
 ### Ссылки на документацию ###
 
-[Описание и методы API](https://bitbucket.org/somename/wyr/wiki/API)
+[Описание и методы API](https://bitbucket.org/somename/thisorthat/wiki/API)
