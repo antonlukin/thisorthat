@@ -4,16 +4,36 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="robots" content="nofollow, noindex" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
-	<link rel="icon" type="image/png" href="/assets/images/favicon.png" />        
+	<link rel="shortcut icon" href="/assets/images/icon-100.png" type="image/x-icon" />
 	<style>
 		html{min-height:100%;}
 		body{
 			min-height:100%;
-			background:url('/assets/images/hand.png') no-repeat center center;
+			background:#3a3a3c;
 		}
+		body > a {
+			display:block;
+			text-indent:-9999em;
+			width:200px;
+			height:200px;
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin-left:-100px;
+			margin-top:-100px;
+			border-radius:200px;
+			background:url('/assets/images/logo.svg') no-repeat center center;
+			background-size:80% 80%;
+			cursor:pointer;
+			transition:all 0.2s;
+		}
+	 		body > a:active { 
+				box-shadow:inset 0 0 6px 3px #222;
+			}
 	</style>
 	<title>API</title>		
 </head>
-<body>	
+<body>
+	<a href="/">То или Это / API</a>
 </body>
 </html>

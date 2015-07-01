@@ -38,18 +38,25 @@ var API = {
 }
 
 var URI = {
+    init: function(){
+		var path = this.get();
+		var qid = path.match(/^q\/(\d+)\/?/);
+		
+		return (qid === null) ? null : qid[1];
+	},
+
 	get: function(){
 	 	return document.location.pathname.replace('/', '');
 	},
 
 	set: function(){
-
+		
 	}
 }
 
 var UI = {
 	error: function(message, code) {
-		alert(message);
+		console.log(message);
 	},
 
 	versus: function(show) {
@@ -62,7 +69,10 @@ var UI = {
 		return show ? obj.addClass(cl) : obj.removeClass(cl);
 	},
 
-	result: function(id, sel, vote) {
+	result: function(id, sel, result) {
+		var vote = result.vote,
+			count = result.count;
+
 		var data = [{
 			value: vote.r,
 			color: "#5F4886",
@@ -83,26 +93,53 @@ var UI = {
 			showTooltips: false,
 		});
 
-		var countdown = function(el, v, c) {
+		var countdown = function(arr, more) {
+            var dfd = new jQuery.Deferred();
+
 			$("#ui-questions").addClass('result');
 
-			for (var i = 0; i < v; ++i) {
-				setTimeout(function() {
-					el.find("h3 > b").html(++c);
-				}, 20 * i)
+			var timer = function(el, v, c, is) {
+				for (var i = 0; i < v; ++i) {
+					setTimeout(function() {
+						el.find("h3 > b").html(++c);
+						if(c === v - 1 && is)
+							dfd.resolve(); 
+					}, 20 * i)
+				} 
 			}
+
+			$.each(arr, function(i,v){
+				timer(window[i], v, 0, i === more);
+			});
+
+			return dfd.promise();
 		}
 
+		var numbers = function(arr, sel) {
+			$.each(arr, function(i, v) {
+				var cs = [];
+ 				if(i === sel)
+					cs = [' пользователь ответил как вы', ' пользователя ответили как вы', ' пользователей ответили как вы']; 
+				else                 
+ 					cs = [' пользователь ответил иначе', ' пользователя ответили иначе', ' пользователей ответили иначе'];  
+
+				$("#q-" + i).find("h4").html(Application.correct_number(v, cs));
+			});
+
+		}
+
+		numbers(count, sel);
+
+		$(".question").off('click');
 		$(".question-" + sel).addClass('selected');
 
-		countdown(left, vote.l, 0);
-		countdown(right, vote.r, 0);
+		$.when(countdown({left:vote.l, right:vote.r}, vote.l >= vote.r ? 'left' : 'right')).then(function(status){
+ 			$(".question").on('click', function() {
+				UI.change();
+			});     			 
+		});
 
 		Application.add_view(views);
-
-   		return $(".question").off('click').on('click', function() {
-			UI.change();
-		});
 	},
 
 	change: function(data) {
@@ -117,7 +154,7 @@ var UI = {
 
 		var q = response[id],
 			obj = $("#ui-questions"),
-			vote  = {};
+			vote = {}, result = {};
 
 		obj.data('id', id);
 
@@ -132,36 +169,71 @@ var UI = {
 
 		UI.versus(false);
 
+		result.count = {left: q.left_vote, right: q.right_vote};
+		result.vote = vote;
+
 		return $(".question").off('click').on('click', function() {
 			var sel = $(this).attr('class').match(/question-(left|right)/)[1];
 
-			UI.result(id, sel, vote);
+			UI.result(id, sel, result);
 		});
 	}
 }
 
 var Application = {
-	init: function() {
+	init: function(qid) {
 		var user = localStorage.getItem("user");
 
-		if(user === null)
-			return this.add_user(this.get_item);
+		var loader = function() {
+			if(qid === null)
+				return Application.get_item();
 
-		return this.get_item();
+			return Application.show_item(qid);
+		}
+
+		if(user === null)
+			return this.add_user(loader);
+
+		return loader();
 	},
 
 	reinit: function() {
-		var user = this.get_user();
-
 		window.uiChart.destroy();
 
 		$(".question").removeClass('selected');
 
 		$("#ui-questions").removeClass('result');
 		$(".question-cell > h2").html('');
+ 		$(".question-cell > h4").html(''); 
 		$(".question-cell > h3 > b").html('0');
 
 		Application.get_item();
+	},
+
+	vk: function(callback) {
+		if (window.name.indexOf('fXD') != 0)
+			return callback();
+
+//		$(".store-vk").css('visibility', 'hidden');
+
+		$.getScript("//vk.com/js/api/xd_connection.js?2", function(){
+			VK.init(function() {
+				var user = (function() {
+					return decodeURIComponent((new RegExp('[?|&]viewer_id=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+				})();
+
+				if(user.match(/\d+/))
+					window.vkid = user;
+
+				return callback();
+
+			}, callback, '5.28');  
+		});			
+	},
+
+	correct_number: function(number, titles, callback) {
+		cases = [2, 0, 1, 1, 1, 2];
+		return number + " " + titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];       
 	},
 
 	get_item: function(callback) {
@@ -173,8 +245,13 @@ var Application = {
 		});
 	},
 
-	show_item: function(callback) {
+	show_item: function(qid, callback) {
+		API.query("/items/show/" + qid, 'GET', this.get_user, {}, function(response){
+			UI.questions(response);
 
+			if (typeof callback === 'function')
+				return callback();
+		});         	
 	},
 
 	add_view: function(views, callback) {
@@ -201,7 +278,9 @@ var Application = {
 			return v.toString(16);
 		});
 
-		var data = JSON.stringify({client:"web", unique:unique});
+		var data = (typeof window.vkid === 'undefined')
+			? JSON.stringify({client:"web", unique:unique})
+			: JSON.stringify({client:"vk", unique:window.vkid})
 
 		API.query("/users/add/", 'POST', undefined, data, function(response){
 			localStorage.setItem("user", JSON.stringify(response));
@@ -213,16 +292,10 @@ var Application = {
 }
 
 
-
 $(document).ready(function(){
-	Application.init();
-//	window.history.replaceState({state:1}, '123', 'myurld.html');
- 	var url = document.location.pathname;
-
-//	alert(url);
-//	console.log(window.history.state);
+	Application.vk(function(){
+ 		Application.init(URI.init());
+	});
 });
-
-
 
 

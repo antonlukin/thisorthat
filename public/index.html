@@ -7,26 +7,42 @@
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">	
- 	<meta name="title" content="">
-	<meta name="description" content=""> 
+ 	<meta name="title" content="То или это">
+	<meta name="description" content="Перед Вами классическая игра То или Это, основанная на выявлении предпочтений людей. Она поможет решить самые сложные жизненные вопросы. Проверьте, насколько Ваш выбор совпадает с выбором окружающих!"> 
 	<link rel="canonical" href="https://thisorthat.ru">
 
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//thisorthat.ru/assets/css/normalize.css">
-	<link rel="stylesheet" href="//thisorthat.ru/assets/css/style.css">
+	<link rel="stylesheet" href="//thisorthat.ru/assets/css/style.css?01">
 
-	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="" sizes="16x16 32x32 48x48">
-	<link rel="shortcut icon" type="image/x-icon" href="" sizes="16x16">
-	<link rel="icon" type="image/x-icon" href="" sizes="16x16">
-	<link rel="apple-touch-icon-precomposed" type="image/png" href="" sizes="114x114">
+	<link rel="icon" type="image/x-icon" href="//thisorthat.ru/assets/images/icon-100.png" sizes="16x16">
+	<link rel="icon" sizes="192x192" href="//thisorthat.ru/assets/images/icon-192.png">
+ 	
+	<link rel="shortcut icon" href="//thisorthat.ru/assets/images/icon-100.png" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="//thisorthat.ru/assets/images/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="//thisorthat.ru/assets/images/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="//thisorthat.ru/assets/images/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="76x76" href="//thisorthat.ru/assets/images/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="//thisorthat.ru/assets/images/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" sizes="120x120" href="//thisorthat.ru/assets/images/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" sizes="144x144" href="//thisorthat.ru/assets/images/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" sizes="152x152" href="//thisorthat.ru/assets/images/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon-precomposed" type="image/png" href="//thisorthat.ru/assets/images/apple-touch-icon-114x114.png" sizes="114x114">
+
+	<link rel="shortcut icon" type="image/vnd.microsoft.icon" href="//thisorthat.ru/assets/images/apple-touch-icon-152x152.png" sizes="16x16 32x32 48x48">
+	<link rel="image_src" href="//thisorthat.ru/assets/images/icon-192.png" />
+
 	<meta name="apple-mobile-web-app-title" content="ThisOrThat">
-
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
 </head>
 <body>
-	<header>
-		<!--<h1></h1>-->
+	<header class="container">
+		<h1>То или это</h1>
+
+		<div class="manage">
+			<a href="https://vk.com/thisorthat_ru" class="info-link" title="Мы ВКонтакте" target="_blank">Мы ВКонтакте</a>
+		</div>
 	</header>
 	
 	<section id="ui-questions" class="questions container">
@@ -34,6 +50,7 @@
 			<div class="question-table">
 				<div class="question-cell" id="q-left">
 					<h3><b>0</b>%</h3> 
+  					<h4></h4>  
 					<h2></h2>
 				</div>
 			</div>
@@ -43,6 +60,7 @@
  			<div class="question-table">
 				<div class="question-cell" id="q-right">
 					<h3><b>0</b>%</h3>
+ 					<h4></h4> 
 					<h2></h2> 
 				</div>
 			</div> 
@@ -56,10 +74,37 @@
 		</div>
 	</section>
 	
-	<footer></footer>
+	<footer class="container">
+		<div class="stores">
+			<a href="https://play.google.com/store/apps/details?id=com.jaloveast1k.thisorthat" class="store-google" target="_blank" onclick="_gaq.push(['_trackEvent', 'web', 'click', 'google-play']);">
+				<img src="//thisorthat.ru/assets/images/googleplay.png" alt="Загрузить на Google Play" />
+			</a>
+
+  			<a href="https://vk.com/app4457718" class="store-vk" target="_blank" onclick="_gaq.push(['_trackEvent', 'web', 'click', 'vk-app']);">
+				<img src="//thisorthat.ru/assets/images/vkapp.png" alt="Приложение ВКонтакте" />
+			</a>  
+
+ 			<a href="https://itunes.apple.com/app/to-ili-eto/id963727722" class="store-apple" target="_blank" onclick="_gaq.push(['_trackEvent', 'web', 'click', 'app-store']);">
+				<img src="//thisorthat.ru/assets/images/appstore.png" alt="Загрузить в Appstore" />
+			</a> 
+		</div>
+	</footer>
 	
  	<script src="//thisorthat.ru/assets/js/jquery.min.js"></script> 
 	<script src="//thisorthat.ru/assets/js/chart.js"></script>
-	<script src="//thisorthat.ru/assets/js/main.js"></script>
+	<script src="//thisorthat.ru/assets/js/main.js?03"></script>
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-30717968-4']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>				         
 </body>
-</html>
+</html> 
