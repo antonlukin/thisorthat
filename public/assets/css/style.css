@@ -151,14 +151,6 @@ footer {
 			padding:0; 
 		}
 	
-			.result .question-left .question-cell {
-				vertical-align:top;
-			}
-
- 			.result .question-right .question-cell {
-				vertical-align:bottom;
-			} 
-
 			.result .question .question-cell h3 {
 				display:block;
 			}
