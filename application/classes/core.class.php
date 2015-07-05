@@ -81,25 +81,16 @@ class Core {
 			$db = $this->_db;
 
 			$query = "SELECT item.id, left_text, right_text, approve, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
-				FROM item
-				LEFT OUTER JOIN
-				(
-					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
-					FROM view
-					GROUP BY item
-				) AS v ON (v.item = id)
-				WHERE item.id IN (" . implode(",", $ids) . ")";
-/*
-  			$query = "SELECT it1.id, it1.left_text, it1.right_text, it1.approve, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
-				FROM (
-					SELECT it.id, it.left_text, it.right_text, it.approve
-					FROM item AS it
-					WHERE it.id IN (" . implode(",", $ids) . ")
-				) AS it1
-				LEFT OUTER JOIN view AS vi1
-				ON (it1.id = vi1.item)
-				GROUP BY vi1.item";   
- */
+				 FROM item
+				 LEFT OUTER JOIN
+				 (
+				 SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
+				 FROM view
+				WHERE item IN (" . implode(",", $ids) . ")
+				 GROUP BY item
+				 ) AS v ON (v.item = id)
+				 WHERE item.id IN (" . implode(",", $ids) . ")";
+
 			$items = $db->select($query);
 		}
 		catch(DBException $e) {
@@ -112,16 +103,6 @@ class Core {
 	private function _get_random_items($count) {
 		try{
 			$db = $this->_db;
-
-			$query = "SELECT item.id, left_text, right_text, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
-				FROM item
-				LEFT OUTER JOIN
-				(
-					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
-					FROM view
-					GROUP BY item
-				) AS v ON (v.item = id)
-				WHERE item.approve = 1 ORDER BY RAND() LIMIT " . (int)$count;
 
  			$query = "SELECT it1.id, it1.left_text, it1.right_text, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
@@ -146,18 +127,6 @@ class Core {
  	private function _get_user_items($user, $count) {
 		try{
 			$db = $this->_db;
-
-			$query = "SELECT item.id, left_text, right_text, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
-				FROM item
-				LEFT OUTER JOIN
-				(
-					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
-					FROM view
-					GROUP BY item
-				) AS v ON (v.item = id)
-				WHERE item.approve = 1 AND item.id NOT IN
-				(SELECT view.item FROM view WHERE view.user = ?)
-				ORDER BY RAND() LIMIT " . (int)$count;
 
 			$query = "SELECT it1.id, it1.left_text, it1.right_text, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
