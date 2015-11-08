@@ -65,7 +65,7 @@ class API {
 			throw new Exception("Items array required", 400);
 
 		$this->authorization($user);
-
+		
 		if(!$_->add_items($user, $items))
 			throw new Exception("Items array wrong format", 400);
 

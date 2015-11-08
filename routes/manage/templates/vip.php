@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Админка</title>
+	<title>VIP Админка</title>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 
 	<meta name="viewport" content="width=660" />
@@ -13,11 +13,11 @@
 	<link rel="stylesheet" href="//thisorthat.ru/manage/assets/css/style.css?01">
 
 </head>
-<body>
+<body class="vip">
 	<section class="main">
 <?php
-	$items = $this->get_new_items(150);
-    $count = $this->get_count();
+	$items = $this->get_vip_items(150);
+    $count = $this->get_vip_count();
 
 	if(count($items) < 1) :
 ?>
@@ -25,7 +25,7 @@
 <?php
 	else :
 ?>
-	<h2>Осталось вопросов: <?= $count; ?></h2> 
+	<h2>VIP админка: <?= $count; ?></h2> 
 <?php
 	endif;
 
@@ -48,7 +48,7 @@
 			<button class="decline" data-status="3">Клон</button>
 			<button class="decline" data-status="4">Малоизвестный факт</button>
 			<button class="decline" data-status="5">Цензура</button> 
-		</div>
+		</div> 
 	</div>	
 <?php
 	endforeach; 

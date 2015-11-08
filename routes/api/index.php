@@ -20,6 +20,10 @@ class API {
 		$this->_core = new Core($config);
 	}
 
+	private function _add_error($atts) {
+		throw new Exception("Невозможно добавить вопрос. Обновите приложение", 500);
+	}             
+
 	/**
 	 * Request: /items/get/[:count]
 	 * Method: GET
@@ -90,6 +94,9 @@ class API {
 			throw new Exception("Items array required", 400);
 
 		$user = $this->authorization();
+		
+		if(false === $_->check_client($user, $items))
+ 			throw new Exception("Не удалось добавить вопрос. Необходимо обновить приложение", 403); 
 
 		if(!$return = $_->add_items($user, $items))
 			throw new Exception("Items array wrong format", 400);
@@ -97,6 +104,7 @@ class API {
 		return array('items' => $return); 
 	}
 
+ 
 	/**
 	 * Request: /users/add/
 	 * Method: POST
@@ -230,7 +238,8 @@ class API {
 		'POST' => array(
 			'_add_views' => '^/views/add/?$',
 			'_add_items' => '^/items/add/?$',
-			'_add_user' => '^/users/add/?$'
+			'_add_user' => '^/users/add/?$',
+ 			'_add_error' => '^/items/error/?$' 
 		)
 	);
 

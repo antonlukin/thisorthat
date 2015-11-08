@@ -15,7 +15,7 @@ $(document).ready(function(){
 			right_text: p.find(".right").val()
 		};
 
-		if(data.status == 3 && !confirm("Точно удалить?"))
+		if(data.status == -1 && !confirm("Точно удалить?"))
 			return false;
 
 		$.post('/manage/', data, function(response){

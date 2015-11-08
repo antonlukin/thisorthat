@@ -8,6 +8,10 @@ body {
 	font-size:16px;
 }
 
+body.vip { 
+	background:url('/manage/assets/img/baks.jpg?3');
+}
+
 section.main {
 	width:40em;
 	margin:1em auto;

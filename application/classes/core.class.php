@@ -44,13 +44,31 @@ class Core {
 		}
 	}
 
+	private function _check_question($valid) {
+		try{
+			$db = $this->_db;
+
+			$query = "SELECT id FROM item WHERE (left_text = :left_text AND right_text = :right_text) OR (right_text = :left_text AND left_text = :right_text)  LIMIT 1";
+
+			$items = $db->select($query, array_slice($valid, 0, 2));
+
+			if(count($items) < 1)
+				return array_merge($valid, array('approve' => 0, 'reason' => '')); 
+
+			return array_merge($valid, array('approve' => 2, 'reason' => 'Подобный вопрос уже есть в нашей базе'));
+		}
+		catch(DBException $e) {
+			throw new CoreException($e->getMessage(), 0);
+		}     
+	}
+
 	private function _add_new_question($user, $data) {
 		try{
 			$db = $this->_db;
 
 			$data['user'] = (int)$user;
 
-			$query  = "INSERT INTO item (user, left_text, right_text, added) VALUES (:user, :left_text, :right_text, NOW());";
+			$query  = "INSERT INTO item (user, left_text, right_text, paid, approve, reason, created, added) VALUES (:user, :left_text, :right_text, :paid, :approve, :reason, NOW(), NOW());";
 
 			return (int)$db->lastid($query, $data);
 		}
@@ -80,7 +98,7 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT item.id, left_text, right_text, approve, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
+			$query = "SELECT item.id, left_text, right_text, approve, reason, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
 				 FROM item
 				 LEFT OUTER JOIN
 				 (
@@ -104,7 +122,7 @@ class Core {
 		try{
 			$db = $this->_db;
 
- 			$query = "SELECT it1.id, it1.left_text, it1.right_text, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+ 			$query = "SELECT it1.id, it1.left_text, it1.right_text, '0' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
 					SELECT it.id, it.left_text, it.right_text
 					FROM item AS it
@@ -128,7 +146,7 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT it1.id, it1.left_text, it1.right_text, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+			$query = "SELECT it1.id, it1.left_text, it1.right_text, '0' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
 					SELECT it.id, it.left_text, it.right_text
 					FROM item AS it
@@ -204,8 +222,8 @@ class Core {
 		return $this->_self_items($user);
 	}  
 
-	public function add_items($user, $data) {
-		$valid = array('left_text' => '', 'right_text' => '');
+	public function add_items($user, $data, $client = null) {
+		$valid = array('left_text' => '', 'right_text' => '', 'paid' => 0);
 
 		$return = array();
 
@@ -217,13 +235,21 @@ class Core {
 
 				if(!array_key_exists($key, $valid))
 					return false; 
-				
+
+				if($key === 'paid') {
+					$valid[$key] = (int)$q;
+
+					continue;
+				}
+
 				if(mb_strlen($q, 'UTF-8') < 4 || mb_strlen($q, 'UTF-8') > 150)
 					return false;
 
 				$valid[$key] = $q;
 			} 
-		
+
+			$valid = $this->_check_question($valid);
+
 			$return[] = $this->_add_new_question($user, $valid);
 		}
 	
@@ -248,6 +274,28 @@ class Core {
 
 		return $this->_check_user_secret($user, $secret);
 	}
+
+    public function check_client($user, $items) {
+		$paid = false;
+		$db = $this->_db; 
+
+		$query = "SELECT client FROM user WHERE id = ?";
+
+		$client = $db->num_rows($query, array((int)$user));
+
+		if(empty($client) || $client !== 'android')
+			return true;
+
+		foreach($items as $item) {
+			if(!isset($item['paid']))
+				continue;
+
+			$paid = true;
+		}
+		return $paid;
+	}
+          
+  
 
 	public function register($client, $unique) {
 		$token = md5(uniqid(rand(), true));
