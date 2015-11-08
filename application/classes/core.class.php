@@ -122,7 +122,7 @@ class Core {
 		try{
 			$db = $this->_db;
 
- 			$query = "SELECT it1.id, it1.left_text, it1.right_text, '0' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+ 			$query = "SELECT it1.id, it1.left_text, it1.right_text, '1' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
 					SELECT it.id, it.left_text, it.right_text
 					FROM item AS it
@@ -146,7 +146,7 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT it1.id, it1.left_text, it1.right_text, '0' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+			$query = "SELECT it1.id, it1.left_text, it1.right_text, '1' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
 					SELECT it.id, it.left_text, it.right_text
 					FROM item AS it
