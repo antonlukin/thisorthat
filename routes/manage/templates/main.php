@@ -10,7 +10,7 @@
 
 	<link href='//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="//thisorthat.ru/assets/css/normalize.css">
-	<link rel="stylesheet" href="//thisorthat.ru/manage/assets/css/style.css?01">
+	<link rel="stylesheet" href="//thisorthat.ru/manage/assets/css/style.css?03">
 
 </head>
 <body>
@@ -39,16 +39,18 @@
 			<textarea class="right"><?= $item['right_text'] ?></textarea>
 		</div>
 		
-		<div class="buttons">
-			<button class="approve" data-status="1">Добавить</button>
-			<button class="decline" data-status="2">Без причины</button> 
-			<button class="remove" data-status="-1">Удалить</button>
-		</div>
-		<div class="buttons">
+		<div class="buttons x-1">
 			<button class="decline" data-status="3">Клон</button>
+			<button class="decline" data-status="2">Без причины</button> 
 			<button class="decline" data-status="4">Малоизвестный факт</button>
 			<button class="decline" data-status="5">Цензура</button> 
 		</div>
+		<div class="buttons x-2">
+			<button class="approve" data-status="1">Добавить</button>
+			<button class="remove" data-status="-1">Удалить</button>
+		</div>
+
+		<br class="clear">
 	</div>	
 <?php
 	endforeach; 

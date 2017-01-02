@@ -22,6 +22,10 @@ section.main {
 	box-shadow:3px 3px 3px 1px #222;
 }
 
+
+br.clear {
+	clear:both;
+}
 	section.main > h2 { 
 		text-align:center;
 		font-size:1.5em;
@@ -40,17 +44,38 @@ section.main {
 	}
 
 		section.main > div .buttons { 
-			text-align:center;
-			margin:1em 0;
+			text-align:left;
+			margin:1em 0 1em 0;
 		}
+ 		section.main > div .buttons.x-1 {  
+			float:left; 
+			width:35%;
+		}
+  		section.main > div .buttons.x-2 {  
+			float:right; 
+			width: 35%;
+			text-align:right;
+		} 
 
 			section.main > div .buttons > button {  
-				margin:0 .25em;
+				display:block;
+				width:100%;
+				margin:1em .25em;
+
+				padding:5px;
+			}
+ 			section.main > div .buttons > button.approve {   
+				margin-bottom:60px;
 			}
 
 		section.main textarea {
-			width:40%;
+			width:45%;
 			height:100px;
+			margin-bottom:1em;
+			float:left;
+		}
+ 		section.main textarea.right { 
+			float:right;
 		}
 
 	section.main > .q.m-approve {
