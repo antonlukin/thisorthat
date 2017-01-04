@@ -122,16 +122,18 @@ class Core {
 		try{
 			$db = $this->_db;
 
- 			$query = "SELECT it1.id, it1.left_text, it1.right_text, '1' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+			$query = "SELECT it.id, it.left_text, it.right_text, it.approve as moderate, 
+				IFNULL(SUM(vote = 'left'), 0) left_vote,
+				IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
-					SELECT it.id, it.left_text, it.right_text
-					FROM item AS it
-					WHERE it.approve = 1
+					SELECT id, left_text, right_text, approve
+					FROM item
+					WHERE approve != 2
 					ORDER BY RAND() LIMIT " . (int)$count. "
-				) AS it1
-				LEFT OUTER JOIN view AS vi1
-				ON (it1.id = vi1.item)
-				GROUP BY vi1.item";  
+				) AS it
+				LEFT JOIN view ON it.id = view.item
+				GROUP BY it.id
+				ORDER BY RAND()";  
 
 			$items = $db->select($query);
 		}
@@ -146,17 +148,21 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT it1.id, it1.left_text, it1.right_text, '1' as moderate, IFNULL(SUM(vote = 'left'), 0) left_vote, IFNULL(SUM(vote = 'right'), 0) right_vote
+			$query = "SELECT it.id, it.left_text, it.right_text, it.approve as moderate, 
+				IFNULL(SUM(vote = 'left'), 0) left_vote,
+				IFNULL(SUM(vote = 'right'), 0) right_vote
 				FROM (
-					SELECT it.id, it.left_text, it.right_text
-					FROM item AS it
-					LEFT OUTER JOIN view AS vi ON (it.id = vi.item AND vi.user = ?)
-					WHERE (vi.id IS NULL AND it.approve = 1)
-					ORDER BY RAND() LIMIT " . (int)$count. "
-				) AS it1
-				LEFT OUTER JOIN view AS vi1
-				ON (it1.id = vi1.item)
-				GROUP BY vi1.item";
+					SELECT iv.id, iv.left_text, iv.right_text, iv.approve
+					FROM item AS iv
+					LEFT JOIN view AS vi
+					ON (iv.id = vi.item AND vi.user = ?)
+					WHERE (vi.id IS NULL AND iv.approve != 2)
+					ORDER BY RAND() LIMIT " . (int)$count. " 
+				) AS it
+
+				LEFT JOIN view ON it.id = view.item
+				GROUP BY it.id
+				ORDER BY RAND()";
 
 			$items = $db->select($query, array((int)$user));
 		}
