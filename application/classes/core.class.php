@@ -98,16 +98,19 @@ class Core {
 		try{
 			$db = $this->_db;
 
-			$query = "SELECT item.id, left_text, right_text, approve, reason, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
-				 FROM item
-				 LEFT OUTER JOIN
-				 (
-				 SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
-				 FROM view
-				WHERE item IN (" . implode(",", $ids) . ")
-				 GROUP BY item
-				 ) AS v ON (v.item = id)
-				 WHERE item.id IN (" . implode(",", $ids) . ")";
+			// Strange fix on approve to show auto-moderated questions on users stat
+			$query = "SELECT item.id, left_text, right_text, 
+				CASE approve WHEN 2 THEN 2 ELSE 1 END as approve, 
+				reason, IFNULL(v.left_vote, 0) left_vote, IFNULL(v.right_vote, 0) right_vote
+				FROM item
+				LEFT OUTER JOIN
+				(
+					SELECT item, SUM(vote = 'left') left_vote, SUM(vote = 'right') right_vote
+					FROM view
+					WHERE item IN (" . implode(",", $ids) . ")
+					GROUP BY item
+				) AS v ON (v.item = id)
+				WHERE item.id IN (" . implode(",", $ids) . ")";
 
 			$items = $db->select($query);
 		}

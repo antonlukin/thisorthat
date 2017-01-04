@@ -27,7 +27,7 @@ class API {
 	/**
 	 * Request: /items/get/[:count]
 	 * Method: GET
-	 * Answer: [item_id] => array('left_text' => %s, 'right_text' => %s, 'left_count' => %i, 'right_count' => %i)
+	 * Answer: [item_id] => array('left_text' => %s, 'right_text' => %s, 'left_count' => %i, 'right_count' => %i, 'moderate' => %i)
 	**/
 	private function _get_items($atts) {
 		$_ = $this->_core;
