@@ -63,7 +63,7 @@ class Cleaner {
 	public function update($item, $cost, $sum) {
 		echo "{$item['id']}: normal / {$cost} - {$sum}\n";
 		// If skip percentage more than 12, hide question
-		if($cost > 12 && $sum > 25)
+		if($cost > 12 && $sum > 20)
 			return $this->hide($item['id'], $cost);
 
  		if($cost > 50 && $sum > 5)
@@ -74,7 +74,7 @@ class Cleaner {
 			return;
 
 		// If skip percentage less than 5 and skipped more than 5 times, approve it
-		if($cost < 5 && $sum > 25)
+		if($cost < 5 && $sum > 20)
 			return $this->approve($item['id'], $cost);
 	}
 
