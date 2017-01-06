@@ -152,6 +152,8 @@ var UI = {
 		for(id in response)
 			break;
 
+		console.log(response);
+
 		var q = response[id],
 			obj = $("#ui-questions"),
 			vote = {}, result = {};
