@@ -25,6 +25,7 @@ class Cleaner {
 
 			$query = "SELECT id, approve 
 				FROM item WHERE approve <> 2  
+				and id = 109122
 				ORDER BY id ASC 
 				LIMIT " . (int) $limit . " OFFSET " . (int) $offset;
 
@@ -61,20 +62,25 @@ class Cleaner {
 	} 
 
 	public function update($item, $cost, $sum) {
-		echo "{$item['id']}: normal / {$cost} - {$sum}\n";
-		// If skip percentage more than 12, hide question
-		if($cost > 12 && $sum > 20)
+		echo "{$item['id']}: {$cost} - {$sum}\n";
+		// Decline more than 15% skipped questions
+		if($cost > 15 && $sum >= 20)
 			return $this->hide($item['id'], $cost);
 
+		// Fast decline spam questions
  		if($cost > 50 && $sum > 5)
 			return $this->hide($item['id'], $cost); 
 
-		// Exit from function if the question already approved
-		if($item['approve'] = 1)
+		// Exit function if the question already approved
+		if($item['approve'] === 1)
 			return;
 
-		// If skip percentage less than 5 and skipped more than 5 times, approve it
-		if($cost < 5 && $sum > 20)
+		// Fast approve good questions
+ 		if($cost === 0 && $sum >= 10)
+			return $this->approve($item['id'], $cost); 
+
+		// Auto approve normal questions
+		if($cost < 5 && $sum >= 20)
 			return $this->approve($item['id'], $cost);
 	}
 
@@ -84,7 +90,7 @@ class Cleaner {
 
 			$query  = "UPDATE item SET approve = 1 WHERE id = " . (int) $id;
 
- 			echo "{$id}: approve / {$cost}\n"; 
+ 			echo "{$id}: {$cost} / approve\n"; 
 
 			return $db->query($query, []);
 		}
@@ -104,7 +110,7 @@ class Cleaner {
 				'reason' => 'Вопрос слишком часто пропускается пользователями'
 			];
 
-			echo "{$id}: hide / {$cost}\n";
+			echo "{$id}: {$cost} / hide\n";
 
 	  		return $db->query($query, $data);
 		}
