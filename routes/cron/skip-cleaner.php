@@ -25,7 +25,6 @@ class Cleaner {
 
 			$query = "SELECT id, approve 
 				FROM item WHERE approve <> 2  
-				and id = 109122
 				ORDER BY id ASC 
 				LIMIT " . (int) $limit . " OFFSET " . (int) $offset;
 
