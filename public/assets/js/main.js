@@ -152,8 +152,6 @@ var UI = {
 		for(id in response)
 			break;
 
-		console.log(response);
-
 		var q = response[id],
 			obj = $("#ui-questions"),
 			vote = {}, result = {};
@@ -168,6 +166,10 @@ var UI = {
 
         left.find("h2").html(q.left_text);
 		right.find("h2").html(q.right_text);
+
+		if(q.moderate == 0)
+			$("#moderate").fadeIn();
+
 
 		UI.versus(false);
 
@@ -203,6 +205,7 @@ var Application = {
 		window.uiChart.destroy();
 
 		$(".question").removeClass('selected');
+ 		$("#moderate").hide(); 
 
 		$("#ui-questions").removeClass('result');
 		$(".question-cell > h2").html('');

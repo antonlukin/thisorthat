@@ -110,6 +110,30 @@ footer {
 	
 	box-shadow:0.0625em 0 0.3125em 0.0625em #262626;
 }
+	.moderate {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		padding: .4rem 0;
+		text-align: center;
+		font-size: 1rem;
+
+		background: rgba(0,0,0,0.6);
+		z-index: 10;
+	}
+        .moderate-info {
+			cursor: default;
+		}
+
+		.moderate-skip {
+			position: absolute;
+			right: 0;
+			display: block;
+		}
+		
+
 	.question {	
 		position:relative;
 		display:block;
