@@ -61,7 +61,7 @@ class Cleaner {
 	} 
 
 	public function update($item, $cost, $sum) {
-		echo "{$item['id']}: {$cost} - {$sum}\n";
+		echo "{$item['id']}: {$cost} - {$sum}: {$item['approve']}\n";
 		// Decline more than 15% skipped questions
 		if($cost > 15 && $sum >= 20)
 			return $this->hide($item['id'], $cost);
@@ -71,11 +71,11 @@ class Cleaner {
 			return $this->hide($item['id'], $cost); 
 
 		// Exit function if the question already approved
-		if($item['approve'] === 1)
+		if($item['approve'] == 1)
 			return;
 
 		// Fast approve good questions
- 		if($cost === 0 && $sum >= 10)
+ 		if($cost == 0 && $sum >= 10)
 			return $this->approve($item['id'], $cost); 
 
 		// Auto approve normal questions
