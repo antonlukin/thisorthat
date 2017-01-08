@@ -2,7 +2,6 @@ var left  = $("#q-left"),
 	right = $("#q-right");
 
 var API = {
-
  	query: function(uri, method, user, data, callback) {
 		var url = API.url(uri);
 
@@ -148,6 +147,14 @@ var UI = {
 		Application.reinit();
 	},
 
+	skip: function(id) {
+ 		var views = {};
+		views[id] = 'skip'; 
+
+		Application.add_view(views); 
+		UI.change();
+	},
+
 	questions: function(response) {
 		for(id in response)
 			break;
@@ -170,13 +177,16 @@ var UI = {
 		if(q.moderate == 0)
 			$("#moderate").fadeIn();
 
-
 		UI.versus(false);
 
 		result.count = {left: q.left_vote, right: q.right_vote};
 		result.vote = vote;
 
-		return $(".question").off('click').on('click', function() {
+		$(".skip").on('click', function() {
+			UI.skip(id);
+		});
+
+		$(".question").off('click').on('click', function() {
 			var sel = $(this).attr('class').match(/question-(left|right)/)[1];
 
 			UI.result(id, sel, result);
@@ -202,7 +212,8 @@ var Application = {
 	},
 
 	reinit: function() {
-		window.uiChart.destroy();
+		if(window.uiChart)
+			window.uiChart.destroy();
 
 		$(".question").removeClass('selected');
  		$("#moderate").hide(); 
