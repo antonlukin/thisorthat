@@ -8,6 +8,10 @@
 **/
 
 require_once realpath(__DIR__ . "/../../config/settings.php");
+
+require_once ABSPATH . $config['paths']['hint'];   
+require_once ABSPATH . $config['paths']['utf8'];   
+require_once ABSPATH . $config['paths']['censure'];  
 require_once ABSPATH . $config['paths']['core']; 
 
 class API {
@@ -94,9 +98,6 @@ class API {
 			throw new Exception("Items array required", 400);
 
 		$user = $this->authorization();
-		
-		if(false === $_->check_client($user, $items))
- 			throw new Exception("Не удалось добавить вопрос. Необходимо обновить приложение", 403); 
 
 		if(!$return = $_->add_items($user, $items))
 			throw new Exception("Items array wrong format", 400);

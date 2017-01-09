@@ -63,7 +63,7 @@ class Cleaner {
 	public function update($item, $cost, $sum) {
 		echo "{$item['id']}: {$cost} - {$sum}: {$item['approve']}\n";
 		// Decline more than 15% skipped questions
-		if($cost > 15 && $sum >= 20)
+		if($cost > 16 && $sum >= 20)
 			return $this->hide($item['id'], $cost);
 
 		// Fast decline spam questions
@@ -79,7 +79,7 @@ class Cleaner {
 			return $this->approve($item['id'], $cost); 
 
 		// Auto approve normal questions
-		if($cost < 5 && $sum >= 20)
+		if($cost < 8 && $sum >= 20)
 			return $this->approve($item['id'], $cost);
 	}
 

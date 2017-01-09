@@ -49,13 +49,16 @@ class Core {
 			$db = $this->_db;
 
 			$query = "SELECT id FROM item WHERE (left_text = :left_text AND right_text = :right_text) OR (right_text = :left_text AND left_text = :right_text)  LIMIT 1";
-
 			$items = $db->select($query, array_slice($valid, 0, 2));
 
-			if(count($items) < 1)
-				return array_merge($valid, array('approve' => 0, 'reason' => '')); 
+			if(count($items) > 0)
+				return array_merge($valid, array('approve' => 2, 'reason' => 'Подобный вопрос уже есть в нашей базе'));
 
-			return array_merge($valid, array('approve' => 2, 'reason' => 'Подобный вопрос уже есть в нашей базе'));
+			if(Text_Censure::parse("{$valid['left_text']} {$valid['right_text']}") !== false)
+				return array_merge($valid, array('approve' => 2, 'reason' => 'Наш робот решил, что в вопросе используется обсценная лексика'));  
+
+			return array_merge($valid, array('approve' => 0, 'reason' => '')); 
+
 		}
 		catch(DBException $e) {
 			throw new CoreException($e->getMessage(), 0);
@@ -280,28 +283,6 @@ class Core {
 
 		return $this->_check_user_secret($user, $secret);
 	}
-
-    public function check_client($user, $items) {
-		$paid = false;
-		$db = $this->_db; 
-
-		$query = "SELECT client FROM user WHERE id = ?";
-
-		$client = $db->num_rows($query, array((int)$user));
-
-		if(empty($client) || $client !== 'android')
-			return true;
-
-		foreach($items as $item) {
-			if(!isset($item['paid']))
-				continue;
-
-			$paid = true;
-		}
-		return $paid;
-	}
-          
-  
 
 	public function register($client, $unique) {
 		$token = md5(uniqid(rand(), true));
