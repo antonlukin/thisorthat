@@ -20,21 +20,6 @@ class Admin {
 		$this->_db = new DB($config['db']);
 	} 
 
- 	public function get_vip_items($count = 10) {
-		try{
-			$db = $this->_db;
-
-			$query = "SELECT id, user, left_text, right_text FROM item WHERE approve = 0 AND paid = 1 LIMIT " . (int)$count;
-
-			$items = $db->select($query); 
-		}
-		catch(DBException $e) {
-			throw new CoreException($e->getMessage(), 0);
-		}       
-
-		return $items;
-	} 
-
 	public function get_new_items($count = 10) {
 		try{
 			$db = $this->_db;
@@ -65,22 +50,6 @@ class Admin {
 
 		return $count;
 	} 
-
-  	public function get_vip_count() {
-		try{
-			$db = $this->_db;
-
-			$query = "SELECT count(id) as c  FROM item WHERE approve = 0 AND paid = 1";
-
-			$count = $db->select($query); 
-			$count = $count[0]['c'];
-		}
-		catch(DBException $e) {
-			throw new CoreException($e->getMessage(), 0);
-		}       
-
-		return $count;
-	}  
 
 	public function delete_item($id) {
  		try{
@@ -152,9 +121,6 @@ class Admin {
 	public function process() {
 		if(isset($_POST['path']) && $_POST['path'] == 'moderate')
 			$this->moderate();
-
-		if(isset($_GET['vip']))
-	 		return require __DIR__ . '/templates/vip.php'; 
 
 		return require __DIR__ . '/templates/main.php';
 	}
