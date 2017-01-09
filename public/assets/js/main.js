@@ -182,7 +182,7 @@ var UI = {
 		result.count = {left: q.left_vote, right: q.right_vote};
 		result.vote = vote;
 
-		$(".skip").on('click', function() {
+		$(".skip").off('click').on('click', function() {
 			UI.skip(id);
 		});
 
