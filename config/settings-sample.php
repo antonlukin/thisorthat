@@ -9,12 +9,16 @@
 			"host" => "localhost"
 		),
 		"urls" => array(
-			"baseUrl" => "http://example.org"
-		),
+			"https" => "https://thisorthat.ru",
+ 			"http" => "http://thisorthat.ru", 
+			"api" => "/api"
+		), 
 		"paths" => array(
-			"api" => "/application/classes/api.class.php",
 			"core" => "/application/classes/core.class.php",
  			"db" => "/application/classes/db.class.php",
+   			"hint" => "/application/classes/hint.class.php", 
+  			"utf8" => "/application/classes/utf8.class.php", 
+  			"censure" => "/application/classes/censure.class.php" 
 		)
 	);
 
