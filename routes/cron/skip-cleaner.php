@@ -81,6 +81,10 @@ class Cleaner {
 		// Auto approve normal questions
 		if($cost < 8 && $sum >= 20)
 			return $this->approve($item['id'], $cost);
+
+		// Auto approve other questions
+		if($cost <= 16 && $sum > 50)
+ 			return $this->approve($item['id'], $cost); 
 	}
 
  	public function approve($id, $cost) {
