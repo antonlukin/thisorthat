@@ -4,4 +4,4 @@
 
 ### Ссылки на документацию ###
 
-[Описание и методы API](https://bitbucket.org/somename/thisorthat/wiki/API)
+[Описание и методы API](https://github.com/antonlukin/thisorthat-api/wiki/API)
