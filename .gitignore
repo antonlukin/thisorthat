@@ -1,3 +1,4 @@
+.DS_Store
 config/settings.php
 routes/db
 write/
