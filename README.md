@@ -1,7 +1,10 @@
-# О проекте #
+# thisorthat
 
-Русскоязычная реализация игры Would You Rather.
+**Contributors:** Anton Lukin
+**Version:** 2.0
+**License:** MIT License
+**License URI:** https://github.com/antonlukin/thisorthat/blob/master/LICENSE
 
-### Ссылки на документацию ###
+## Description
 
-[Описание и методы API](https://github.com/antonlukin/thisorthat-api/wiki/API)
+Custom API for This or That service

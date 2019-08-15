@@ -1,3 +1,5 @@
-config/settings.php
-routes/db
-write/
+/vendor/
+
+.env
+composer.lock
+db.php
