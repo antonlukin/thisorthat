@@ -26,7 +26,8 @@ Flight::route('GET|POST /getItems', [
 
 
 /**
- *
+ * Use this method to get all certain user added items.
+ * On success, returns an Array of Items objects.
  */
 Flight::route('GET|POST /getMyItems', [
     'methods\getMyItems', 'run_task'

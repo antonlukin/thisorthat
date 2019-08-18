@@ -1,6 +1,6 @@
 <?php
 /**
- * Model for /get-items API method
+ * Model for /getItems API method
  *
  * @author      Anton Lukin <anton@lukin.me>
  * @license     MIT License
@@ -166,7 +166,7 @@ class getItems extends \engine
         // Get items votes
         $items = self::get_votes($items);
 
-        parent::show_success(['items' => $items]);
+        return $items;
     }
 
 
@@ -187,7 +187,7 @@ class getItems extends \engine
         // Get items query
         $items = self::get_items($user_id, $approve);
 
-        print_r($items);
+        parent::show_success(compact('items'));
     }
 }
 
