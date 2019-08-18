@@ -21,7 +21,19 @@ class engine
 
 
     /**
-     * Items are divided into sections.
+     * Redis instance
+     */
+    protected static $redis = null;
+
+
+    /**
+     * Redis cache prefix
+     */
+    protected static $redis_prefix = '';
+
+
+    /**
+     * All items are divided into sections.
      * This variable stores total sections count
      */
     protected static $sections = 1000;
@@ -52,7 +64,31 @@ class engine
         $dotenv->load();
 
         // Check required options
-        $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS']);
+        $dotenv->required([
+            'DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASS', 'REDIS_HOST', 'REDIS_PREFIX'
+        ]);
+
+        // Set redix prefix
+        self::$redis_prefix = $_ENV['REDIS_PREFIX'];
+    }
+
+
+    /**
+     * Create redis instance
+     */
+    protected static function get_redis()
+    {
+        // Connect redis if empty instance
+        if (self::$redis === null) {
+            $redis = new Redis();
+
+            $redis->connect($_ENV['REDIS_HOST']);
+            $redis->setOption(Redis::OPT_SERIALIZER, Redis::SERIALIZER_PHP);
+
+            self::$redis = $redis;
+        }
+
+        return self::$redis;
     }
 
 

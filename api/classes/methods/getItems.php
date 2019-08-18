@@ -58,7 +58,7 @@ class getItems extends \engine
     /**
      * Select votes from database by item id
      */
-    private static function select_votes($id, $item)
+    private static function select_votes($item_id)
     {
         $database = self::get_database();
 
@@ -66,10 +66,10 @@ class getItems extends \engine
         $query = "SELECT
             IFNULL(SUM(vote = 'left'), 0) first_vote,
             IFNULL(SUM(vote = 'right'), 0) last_vote
-            FROM views WHERE item_id = :id GROUP BY item_id";
+            FROM views WHERE item_id = :item_id GROUP BY item_id";
 
         $select = $database->prepare($query);
-        $select->execute(compact('id'));
+        $select->execute(compact('item_id'));
 
         $votes = $select->fetch();
 
@@ -77,7 +77,7 @@ class getItems extends \engine
             $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
         }
 
-        return $item + $votes;
+        return $votes;
     }
 
 
@@ -132,7 +132,17 @@ class getItems extends \engine
     private static function get_votes($items)
     {
         foreach ($items as $id => &$item) {
-            $item = self::select_votes($id, $item);
+            $redis = parent::get_redis();
+
+            // Get votes from redis by id
+            $votes = $redis->get(parent::$redis_prefix . $id);
+
+            if ($votes === false) {
+                $votes = self::select_votes($id);
+                $redis->set(parent::$redis_prefix . $id, $votes);
+            }
+
+            $item = $item + $votes;
         }
 
         return $items;
@@ -155,10 +165,6 @@ class getItems extends \engine
 
         // Get items votes
         $items = self::get_votes($items);
-
-
-        print_r($items);
-        exit;
 
         parent::show_success(['items' => $items]);
     }
