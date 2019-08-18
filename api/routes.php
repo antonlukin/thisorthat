@@ -3,16 +3,16 @@
  * Connect routes with API methods
  *
  * @author      Anton Lukin <anton@lukin.me>
- * @license     MIT License, https://github.com/antonlukin/thisorthat/blob/master/LICENSE
+ * @license     MIT License
  * @since       2.0
  */
 
 
 /**
- *
+ * Register new user and get user_id and token
  */
-Flight::route('GET|POST /registerUser', [
-    'methods\registerUser', 'run'
+Flight::route('GET|POST /register', [
+    'methods\register', 'run_task'
 ], true);
 
 
@@ -20,8 +20,8 @@ Flight::route('GET|POST /registerUser', [
  * Use this method to get a list of items.
  * On success, returns an Array of Items objects.
  */
-Flight::route('GET|POST /', [
-    'methods\getItems', 'run'
+Flight::route('GET|POST /getItems', [
+    'methods\getItems', 'run_task'
 ], true);
 
 
@@ -29,53 +29,53 @@ Flight::route('GET|POST /', [
  *
  */
 Flight::route('GET|POST /getMyItems', [
-    'methods\getMyItems', 'run'
+    'methods\getMyItems', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /showItems', [
-    'methods\showItems', 'run'
+Flight::route('GET|POST /show-items', [
+    'methods\showItems', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /addItems', [
-    'methods\addItems', 'run'
+Flight::route('GET|POST /add-items', [
+    'methods\addItems', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /addViews', [
-    'methods\addViews', 'run'
+Flight::route('GET|POST /set-viewed', [
+    'methods\addViews', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /getComments', [
-    'methods\getComments', 'run'
+Flight::route('GET|POST /get-comments', [
+    'methods\getComments', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /addComments', [
-    'methods\addComments', 'run'
+Flight::route('GET|POST /add-comments', [
+    'methods\addComments', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /sendReport', [
-    'methods\sendReport', 'run'
+Flight::route('GET|POST /send-report', [
+    'methods\sendReport', 'run_task'
 ], true);
