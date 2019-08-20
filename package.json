@@ -1,0 +1,12 @@
+{
+  "name": "thisorthat.ru",
+  "version": "2.0.0",
+  "description": "This or That game public repository",
+  "repository": "git@github.com:antonlukin/thisorthat.git",
+  "author": "Anton Lukin <anton@lukin.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-md-template": "^1.1.4"
+  }
+}

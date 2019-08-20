@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>То или Это / Документация API</title>
+
+    <meta name="description" content="Описание принципов работы с публичным API сайта thisorthat.ru">
+    <meta property="og:url" content="https://docs.thisorthat.ru">
+    <meta property="og:title" content="Документация API сервиса вопросов То или Это">
+    <meta property="og:description" content="Описание принципов работы с публичным API сайта thisorthat.ru">
+
+    <link rel="stylesheet" href="/assets/github-markdown.css" type="text/css">
+    <link rel="stylesheet" href="/assets/github-gist.css" type="text/css">
+
+    <link rel="stylesheet" href="/assets/custom-styles.css" type="text/css">
+</head>
+
+<body>
+    <section class="wrap">
+        <article class="markdown-body" id="markdown"><h1 id="то-или-это-документация-api">То или Это: документация API</h1>
+<p>Все запросы к API должны быть выполнены через HTTPS и быть представлены в таком виде:</p>
+<pre><code>https://api.thisorthat.ru/&lt;method_name&gt;</code></pre><p>Для всех запросов кроме <code>/register</code> поддерживаются HTTP методы <strong>GET</strong> и <strong>POST</strong>.  
+Выбор HTTP метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.</p>
+<ul>
+<li>Все методы API не чувствительны к регистру</li>
+<li>Запросы должны выполняться с использованием кодировки UTF-8</li>
+</ul>
+<p>Все методы кроме регистрации требуют обязательного параметра <code>token</code>, который клиент получает при регистрации.
+При успешном вызове будет возвращен JSON-объект, содержащий результат.</p>
+<h2 id="register">/register</h2>
+<p>Метод служит для регистрации клиента и получения токена авторизации.
+Регистрацию следует выполнять только через <strong>POST</strong>.</p>
+<h4 id="запрос">Запрос</h4>
+<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры">Параметры</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>client</strong></td>
+<td><code>^[a-z0-9-_]{0,16}$</code></td>
+<td>Название клиента, с которого выполняется авторизация.</td>
+</tr>
+<tr>
+<td><strong>uniqid</strong></td>
+<td><code>^[a-z0-9-_]{0,64}$</code></td>
+<td>Уникальное для платформы значение, идентификатор пользователя или uuid.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными</p>
+</blockquote>
+<h4 id="ответ-сервера">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;token&quot;: &quot;7:e2bc89a785aeb4784e7151ff52da707e&quot;
+    }
+}</code></pre>
+<h2 id="getitems">/getItems</h2>
+<p>Возвращает список из <strong>30</strong> еще неотвеченных пользователем вопросов. Метод не возвращает отклоненные после модерации объекты.</p>
+<blockquote>
+<p>Этот метод может изменять поля базы данных</p>
+</blockquote>
+<h4 id="запрос-1">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d:[a-z0-9{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>^(new|approved)</code></td>
+<td><strong>new</strong> — получить вопросы, не прошедшие модерацию, <br><strong>approved</strong> — для прошедших модерацию. По умолчанию вернутся оба типа вопросов.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными</p>
+</blockquote>
+<h4 id="ответ-сервера-1">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: {
+            &quot;6724&quot;: {
+                &quot;first_text&quot;: &quot;Легче вскрыть на жопе вены&quot;,
+                &quot;last_text&quot;: &quot;Легче дождаться перемены&quot;,
+                &quot;status&quot;: &quot;new&quot;,
+                &quot;first_vote&quot; :&quot;2712&quot;,
+                &quot;last_vote&quot;: &quot;12125&quot;
+            }
+        }
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code>, отсортированный и сгруппированный по ключу — id вопроса. Клиент может перемешать вопросы после получения.</p>
+<h4 id="описание-полей-вопроса">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>first_text</td>
+<td>Текст первого вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>Текст последнего вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<h2 id="getmyitems">/getMyItems</h2>
+</article>
+    </section>
+</body>
+
+<script src="/assets/highlight.pack.js"></script>
+<script src="/assets/sidebar-loader.js"></script>
+</html>

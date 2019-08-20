@@ -82,11 +82,21 @@ class getItems extends \engine
 
 
     /**
-     * Recursively select items according user section
+     * Recursively get items according user section
      */
-    private static function select_items($user_id, $condition, $items = [])
+    private static function get_items($user_id, $status, $items = [])
     {
         $database = parent::get_database();
+
+        // Show all except rejected items by default
+        $condition = 'items.status = :status';
+
+        if ($status === false) {
+            $condition = 'items.status <> :status';
+
+            // Set status if notset
+            $status = 'rejected';
+        }
 
         // Get required user section
         $section = self::get_section($user_id);
@@ -95,14 +105,14 @@ class getItems extends \engine
             $limit = self::$limit - count($items);
 
             // The query to get only certain user non-answered items from given section
-            $query = "SELECT items.id, items.first_text, items.last_text, items.approve
+            $query = "SELECT items.id, items.first_text, items.last_text, items.status
                 FROM items LEFT JOIN views
                 ON (items.id = views.item_id AND views.user_id = :user_id)
-                WHERE (views.id IS NULL) AND items.section = :section
+                WHERE (views.id IS NULL) AND items.section = :section AND " . $condition . "
                 LIMIT " . (int) $limit;
 
             $select = $database->prepare($query);
-            $select->execute(compact('user_id', 'section'));
+            $select->execute(compact('user_id', 'section', 'status'));
 
             $items = $items + $select->fetchAll(\PDO::FETCH_UNIQUE);
 
@@ -150,27 +160,6 @@ class getItems extends \engine
 
 
     /**
-     * Get availble items
-     */
-    private static function get_items($user_id, $approve)
-    {
-        // Show all except declined items by default
-        $condition = "items.approve <> 2";
-
-        if ($approve !== false) {
-            $condition = "items.approve = " . (int) $approve;
-        }
-
-        $items = self::select_items($user_id, $condition);
-
-        // Get items votes
-        $items = self::get_votes($items);
-
-        return $items;
-    }
-
-
-    /**
      * Model entry point
      */
     public static function run_task()
@@ -182,10 +171,13 @@ class getItems extends \engine
         $user_id = parent::authorize_user();
 
         // Get approve parameter
-        $approve = parent::get_parameter('approve', '^0|1$');
+        $status = parent::get_parameter('status', '^(new|approved)$');
 
         // Get items query
-        $items = self::get_items($user_id, $approve);
+        $items = self::get_items($user_id, $status);
+
+        // Get items votes
+        $items = self::get_votes($items);
 
         parent::show_success(compact('items'));
     }

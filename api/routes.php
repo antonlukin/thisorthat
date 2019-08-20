@@ -18,7 +18,7 @@ Flight::route('GET|POST /register', [
 
 /**
  * Use this method to get a list of items.
- * On success, returns an Array of Items objects.
+ * On success, returns an Items objects.
  */
 Flight::route('GET|POST /getItems', [
     'methods\getItems', 'run_task'
@@ -27,7 +27,7 @@ Flight::route('GET|POST /getItems', [
 
 /**
  * Use this method to get all certain user added items.
- * On success, returns an Array of Items objects.
+ * On success, returns an Items objects
  */
 Flight::route('GET|POST /getMyItems', [
     'methods\getMyItems', 'run_task'
@@ -37,24 +37,16 @@ Flight::route('GET|POST /getMyItems', [
 /**
  *
  */
-Flight::route('GET|POST /show-items', [
-    'methods\showItems', 'run_task'
+Flight::route('GET|POST /addItem', [
+    'methods\addItem', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /add-items', [
-    'methods\addItems', 'run_task'
-], true);
-
-
-/**
- *
- */
-Flight::route('GET|POST /set-viewed', [
-    'methods\addViews', 'run_task'
+Flight::route('GET|POST /setViewed', [
+    'methods\setViewed', 'run_task'
 ], true);
 
 

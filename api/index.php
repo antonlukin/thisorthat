@@ -32,6 +32,22 @@ Flight::path(__DIR__ . '/classes/');
 
 
 /**
+ * Remap default errors
+ */
+/*
+Flight::map('error', function (Exception $exception) {
+    Flight::json(['ok' => false, 'description' => 'Server internal error'], 500);
+    exit;
+});
+ */
+
+Flight::map('notFound', function () {
+    Flight::json(['ok' => false, 'description' => 'Method not found'], 404);
+    exit;
+});
+
+
+/**
  * We are ready to handle requests
  */
 require_once(__DIR__ . '/routes.php');

@@ -72,8 +72,9 @@ class getMyItems extends \engine
         $database = parent::get_database();
 
         // The query to get only certain user added items
-        $query = "SELECT id, first_text, last_text, approve, reason
-            FROM items WHERE user_id = :user_id LIMIT :limit OFFSET :offset";
+        $query = "SELECT id, first_text, last_text, status, reason
+            FROM items WHERE user_id = :user_id
+            LIMIT :limit OFFSET :offset";
 
         $select = $database->prepare($query);
         $select->execute(compact('user_id', 'limit', 'offset'));
@@ -82,6 +83,13 @@ class getMyItems extends \engine
 
         // Get items votes
         $items = self::get_votes($items);
+
+        // Remove reason field from unrejected items
+        foreach ($items as $id => &$item) {
+            if ($item['status'] !== 'rejected') {
+                unset($item['reason']);
+            }
+        }
 
         return $items;
     }
@@ -125,9 +133,9 @@ class getMyItems extends \engine
         $items = self::get_items($user_id, $limit, $offset);
 
         // Get total count
-        $total_count = self::calc_count($user_id);
+        $total = self::calc_count($user_id);
 
-        parent::show_success(compact('items', 'total_count'));
+        parent::show_success(compact('items', 'total'));
     }
 }
 

@@ -40,22 +40,10 @@ class engine
 
 
     /**
-     * Remap default errors and load .env config
+     * Load config form .env file
      */
     protected static function load_config()
     {
-       /**
-        Flight::map('error', function (Exception $exception) {
-            Flight::json(['ok' => false, 'description' => 'Server internal error'], 500);
-            exit;
-        });
-         */
-
-        Flight::map('notFound', function () {
-            Flight::json(['ok' => false, 'description' => 'Method not found'], 404);
-            exit;
-        });
-
         // Get application root path
         $root_path = Flight::get('config.root_path');
 
@@ -161,10 +149,10 @@ class engine
      */
     protected static function get_parameter($name, $regex, $default = false)
     {
-        $query = Flight::request()->query;
+        $request = array_merge($_GET, $_POST);
 
-        if ($query->$name && preg_match("/{$regex}/i", $query->$name)) {
-            return $query->$name;
+        if (isset($request[$name]) && preg_match("/{$regex}/ui", $request[$name])) {
+            return $request[$name];
         }
 
         return $default;
