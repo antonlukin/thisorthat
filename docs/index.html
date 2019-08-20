@@ -22,7 +22,14 @@
         <article class="markdown-body" id="markdown"><h1 id="то-или-это-документация-api">То или Это: документация API</h1>
 <p>Все запросы к API должны быть выполнены через HTTPS и быть представлены в таком виде:</p>
 <pre><code>https://api.thisorthat.ru/&lt;method_name&gt;</code></pre><p>Для всех запросов кроме <code>/register</code> поддерживаются HTTP методы <strong>GET</strong> и <strong>POST</strong>.  
-Выбор HTTP метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.</p>
+Выбор HTTP метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.
+Параметры запроса могут быть переданны одним из трех способов:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Query_string">URL query string</a></li>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+</ul>
+<p>Ответ содержит объект JSON, который всегда имеет логическое поле <code>ok</code>. Если <code>ok</code> равно true, значит запрос был выполнен успешно и результат запроса можно найти в поле <code>result</code>. В случае неудачного запроса, <code>ok</code> равно false и суть ошибки объясняется в поле <code>descriprion</code>. Некоторые ошибки могут также иметь необязательное поле <code>parameters</code>, которое может помочь автоматически обработать ошибку. Все такие случаи подробно описаны в пояснениях к конкретным методам.<br>Сервер так же возвращает корректный <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">код состояния</a> HTTP запроса.</p>
 <ul>
 <li>Все методы API не чувствительны к регистру</li>
 <li>Запросы должны выполняться с использованием кодировки UTF-8</li>
@@ -33,7 +40,8 @@
 <p>Метод служит для регистрации клиента и получения токена авторизации.
 Регистрацию следует выполнять только через <strong>POST</strong>.</p>
 <h4 id="запрос">Запрос</h4>
-<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры">Параметры</h4>
+<pre><code class="language-http">POST https://api.thisorthat.ru/register</code></pre>
+<h4 id="параметры">Параметры</h4>
 <table>
 <thead>
 <tr>
@@ -54,13 +62,15 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Параметры, выделенные полужирным, являются обязательными</p>
+<p>Все параметры запроса являются обязательными</p>
 </blockquote>
+<h4 id="пример-запроса">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;client=vkontakte&amp;uniqid=5655655&#39; &#39;https://api.thisorthat.ru/register&#39;</code></pre>
 <h4 id="ответ-сервера">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
-        &quot;token&quot;: &quot;7:e2bc89a785aeb4784e7151ff52da707e&quot;
+        &quot;token&quot;: &quot;1:0994f52572ab3f9432c77615c104db9c&quot;
     }
 }</code></pre>
 <h2 id="getitems">/getItems</h2>
@@ -85,19 +95,21 @@
 </tr>
 <tr>
 <td>status</td>
-<td><code>^(new|approved)</code></td>
+<td><code>^(new|approved)$</code></td>
 <td><strong>new</strong> — получить вопросы, не прошедшие модерацию, <br><strong>approved</strong> — для прошедших модерацию. По умолчанию вернутся оба типа вопросов.</td>
 </tr>
 </tbody></table>
 <blockquote>
 <p>Параметры, выделенные полужирным, являются обязательными</p>
 </blockquote>
+<h4 id="пример-запроса-1">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;status=approve&#39;</code></pre>
 <h4 id="ответ-сервера-1">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
         &quot;items&quot;: {
-            &quot;6724&quot;: {
+            &quot;200&quot;: {
                 &quot;first_text&quot;: &quot;Легче вскрыть на жопе вены&quot;,
                 &quot;last_text&quot;: &quot;Легче дождаться перемены&quot;,
                 &quot;status&quot;: &quot;new&quot;,
@@ -138,6 +150,92 @@
 </tr>
 </tbody></table>
 <h2 id="getmyitems">/getMyItems</h2>
+<p>Метод возвращает вопросы, которые добавил текущий пользователь.</p>
+<pre><code>POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d:[a-z0-9{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых вопросов в диапазоне 1-100. По умолчанию равен <em>30</em></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого вопросов. По умолчанию равен <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными</p>
+</blockquote>
+<h4 id="пример-запроса-2">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=1&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-2">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: {
+            &quot;100&quot;: {
+                &quot;first_text&quot;: &quot;Вилкой в глаз&quot;,
+                &quot;last_text&quot;: &quot;В жопу раз&quot;,
+                &quot;status&quot;: &quot;rejected&quot;,
+                &quot;reason&quot;: &quot;abuse&quot;,
+                &quot;first_vote&quot; :&quot;0&quot;,
+                &quot;last_vote&quot;: &quot;0&quot;
+            }
+        },
+        &quot;total&quot;: 240
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code>, отсортированный и сгруппированный по ключу — id вопроса.<br>Поле <code>total</code> содержит общее количество вопросов в выборке. Например, для того, чтобы получить все 240 вопросов пользователя, 
+нужно сделать 3 запроса по 100 вопрсов со смещением 0, 100 и 200 соответственно.</p>
+<h4 id="описание-полей-вопроса-1">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>first_text</td>
+<td>Текст первого вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>Текст последнего вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию. <br><strong>rejected</strong> — вопрос отклонен.</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка <br><strong>abuse</strong> — некорректный вопрос <br><strong>clone</strong> — такой вопрос уже есть.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Поле <code>reason</code> определенно только для вопросов со статусом <strong>rejected</strong></p>
+</blockquote>
 </article>
     </section>
 </body>
