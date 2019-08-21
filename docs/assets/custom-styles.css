@@ -33,38 +33,70 @@ body {
   display: block;
   flex: 0 0 auto;
 }
-  .sidebar nav {
-    position: sticky;
-    top: 20px;
 
-    margin-top: 35px;
-    margin-left: 35px;
-    padding: 0 15px;
-    font-size: 14px;
+.sidebar nav {
+  position: sticky;
+  top: 20px;
 
-    border-left: solid 2px #179cde;
+  margin: 35px 0 35px 35px;
+  padding: 0 15px;
+  font-size: 14px;
+
+  border-left: solid 2px #179cde;
+}
+
+.sidebar nav a {
+  display: block;
+
+  margin-bottom: 10px;
+  color: #179cde;
+}
+  .sidebar nav a:last-child {
+    margin-bottom: 0;
   }
 
-  .sidebar nav a {
-    display: block;
-
-    margin-bottom: 10px;
-    color: #179cde;
+@media screen and (max-width: 767px) {
+  .sidebar {
+    display: none;
   }
-
-  @media screen and (max-width: 767px) {
-    .sidebar {
-      display: none;
-    }
-  }
+}
 
 .markdown-body {
   display: block;
+
+  min-width: 0;
   font-size: 14px;
+}
+
+.markdown-body h1 {
+  font-size: 1.75em;
+}
+
+.markdown-body h2 {
+  padding-top: 20px;
 }
 
 .markdown-body table {
   display: table;
+}
+
+.markdown-body table td,
+.markdown-body table th {
+  text-align: left;
+}
+
+.markdown-body table td code {
+  white-space: nowrap;
+}
+@media screen and (max-width: 767px) {
+  .markdown-body table td code {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+.markdown-body a {
+  color: #179cde;
 }
 
 .markdown-body blockquote {
@@ -96,14 +128,4 @@ body {
     transform: translateY(-50%);
   }
 
-.markdown-body table td code {
-  white-space: nowrap;
-}
 
-.markdown-body h1 {
-  font-size: 1.75em;
-}
-
-.markdown-body h2 {
-  padding-top: 20px;
-}

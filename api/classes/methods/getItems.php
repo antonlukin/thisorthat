@@ -32,14 +32,7 @@ class getItems extends \engine
         $select = $database->prepare("SELECT section FROM users WHERE id = :user_id LIMIT 1");
         $select->execute(compact('user_id'));
 
-        // Fetch section
-        $section = $select->fetchColumn();
-
-        if ($section === false) {
-            $section = 1;
-        }
-
-        return (int) $section;
+        return $select->fetchColumn();
     }
 
 
@@ -82,7 +75,7 @@ class getItems extends \engine
 
 
     /**
-     * Recursively get items according user section
+     * Get items according user section
      */
     private static function get_items($user_id, $status, $items = [])
     {
@@ -100,6 +93,10 @@ class getItems extends \engine
 
         // Get required user section
         $section = self::get_section($user_id);
+
+        if ($section === false) {
+            $section = 1;
+        }
 
         for ($i = 0; $i < parent::$sections; $i++) {
             $limit = self::$limit - count($items);

@@ -10,15 +10,18 @@
 
 /**
  * Register new user and get user_id and token
+ *
+ * @link https://docs.thisorthat.ru/#register
  */
-Flight::route('GET|POST /register', [
+Flight::route('POST /register', [
     'methods\register', 'run_task'
 ], true);
 
 
 /**
  * Use this method to get a list of items.
- * On success, returns an Items objects.
+ *
+ * @link https://docs.thisorthat.ru/#getitems
  */
 Flight::route('GET|POST /getItems', [
     'methods\getItems', 'run_task'
@@ -27,7 +30,8 @@ Flight::route('GET|POST /getItems', [
 
 /**
  * Use this method to get all certain user added items.
- * On success, returns an Items objects
+ *
+ * @link https://docs.thisorthat.ru/#getmyitems
  */
 Flight::route('GET|POST /getMyItems', [
     'methods\getMyItems', 'run_task'
@@ -35,7 +39,9 @@ Flight::route('GET|POST /getMyItems', [
 
 
 /**
+ * Add new item with first and last texts
  *
+ * @link https://docs.thisorthat.ru/#additem
  */
 Flight::route('GET|POST /addItem', [
     'methods\addItem', 'run_task'

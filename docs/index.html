@@ -29,7 +29,7 @@
 <li>application/x-www-form-urlencoded</li>
 <li>multipart/form-data</li>
 </ul>
-<p>Ответ содержит объект JSON, который всегда имеет логическое поле <code>ok</code>. Если <code>ok</code> равно true, значит запрос был выполнен успешно и результат запроса можно найти в поле <code>result</code>. В случае неудачного запроса, <code>ok</code> равно false и суть ошибки объясняется в поле <code>descriprion</code>. Некоторые ошибки могут также иметь необязательное поле <code>parameters</code>, которое может помочь автоматически обработать ошибку. Все такие случаи подробно описаны в пояснениях к конкретным методам.<br>Сервер так же возвращает корректный <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">код состояния</a> HTTP запроса.</p>
+<p>Ответ содержит объект JSON, который всегда имеет логическое поле <code>ok</code>. Если <code>ok</code> равно true, значит запрос был выполнен успешно и результат запроса можно найти в поле <code>result</code>. В случае неудачного запроса, <code>ok</code> равно false и суть ошибки объясняется в поле <code>descriprion</code>. Некоторые ошибки могут также иметь необязательное поле <code>parameters</code>, которое может помочь автоматически обработать ошибку. Все такие случаи подробно описаны в пояснениях к конкретным методам.<br>Для всех запросов сервер возвращает корректный <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">код состояния</a> HTTP запроса.</p>
 <ul>
 <li>Все методы API не чувствительны к регистру</li>
 <li>Запросы должны выполняться с использованием кодировки UTF-8</li>
@@ -40,8 +40,7 @@
 <p>Метод служит для регистрации клиента и получения токена авторизации.
 Регистрацию следует выполнять только через <strong>POST</strong>.</p>
 <h4 id="запрос">Запрос</h4>
-<pre><code class="language-http">POST https://api.thisorthat.ru/register</code></pre>
-<h4 id="параметры">Параметры</h4>
+<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры">Параметры</h4>
 <table>
 <thead>
 <tr>
@@ -96,7 +95,7 @@
 <tr>
 <td>status</td>
 <td><code>^(new|approved)$</code></td>
-<td><strong>new</strong> — получить вопросы, не прошедшие модерацию, <br><strong>approved</strong> — для прошедших модерацию. По умолчанию вернутся оба типа вопросов.</td>
+<td><strong>new</strong> — получить вопросы, не прошедшие модерацию, <br><strong>approved</strong> — для прошедших модерацию. <br>По умолчанию вернутся оба типа вопросов.</td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -138,7 +137,7 @@
 </tr>
 <tr>
 <td>status</td>
-<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию.</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию.</td>
 </tr>
 <tr>
 <td>first_vote</td>
@@ -151,7 +150,7 @@
 </tbody></table>
 <h2 id="getmyitems">/getMyItems</h2>
 <p>Метод возвращает вопросы, которые добавил текущий пользователь.</p>
-<pre><code>POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -168,12 +167,12 @@
 <tr>
 <td>limit</td>
 <td><code>^[1-9][0-9]?$|100$</code></td>
-<td>Количество запрашиваемых вопросов в диапазоне 1-100. По умолчанию равен <em>30</em></td>
+<td>Количество запрашиваемых вопросов в диапазоне 1-100. <br>По умолчанию равен <em>30</em></td>
 </tr>
 <tr>
 <td>offset</td>
 <td><code>^[0-9]+$</code></td>
-<td>Смещение относительно первого вопросов. По умолчанию равен <em>0</em></td>
+<td>Смещение относительно первого вопросов. <br>По умолчанию равен <em>0</em></td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -218,11 +217,11 @@
 </tr>
 <tr>
 <td>status</td>
-<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию. <br><strong>rejected</strong> — вопрос отклонен.</td>
+<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
 </tr>
 <tr>
 <td>reason</td>
-<td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка <br><strong>abuse</strong> — некорректный вопрос <br><strong>clone</strong> — такой вопрос уже есть.</td>
+<td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть.</td>
 </tr>
 <tr>
 <td>first_vote</td>
@@ -234,7 +233,7 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Поле <code>reason</code> определенно только для вопросов со статусом <strong>rejected</strong></p>
+<p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong></p>
 </blockquote>
 </article>
     </section>

@@ -113,7 +113,7 @@ class engine
 
         // Check token parameter
         if ($token === false) {
-            self::show_error('Authorization required', 401);
+            self::show_error('Не удалось авторизовать запрос', 401);
         }
 
         list($user_id, $marker) = explode(':', $token);
@@ -128,7 +128,7 @@ class engine
         $select->execute(compact('user_id', 'secret'));
 
         if ($select->fetch() === false) {
-            self::show_error('Authorization failed', 401);
+            self::show_error('Не удалось авторизовать запрос', 401);
         }
 
         return $user_id;
@@ -151,8 +151,13 @@ class engine
     {
         $request = array_merge($_GET, $_POST);
 
-        if (isset($request[$name]) && preg_match("/{$regex}/ui", $request[$name])) {
-            return $request[$name];
+        // Can be array also
+        if (isset($request[$name]) && is_string($request[$name])) {
+            $parameter = $request[$name];
+
+            if (preg_match("/{$regex}/ui", $parameter)) {
+                return $parameter;
+            }
         }
 
         return $default;
@@ -160,11 +165,33 @@ class engine
 
 
     /**
+     * Check bad words using external class
+     */
+    protected static function has_badwords($text)
+    {
+        $badwords = Censure\Censure::parse($text);
+
+        // On error this method returns int error code
+        if ($badwords === false || !is_string($badwords)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
      * Show json error with custom http code
      */
-    protected static function show_error($description, $code)
+    protected static function show_error($description, $code = 500, $parameters = null)
     {
-        Flight::json(['ok' => false, 'description' => $description], $code);
+        $message = ['ok' => false, 'description' => $description];
+
+        if ($parameters !== null) {
+            $message['parameters'] = $parameters;
+        }
+
+        Flight::json($message, $code);
         exit;
     }
 
@@ -172,9 +199,11 @@ class engine
     /**
      * Show json success with custom http code
      */
-    protected static function show_success($result)
+    protected static function show_success($result, $code = 200)
     {
-        Flight::json(['ok' => true, 'result' => $result], 200);
+        $message =['ok' => true, 'result' => $result];
+
+        Flight::json($message, $code);
         exit;
     }
 }

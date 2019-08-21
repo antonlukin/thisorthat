@@ -16,7 +16,7 @@ namespace methods;
 class register extends \engine
 {
     /**
-     * Get last user section
+     * Get last user section field
      */
     private static function get_section()
     {
@@ -25,14 +25,7 @@ class register extends \engine
         // Try to get last user section
         $select = $database->query("SELECT section FROM users ORDER BY id DESC LIMIT 1");
 
-        // Fetch section
-        $section = $select->fetchColumn();
-
-        if ($section === false) {
-            $section = 1;
-        }
-
-        return (int) $section;
+        return $select->fetchColumn();
     }
 
 
@@ -44,13 +37,16 @@ class register extends \engine
         $database = parent::get_database();
 
         // Get last user section
-        $section = self::get_section() + 1;
+        $section = self::get_section();
 
         // Reset section value if too big
-        if ($section > parent::$sections) {
-            $section = 1;
+        if ($section === false || $section > parent::$sections) {
+            $section = 0;
         }
 
+        $section = $section + 1;
+
+        // The query to insert user object
         $query = "INSERT INTO users (`secret`, `uniqid`, `client`, `section`)
             VALUES (:secret, :uniqid, :client, :section)";
 
@@ -73,14 +69,14 @@ class register extends \engine
 
         // Check client parameter
         if ($client === false) {
-            parent::show_error('Client value required', 400);
+            parent::show_error('Параметр client не определен', 400);
         }
 
         $uniqid = parent::get_parameter('uniqid', '^[a-z0-9-_]{0,64}$');
 
         // Check uniqid parameter
         if ($uniqid === false) {
-            parent::show_error('Uniqid value required', 400);
+            parent::show_error('Параметр uniqid не определен', 400);
         }
 
         // Generate random token
@@ -95,7 +91,7 @@ class register extends \engine
         // Compose token with leading user id divided with colon
         $token = implode(':', [$user_id, $marker]);
 
-        parent::show_success(['token' => $token]);
+        parent::show_success(compact('token'));
     }
 }
 
