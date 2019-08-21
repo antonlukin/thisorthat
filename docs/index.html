@@ -235,6 +235,60 @@
 <blockquote>
 <p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong></p>
 </blockquote>
+<h2 id="additem">/addItem</h2>
+<p>Добавление нового вопроса от пользователя</p>
+<h4 id="запрос-2">Запрос</h4>
+<pre><code>POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-1">Параметры</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d:[a-z0-9{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>first_text</strong></td>
+<td><code>^.{4,150}$</code></td>
+<td>Первый вопрос длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td><strong>last_text</strong></td>
+<td><code>^.{4,150}$</code></td>
+<td>Последний вопрос длинной 4-150 символов.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными. Клиент должен провести предварительную фильтрацию полей с текстом</p>
+</blockquote>
+<h4 id="пример-запроса-3">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-3">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;item_id&quot;: 10000
+    }
+}</code></pre>
+<p>Ответ сервера содержит <code>item_id</code> добавленного вопроса. В случае ошибки, клиент может отобразить на своей стороне результат поля <code>description</code>.  
+В процессе добавления вопроса, сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
+содержащее параметр <code>clone</code> с id релевантного вопроса.</p>
+<h4 id="ответ-сервера-с-ошибкой-дубликата">Ответ сервера с ошибкой дубликата</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: false,
+    &quot;description&quot;: &quot;В нашей базе уже есть такой вопрос&quot;,
+    &quot;parameters&quot;: {
+        &quot;clone&quot;: 18007
+    }
+}</code></pre>
+<blockquote>
+<p>Если поле <code>parameters.clone</code> не пустое, клиент может предложить пользователю добавить вопрос в избранное.</p>
+</blockquote>
 </article>
     </section>
 </body>
