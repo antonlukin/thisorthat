@@ -20,7 +20,7 @@
 <body>
     <section class="wrap">
         <article class="markdown-body" id="markdown"><h1 id="то-или-это-документация-api">То или Это: документация API</h1>
-<p>Все запросы к API должны быть выполнены через HTTPS и быть представлены в таком виде:</p>
+<p>Все запросы к API должны выполняться через HTTPS и быть представлены в таком виде:</p>
 <pre><code>https://api.thisorthat.ru/&lt;method_name&gt;</code></pre><p>Для всех запросов кроме <code>/register</code> поддерживаются HTTP методы <strong>GET</strong> и <strong>POST</strong>.  
 Выбор HTTP метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.
 Параметры запроса могут быть переданны одним из трех способов:</p>
@@ -75,7 +75,7 @@
 <h2 id="getitems">/getItems</h2>
 <p>Возвращает список из <strong>30</strong> еще неотвеченных пользователем вопросов. Метод не возвращает отклоненные после модерации объекты.</p>
 <blockquote>
-<p>Этот метод может изменять поля базы данных</p>
+<p>Этот метод может изменять полe базы данных.</p>
 </blockquote>
 <h4 id="запрос-1">Запрос</h4>
 <pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
@@ -99,7 +99,7 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Параметры, выделенные полужирным, являются обязательными</p>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-1">Пример запроса</h4>
 <pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;status=approve&#39;</code></pre>
@@ -112,8 +112,8 @@
                 &quot;first_text&quot;: &quot;Легче вскрыть на жопе вены&quot;,
                 &quot;last_text&quot;: &quot;Легче дождаться перемены&quot;,
                 &quot;status&quot;: &quot;new&quot;,
-                &quot;first_vote&quot; :&quot;2712&quot;,
-                &quot;last_vote&quot;: &quot;12125&quot;
+                &quot;first_vote&quot;: 2712,
+                &quot;last_vote&quot;: 12125
             }
         }
     }
@@ -176,7 +176,7 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Параметры, выделенные полужирным, являются обязательными</p>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-2">Пример запроса</h4>
 <pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=1&amp;offset=10&#39;</code></pre>
@@ -190,8 +190,8 @@
                 &quot;last_text&quot;: &quot;В жопу раз&quot;,
                 &quot;status&quot;: &quot;rejected&quot;,
                 &quot;reason&quot;: &quot;abuse&quot;,
-                &quot;first_vote&quot; :&quot;0&quot;,
-                &quot;last_vote&quot;: &quot;0&quot;
+                &quot;first_vote&quot;: 0,
+                &quot;last_vote&quot;: 0
             }
         },
         &quot;total&quot;: 240
@@ -233,10 +233,10 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong></p>
+<p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong>.</p>
 </blockquote>
 <h2 id="additem">/addItem</h2>
-<p>Добавление нового вопроса от пользователя</p>
+<p>Добавление нового вопроса от пользователя.</p>
 <h4 id="запрос-2">Запрос</h4>
 <pre><code>POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-1">Параметры</h4>
 <table>
@@ -264,7 +264,7 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Все параметры запроса являются обязательными. Клиент должен провести предварительную фильтрацию полей с текстом</p>
+<p>Все параметры запроса являются обязательными.<br>Клиент должен провести предварительную фильтрацию вопросов.</p>
 </blockquote>
 <h4 id="пример-запроса-3">Пример запроса</h4>
 <pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
@@ -275,10 +275,8 @@
         &quot;item_id&quot;: 10000
     }
 }</code></pre>
-<p>Ответ сервера содержит <code>item_id</code> добавленного вопроса. В случае ошибки, клиент может отобразить на своей стороне результат поля <code>description</code>.  
-В процессе добавления вопроса, сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
-содержащее параметр <code>clone</code> с id релевантного вопроса.</p>
-<h4 id="ответ-сервера-с-ошибкой-дубликата">Ответ сервера с ошибкой дубликата</h4>
+<p>Ответ сервера содержит <code>item_id</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
+<h4 id="ответ-сервера-с-ошибкой">Ответ сервера с ошибкой</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: false,
     &quot;description&quot;: &quot;В нашей базе уже есть такой вопрос&quot;,
@@ -286,8 +284,10 @@
         &quot;clone&quot;: 18007
     }
 }</code></pre>
+<p>В процессе добавления вопроса сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
+содержащее параметр <code>clone</code> с id похожего вопроса.</p>
 <blockquote>
-<p>Если поле <code>parameters.clone</code> не пустое, клиент может предложить пользователю добавить вопрос в избранное.</p>
+<p>Если поле <code>parameters.clone</code> не пустое, клиент может предложить добавить вопрос в избранное.</p>
 </blockquote>
 </article>
     </section>

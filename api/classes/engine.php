@@ -165,6 +165,22 @@ class engine
 
 
     /**
+     * Get request query array
+     */
+    protected static function get_array($name, $default = [])
+    {
+        $request = array_merge($_GET, $_POST);
+
+        // Should be array type
+        if (isset($request[$name]) && is_array($request[$name])) {
+            return array_filter($request[$name]);
+        }
+
+        return $default;
+    }
+
+
+    /**
      * Check bad words using external class
      */
     protected static function has_badwords($text)

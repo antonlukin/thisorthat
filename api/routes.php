@@ -49,7 +49,9 @@ Flight::route('GET|POST /addItem', [
 
 
 /**
+ * Add user votes for items
  *
+ * @link https://docs.thisorthat.ru/#setviewed
  */
 Flight::route('GET|POST /setViewed', [
     'methods\setViewed', 'run_task'
@@ -59,7 +61,7 @@ Flight::route('GET|POST /setViewed', [
 /**
  *
  */
-Flight::route('GET|POST /get-comments', [
+Flight::route('GET|POST /getComments', [
     'methods\getComments', 'run_task'
 ], true);
 
@@ -67,14 +69,14 @@ Flight::route('GET|POST /get-comments', [
 /**
  *
  */
-Flight::route('GET|POST /add-comments', [
-    'methods\addComments', 'run_task'
+Flight::route('GET|POST /addComment', [
+    'methods\addComment', 'run_task'
 ], true);
 
 
 /**
  *
  */
-Flight::route('GET|POST /send-report', [
+Flight::route('GET|POST /sendReport', [
     'methods\sendReport', 'run_task'
 ], true);

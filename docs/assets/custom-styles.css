@@ -76,6 +76,10 @@ body {
   padding-top: 20px;
 }
 
+.markdown-body h4 {
+  font-size: 1.125em;
+}
+
 .markdown-body table {
   display: table;
 }

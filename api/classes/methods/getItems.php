@@ -70,7 +70,7 @@ class getItems extends \engine
             $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
         }
 
-        return $votes;
+        return array_map('intval', $votes);
     }
 
 
@@ -138,9 +138,9 @@ class getItems extends \engine
      */
     private static function get_votes($items)
     {
-        foreach ($items as $id => &$item) {
-            $redis = parent::get_redis();
+        $redis = parent::get_redis();
 
+        foreach ($items as $id => &$item) {
             // Get votes from redis by id
             $votes = $redis->get(parent::$redis_prefix . $id);
 
