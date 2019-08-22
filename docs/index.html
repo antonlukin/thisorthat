@@ -40,7 +40,7 @@
 <p>Метод служит для регистрации клиента и получения токена авторизации.
 Регистрацию следует выполнять только через <strong>POST</strong>.</p>
 <h4 id="запрос">Запрос</h4>
-<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры">Параметры</h4>
+<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -78,7 +78,7 @@
 <p>Этот метод может изменять полe базы данных.</p>
 </blockquote>
 <h4 id="запрос-1">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -89,7 +89,7 @@
 </thead>
 <tbody><tr>
 <td><strong>token</strong></td>
-<td><code>^\d:[a-z0-9{32}$</code></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
 <td>Ключ авторизации, полученный при регистрации.</td>
 </tr>
 <tr>
@@ -150,7 +150,7 @@
 </tbody></table>
 <h2 id="getmyitems">/getMyItems</h2>
 <p>Метод возвращает вопросы, которые добавил текущий пользователь.</p>
-<pre><code>GET|POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-2">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -161,7 +161,7 @@
 </thead>
 <tbody><tr>
 <td><strong>token</strong></td>
-<td><code>^\d:[a-z0-9{32}$</code></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
 <td>Ключ авторизации, полученный при регистрации.</td>
 </tr>
 <tr>
@@ -238,7 +238,7 @@
 <h2 id="additem">/addItem</h2>
 <p>Добавление нового вопроса от пользователя.</p>
 <h4 id="запрос-2">Запрос</h4>
-<pre><code>POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-1">Параметры</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры">Параметры</h4>
 <table>
 <thead>
 <tr>
@@ -249,7 +249,7 @@
 </thead>
 <tbody><tr>
 <td><strong>token</strong></td>
-<td><code>^\d:[a-z0-9{32}$</code></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
 <td>Ключ авторизации, полученный при регистрации.</td>
 </tr>
 <tr>
@@ -263,8 +263,9 @@
 <td>Последний вопрос длинной 4-150 символов.</td>
 </tr>
 </tbody></table>
+<p>Клиент должен провести предварительную фильтрацию вопросов.</p>
 <blockquote>
-<p>Все параметры запроса являются обязательными.<br>Клиент должен провести предварительную фильтрацию вопросов.</p>
+<p>Все параметры запроса являются обязательными.  </p>
 </blockquote>
 <h4 id="пример-запроса-3">Пример запроса</h4>
 <pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
@@ -272,7 +273,7 @@
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
-        &quot;item_id&quot;: 10000
+        &quot;item_id&quot;: &quot;10000&quot;
     }
 }</code></pre>
 <p>Ответ сервера содержит <code>item_id</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
@@ -281,7 +282,7 @@
     &quot;ok&quot;: false,
     &quot;description&quot;: &quot;В нашей базе уже есть такой вопрос&quot;,
     &quot;parameters&quot;: {
-        &quot;clone&quot;: 18007
+        &quot;clone&quot;: &quot;18007&quot;
     }
 }</code></pre>
 <p>В процессе добавления вопроса сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
@@ -289,6 +290,41 @@
 <blockquote>
 <p>Если поле <code>parameters.clone</code> не пустое, клиент может предложить добавить вопрос в избранное.</p>
 </blockquote>
+<h2 id="setviewed">/setViewed</h2>
+<p>Метод для добавления ответов пользователя. Позволяет отправить массив одни запросом.</p>
+<h4 id="запрос-3">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-1">Параметры</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>views</strong></td>
+<td><code>&lt;Array&gt;</code></td>
+<td>Массив значений <strong>first</strong>, <strong>last</strong> или <strong>skip</strong> и id вопросов в качестве ключей.<br> Единовременно можно отправить до 1000 значений.</td>
+</tr>
+</tbody></table>
+<p>Если не удалось получить ответ на вопрос (например, пользователь отправил жалобу), но необходимо засчитать просмотр, то следует отправить значение <strong>skip</strong>.</p>
+<blockquote>
+<p>Все параметры запроса являются обязательными.  </p>
+</blockquote>
+<h4 id="пример-запроса-4">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;views[1]=first&amp;views[2]=last&amp;views[3]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-4">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>.</p>
 </article>
     </section>
 </body>

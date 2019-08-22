@@ -80,7 +80,7 @@ class addItem extends \engine
             $section = 0;
         }
 
-        $section = $section + 1;
+        $section = intval($section) + 1;
 
         // The query to insert item object
         $query = "INSERT INTO items (`user_id`, `first_text`, `last_text`, `section`)

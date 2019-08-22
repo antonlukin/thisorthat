@@ -31,13 +31,7 @@ class getMyItems extends \engine
         $select = $database->prepare($query);
         $select->execute(compact('item_id'));
 
-        $votes = $select->fetch();
-
-        if ($votes === false) {
-            $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
-        }
-
-        return array_map('intval', $votes);
+        return $select->fetch();
     }
 
 
@@ -54,7 +48,13 @@ class getMyItems extends \engine
 
             if ($votes === false) {
                 $votes = self::select_votes($id);
-                $redis->set(parent::$redis_prefix . $id, $votes);
+
+                if ($votes === false) {
+                    $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
+                }
+
+                // Set votes to redis
+                $redis->set(parent::$redis_prefix . $id, array_map('intval', $votes));
             }
 
             $item = $item + $votes;
@@ -81,9 +81,6 @@ class getMyItems extends \engine
 
         $items = $select->fetchAll(\PDO::FETCH_UNIQUE);
 
-        // Get items votes
-        $items = self::get_votes($items);
-
         // Remove reason field from unrejected items
         foreach ($items as $id => &$item) {
             if ($item['status'] !== 'rejected') {
@@ -107,7 +104,7 @@ class getMyItems extends \engine
         $select = $database->prepare("SELECT COUNT(*) FROM items WHERE user_id = :user_id");
         $select->execute(compact('user_id'));
 
-        return (int) $select->fetchColumn();
+        return $select->fetchColumn();
     }
 
 
@@ -132,8 +129,17 @@ class getMyItems extends \engine
         // Get items query
         $items = self::get_items($user_id, $limit, $offset);
 
+        // Get items votes
+        $items = self::get_votes($items);
+
         // Get total count
         $total = self::calc_count($user_id);
+
+        if ($total === false) {
+            $total = 0;
+        }
+
+        $total = intval($total);
 
         parent::show_success(compact('items', 'total'));
     }

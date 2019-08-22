@@ -16,6 +16,23 @@ namespace methods;
 class setViewed extends \engine
 {
     /**
+     * Filter only valid views from response
+     */
+    private static function sanitize_views($views)
+    {
+        foreach ($views as $id => $vote) {
+            if (is_int($id) && in_array($vote, ['first', 'last', 'skip'])) {
+                continue;
+            }
+
+            unset($views[$id]);
+        }
+
+        return $views;
+    }
+
+
+    /**
      * Update items votes in redis
      */
     private static function update_votes($views)
@@ -33,11 +50,41 @@ class setViewed extends \engine
 
             // Update only if already set
             if (isset($votes[$key])) {
-                $votes[$key] = (int) $votes[$key] + 1;
+                $votes[$key] = $votes[$key] + 1;
             }
 
-            $redis->set(parent::$redis_prefix . $id , $votes);
+            // Set votes to redis
+            $redis->set(parent::$redis_prefix . $id , array_map('intval', $votes));
         }
+    }
+
+
+    /**
+     * Add views to database
+     */
+    private static function add_views($user_id, $views)
+    {
+        $database = parent::get_database();
+
+        // The query for inserting values
+        $query = "INSERT IGNORE INTO views (user_id, item_id, vote) VALUES (:user_id, :item_id, :vote)";
+
+        $database->beginTransaction();
+
+        try {
+            $insert = $database->prepare($query);
+
+            foreach ($views as $item_id => $vote) {
+                $insert->execute(compact('user_id', 'item_id', 'vote'));
+            }
+
+        } catch(\PDOException $e) {
+            $database->rollBack();
+
+            throw $e;
+        }
+
+        $database->commit();
     }
 
 
@@ -56,18 +103,23 @@ class setViewed extends \engine
         $views = parent::get_array('views');
 
         // Filter only valid views
-        $views = array_intersect($views, ['first', 'last', 'skip']);
+        $views = self::sanitize_views($views);
 
         // Check array emptiness now
-        if (count($views) === 0) {
+        if (count($views) < 1) {
             parent::show_error('Неверный формат массива с ответами', 400);
+        }
+
+        // Check array max length
+        if (count($views) > 1000) {
+            parent::show_error('Массив с ответами слишком большой', 413);
         }
 
         // Update votes in redis
         self::update_votes($views);
 
         // Add views to database
-//        self::add_views($views, $user_id);
+        self::add_views($user_id, $views);
 
         parent::show_success(true);
     }

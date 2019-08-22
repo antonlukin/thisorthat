@@ -64,13 +64,7 @@ class getItems extends \engine
         $select = $database->prepare($query);
         $select->execute(compact('item_id'));
 
-        $votes = $select->fetch();
-
-        if ($votes === false) {
-            $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
-        }
-
-        return array_map('intval', $votes);
+        return $select->fetch();
     }
 
 
@@ -118,7 +112,7 @@ class getItems extends \engine
                 break;
             }
 
-            $section = $section + 1;
+            $section = intval($section) + 1;
 
             // Reset section value if too big
             if ($section > parent::$sections) {
@@ -146,7 +140,13 @@ class getItems extends \engine
 
             if ($votes === false) {
                 $votes = self::select_votes($id);
-                $redis->set(parent::$redis_prefix . $id, $votes);
+
+                if ($votes === false) {
+                    $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
+                }
+
+                // Set votes to redis
+                $redis->set(parent::$redis_prefix . $id, array_map('intval', $votes));
             }
 
             $item = $item + $votes;

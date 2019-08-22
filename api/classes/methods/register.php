@@ -44,7 +44,7 @@ class register extends \engine
             $section = 0;
         }
 
-        $section = $section + 1;
+        $section = intval($section) + 1;
 
         // The query to insert user object
         $query = "INSERT INTO users (`secret`, `uniqid`, `client`, `section`)
@@ -69,14 +69,14 @@ class register extends \engine
 
         // Check client parameter
         if ($client === false) {
-            parent::show_error('Параметр client не определен', 400);
+            parent::show_error('Параметр client не соответствует условиям', 400);
         }
 
         $uniqid = parent::get_parameter('uniqid', '^[a-z0-9-_]{0,64}$');
 
         // Check uniqid parameter
         if ($uniqid === false) {
-            parent::show_error('Параметр uniqid не определен', 400);
+            parent::show_error('Параметр uniqid не соответствует условиям', 400);
         }
 
         // Generate random token

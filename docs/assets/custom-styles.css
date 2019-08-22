@@ -35,6 +35,7 @@ body {
 }
 
 .sidebar nav {
+  display: block;
   position: sticky;
   top: 20px;
 
@@ -50,6 +51,7 @@ body {
 
   margin-bottom: 10px;
   color: #179cde;
+  text-decoration: none;
 }
   .sidebar nav a:last-child {
     margin-bottom: 0;
