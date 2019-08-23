@@ -109,11 +109,11 @@ class addItem extends \engine
             parent::show_error('Текст вопроса содержит нецензурную лексику', 400);
         }
 
-        $clone = self::search_clone($question);
+        $clone_id = self::search_clone($question);
 
         // Stop if clone exists
-        if ($clone !== false) {
-            parent::show_error('В нашей базе уже есть такой вопрос', 400, compact('clone'));
+        if ($clone_id !== false) {
+            parent::show_error('В нашей базе уже есть такой вопрос', 400, compact('clone_id'));
         }
 
         return $question;

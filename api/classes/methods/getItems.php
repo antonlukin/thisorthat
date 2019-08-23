@@ -96,7 +96,7 @@ class getItems extends \engine
             $limit = self::$limit - count($items);
 
             // The query to get only certain user non-answered items from given section
-            $query = "SELECT items.id, items.first_text, items.last_text, items.status
+            $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status
                 FROM items LEFT JOIN views
                 ON (items.id = views.item_id AND views.user_id = :user_id)
                 WHERE (views.id IS NULL) AND items.section = :section AND " . $condition . "
@@ -105,7 +105,7 @@ class getItems extends \engine
             $select = $database->prepare($query);
             $select->execute(compact('user_id', 'section', 'status'));
 
-            $items = $items + $select->fetchAll(\PDO::FETCH_UNIQUE);
+            $items = $items + $select->fetchAll();
 
             // Break if already enough items
             if (count($items) >= self::$limit) {
@@ -134,22 +134,23 @@ class getItems extends \engine
     {
         $redis = parent::get_redis();
 
-        foreach ($items as $id => &$item) {
+        foreach ($items as &$item) {
             // Get votes from redis by id
-            $votes = $redis->get(parent::$redis_prefix . $id);
+            $votes = $redis->get(parent::$redis_prefix . $item['item_id']);
 
             if ($votes === false) {
-                $votes = self::select_votes($id);
+                $votes = self::select_votes($item['item_id']);
 
                 if ($votes === false) {
                     $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
                 }
 
                 // Set votes to redis
-                $redis->set(parent::$redis_prefix . $id, array_map('intval', $votes));
+                $redis->set(parent::$redis_prefix . $item['item_id'], array_map('intval', $votes));
             }
 
             $item = $item + $votes;
+
         }
 
         return $items;

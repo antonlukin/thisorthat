@@ -72,6 +72,7 @@
         &quot;token&quot;: &quot;1:0994f52572ab3f9432c77615c104db9c&quot;
     }
 }</code></pre>
+<p>В случае удачного выполнения запроса сервер возвращает параметр <code>token</code>, представляющий из себя <code>user_id</code>, отделенный двоеточием от 32-символьного хеша.</p>
 <h2 id="getitems">/getItems</h2>
 <p>Возвращает список из <strong>30</strong> еще неотвеченных пользователем вопросов. Метод не возвращает отклоненные после модерации объекты.</p>
 <blockquote>
@@ -107,44 +108,63 @@
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
-        &quot;items&quot;: {
-            &quot;200&quot;: {
-                &quot;first_text&quot;: &quot;Легче вскрыть на жопе вены&quot;,
-                &quot;last_text&quot;: &quot;Легче дождаться перемены&quot;,
-                &quot;status&quot;: &quot;new&quot;,
-                &quot;first_vote&quot;: 2712,
-                &quot;last_vote&quot;: 12125
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;1926&quot;,
+                &quot;first_text&quot;: &quot;Остаться слепым на всю жизнь&quot;,
+                &quot;last_text&quot;: &quot;Остаться глухим на всю жизнь&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 3443,
+                &quot;last_vote&quot;: 11679
+            },
+            {
+                &quot;item_id&quot;: &quot;5043&quot;,
+                &quot;first_text&quot;: &quot;Быть нервным&quot;,
+                &quot;last_text&quot;: &quot;Быть ранимым&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 7630,
+                &quot;last_vote&quot;: 7751
             }
-        }
     }
 }</code></pre>
-<p>Ответ сервера содержит список объектов <code>items</code>, отсортированный и сгруппированный по ключу — id вопроса. Клиент может перемешать вопросы после получения.</p>
+<p>Ответ сервера содержит список объектов <code>items</code>. Клиент может перемешать вопросы после получения.</p>
 <h4 id="описание-полей-вопроса">Описание полей вопроса</h4>
 <table>
 <thead>
 <tr>
 <th>Поле</th>
+<th>Тип</th>
 <th>Описание</th>
 </tr>
 </thead>
 <tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
 <td>first_text</td>
+<td>String</td>
 <td>Текст первого вопроса длинной 4-150 символов.</td>
 </tr>
 <tr>
 <td>last_text</td>
+<td>String</td>
 <td>Текст последнего вопроса длинной 4-150 символов.</td>
 </tr>
 <tr>
 <td>status</td>
+<td>String</td>
 <td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию.</td>
 </tr>
 <tr>
 <td>first_vote</td>
+<td>Integer</td>
 <td>Количество ответов на первый вопрос.</td>
 </tr>
 <tr>
 <td>last_vote</td>
+<td>Integer</td>
 <td>Количество ответов на последний вопрос.</td>
 </tr>
 </tbody></table>
@@ -184,51 +204,73 @@
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
-        &quot;items&quot;: {
-            &quot;100&quot;: {
-                &quot;first_text&quot;: &quot;Вилкой в глаз&quot;,
-                &quot;last_text&quot;: &quot;В жопу раз&quot;,
-                &quot;status&quot;: &quot;rejected&quot;,
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;1&quot;,
+                &quot;first_text&quot;: &quot;Прожить в тюрьме год&quot;,
+                &quot;last_text&quot;: &quot;Пролежать в коме 2 года&quot;,
                 &quot;reason&quot;: &quot;abuse&quot;,
-                &quot;first_vote&quot;: 0,
-                &quot;last_vote&quot;: 0
+                &quot;status&quot;: &quot;rejected&quot;,
+                &quot;first_vote&quot;: 6414,
+                &quot;last_vote&quot;: 10598
+            },
+            {
+                &quot;item_id&quot;: &quot;2&quot;,
+                &quot;first_text&quot;: &quot;Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это&quot;,
+                &quot;last_text&quot;: &quot;Икать до конца жизни&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 12194,
+                &quot;last_vote&quot;: 4712
             }
-        },
-        &quot;total&quot;: 240
+        ],
+        &quot;total&quot;: 247
     }
 }</code></pre>
-<p>Ответ сервера содержит список объектов <code>items</code>, отсортированный и сгруппированный по ключу — id вопроса.<br>Поле <code>total</code> содержит общее количество вопросов в выборке. Например, для того, чтобы получить все 240 вопросов пользователя, 
+<p>Ответ сервера содержит список объектов <code>items</code>.  
+Поле <code>total</code> типа <code>Integer</code> содержит общее количество вопросов в выборке. Например, для того, чтобы получить все 247 вопросов пользователя, 
 нужно сделать 3 запроса по 100 вопрсов со смещением 0, 100 и 200 соответственно.</p>
 <h4 id="описание-полей-вопроса-1">Описание полей вопроса</h4>
 <table>
 <thead>
 <tr>
 <th>Поле</th>
+<th>Тип</th>
 <th>Описание</th>
 </tr>
 </thead>
 <tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
 <td>first_text</td>
+<td>String</td>
 <td>Текст первого вопроса длинной 4-150 символов.</td>
 </tr>
 <tr>
 <td>last_text</td>
+<td>String</td>
 <td>Текст последнего вопроса длинной 4-150 символов.</td>
 </tr>
 <tr>
 <td>status</td>
-<td><strong>new</strong> — новый вопрос <br><strong>approved</strong> — прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
+<td>String</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию.</td>
 </tr>
 <tr>
 <td>reason</td>
+<td>String</td>
 <td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть.</td>
 </tr>
 <tr>
 <td>first_vote</td>
+<td>Integer</td>
 <td>Количество ответов на первый вопрос.</td>
 </tr>
 <tr>
 <td>last_vote</td>
+<td>Integer</td>
 <td>Количество ответов на последний вопрос.</td>
 </tr>
 </tbody></table>
@@ -276,22 +318,22 @@
         &quot;item_id&quot;: &quot;10000&quot;
     }
 }</code></pre>
-<p>Ответ сервера содержит <code>item_id</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
+<p>Ответ сервера содержит <code>item_id</code> типа <code>String</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
 <h4 id="ответ-сервера-с-ошибкой">Ответ сервера с ошибкой</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: false,
     &quot;description&quot;: &quot;В нашей базе уже есть такой вопрос&quot;,
     &quot;parameters&quot;: {
-        &quot;clone&quot;: &quot;18007&quot;
+        &quot;clone_id&quot;: &quot;18007&quot;
     }
 }</code></pre>
 <p>В процессе добавления вопроса сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
-содержащее параметр <code>clone</code> с id похожего вопроса.</p>
+содержащее параметр <code>clone_id</code> типа <code>String</code> с идентификатором похожего вопроса.</p>
 <blockquote>
-<p>Если поле <code>parameters.clone</code> не пустое, клиент может предложить добавить вопрос в избранное.</p>
+<p>Если поле <code>parameters.clone_id</code> не пустое, клиент может предложить добавить вопрос в избранное.</p>
 </blockquote>
 <h2 id="setviewed">/setViewed</h2>
-<p>Метод для добавления ответов пользователя. Позволяет отправить массив одни запросом.</p>
+<p>Метод для добавления ответов пользователя. Позволяет отправить список значений одним запросом.</p>
 <h4 id="запрос-3">Запрос</h4>
 <pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-1">Параметры</h4>
 <table>
@@ -318,7 +360,7 @@
 <p>Все параметры запроса являются обязательными.  </p>
 </blockquote>
 <h4 id="пример-запроса-4">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;views[1]=first&amp;views[2]=last&amp;views[3]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;views[100]=first&amp;views[245]=last&amp;views[376]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
 <h4 id="ответ-сервера-4">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,

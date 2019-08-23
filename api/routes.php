@@ -13,7 +13,7 @@
  *
  * @link https://docs.thisorthat.ru/#register
  */
-Flight::route('POST /register', [
+Flight::route('GET|POST /register', [
     'methods\register', 'run_task'
 ], true);
 
@@ -55,6 +55,32 @@ Flight::route('GET|POST /addItem', [
  */
 Flight::route('GET|POST /setViewed', [
     'methods\setViewed', 'run_task'
+], true);
+
+
+/**
+ * Get favorite user items
+ *
+ * @link https://docs.thisorthat.ru/#getfavorite
+ */
+Flight::route('GET|POST /getFavorite', [
+    'methods\getFavorite', 'run_task'
+], true);
+
+
+/**
+ *
+ */
+Flight::route('GET|POST /addFavorite', [
+    'methods\addFavorite', 'run_task'
+], true);
+
+
+/**
+ *
+ */
+Flight::route('GET|POST /deleteFavorite', [
+    'methods\deleteFavorite', 'run_task'
 ], true);
 
 

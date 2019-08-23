@@ -13,6 +13,10 @@
  */
 require_once(__DIR__ . '/../vendor/autoload.php');
 
+// TODO: remove
+Flight::set('config.time', microtime(true));
+
+
 /**
  * Set root path variable
  */
