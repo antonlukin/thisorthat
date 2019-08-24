@@ -152,7 +152,7 @@ GET|POST https://api.thisorthat.ru/getMyItems
 #### Пример запроса
 
 ```bash
-curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&limit=1&offset=10'
+curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&limit=2&offset=10'
 ```
 
 #### Ответ сервера
@@ -163,7 +163,7 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f
     "result": {
         "items": [
             {
-                "item_id": "1",
+                "item_id": "11",
                 "first_text": "Прожить в тюрьме год",
                 "last_text": "Пролежать в коме 2 года",
                 "reason": "abuse",
@@ -172,7 +172,7 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f
                 "last_vote": 10598
             },
             {
-                "item_id": "2",
+                "item_id": "12",
                 "first_text": "Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это",
                 "last_text": "Икать до конца жизни",
                 "status": "approved",
@@ -196,7 +196,7 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f
 | item_id    | String  | Уникальный идентификатор вопроса. |
 | first_text | String  | Текст первого вопроса длинной 4-150 символов. |
 | last_text  | String  | Текст последнего вопроса длинной 4-150 символов. |
-| status     | String  | **new** — новый вопрос, <br>**approved** — прошел модерацию. |
+| status     | String  | **new** — новый вопрос, <br>**approved** — прошел модерацию, <br>**rejected** — вопрос отклонен. |
 | reason     | String  | Причина отклонения вопроса. <br>**typo** — в вопросе ошибка, <br>**abuse** — некорректный вопрос, <br>**clone** — такой вопрос уже есть. |
 | first_vote | Integer |Количество ответов на первый вопрос. |
 | last_vote  | Integer |Количество ответов на последний вопрос. |
@@ -214,7 +214,7 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyItems?token=1:0994f
 GET|POST https://api.thisorthat.ru/addItem
 ```
 
-#### Параметры
+#### Параметры запроса
 
 | Параметр | Маска | Описание |
 |----------|--------------|----------|
@@ -271,7 +271,7 @@ curl --include --request POST --data 'first_text=Visa&last_text=Mastercard' 'htt
 GET|POST https://api.thisorthat.ru/setViewed
 ```
 
-#### Параметры
+#### Параметры запроса
 
 | Параметр | Маска | Описание |
 |----------|--------------|----------|
@@ -298,3 +298,77 @@ curl --include --request POST --data 'views[100]=first&views[245]=last&views[376
 ```
 
 В случае удачного выполнения сервер вернет `true`.
+
+
+## /getFavorite
+
+Получение списка вопросов, добавленных текущим пользователем в избранное.
+
+#### Запрос
+
+```
+GET|POST https://api.thisorthat.ru/getFavorite
+```
+
+#### Параметры запроса
+
+| Название | Маска | Описание |
+|----------|-------|----------|
+| **token** | `^\d+:[a-z0-9]{32}$`  | Ключ авторизации, полученный при регистрации. |
+| limit     | `^[1-9][0-9]?$\|100$` | Количество запрашиваемых вопросов в диапазоне 1-100. <br>По умолчанию равен _30_ |
+| offset    | `^[0-9]+$`            | Смещение относительно первого вопросов. <br>По умолчанию равен _0_ |
+
+> Параметры, выделенные полужирным, являются обязательными.
+
+#### Пример запроса
+
+```bash
+curl --include --request GET 'https://api.thisorthat.ru/getFavorite?token=1:0994f52572ab3f9432c77615c104db9c&limit=20&offset=10'
+```
+
+#### Ответ сервера
+
+```json
+{
+    "ok": true,
+    "result": {
+        "items": [
+            {
+                "item_id": "11",
+                "first_text": "Прожить в тюрьме год",
+                "last_text": "Пролежать в коме 2 года",
+                "reason": "abuse",
+                "status": "rejected",
+                "first_vote": 6414,
+                "last_vote": 10598
+            },
+            {
+                "item_id": "16",
+                "first_text": "Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это",
+                "last_text": "Икать до конца жизни",
+                "status": "approved",
+                "first_vote": 12194,
+                "last_vote": 4712
+            }
+        ],
+        "total": 2
+    }
+}
+```
+
+Ответ сервера содержит список объектов `items`.  
+Поле `total` типа `Integer` содержит общее количество вопросов в выборке. 
+
+#### Описание полей вопроса
+
+| Поле | Тип | Описание |
+|------|-----|----------|
+| item_id    | String  | Уникальный идентификатор вопроса. |
+| first_text | String  | Текст первого вопроса длинной 4-150 символов. |
+| last_text  | String  | Текст последнего вопроса длинной 4-150 символов. |
+| status     | String  | **new** — новый вопрос, <br>**approved** — прошел модерацию, <br>**rejected** — вопрос отклонен. |
+| reason     | String  | Причина отклонения вопроса. <br>**typo** — в вопросе ошибка, <br>**abuse** — некорректный вопрос, <br>**clone** — такой вопрос уже есть. |
+| first_vote | Integer | Количество ответов на первый вопрос. |
+| last_vote  | Integer | Количество ответов на последний вопрос. |
+
+> Поле `reason` определено только для вопросов со статусом **rejected**.

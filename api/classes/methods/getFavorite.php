@@ -42,19 +42,19 @@ class getFavorite extends \engine
     {
         $redis = parent::get_redis();
 
-        foreach ($favorite as $id => &$item) {
+        foreach ($items as &$item) {
             // Get votes from redis by id
-            $votes = $redis->get(parent::$redis_prefix . $id);
+            $votes = $redis->get(parent::$redis_prefix . $item['item_id']);
 
             if ($votes === false) {
-                $votes = self::select_votes($id);
+                $votes = self::select_votes($item['item_id']);
 
                 if ($votes === false) {
                     $votes = array_fill_keys(['first_vote', 'last_vote'], 0);
                 }
 
                 // Set votes to redis
-                $redis->set(parent::$redis_prefix . $id, array_map('intval', $votes));
+                $redis->set(parent::$redis_prefix . $item['item_id'], array_map('intval', $votes));
             }
 
             $item = $item + $votes;
@@ -72,7 +72,7 @@ class getFavorite extends \engine
         $database = parent::get_database();
 
         // The query to get only certain user favorite items
-        $query = "SELECT items.id, items.first_text, items.last_text, items.status
+        $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status, items.reason
             FROM favorite
             LEFT JOIN items ON items.id = favorite.item_id
             WHERE items.user_id = :user_id
@@ -81,7 +81,16 @@ class getFavorite extends \engine
         $select = $database->prepare($query);
         $select->execute(compact('user_id', 'limit', 'offset'));
 
-        return $select->fetchAll(\PDO::FETCH_UNIQUE);
+        $items = $select->fetchAll();
+
+        // Remove reason field from unrejected items
+        foreach ($items as &$item) {
+            if ($item['status'] !== 'rejected') {
+                unset($item['reason']);
+            }
+        }
+
+        return $items;
     }
 
 

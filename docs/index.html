@@ -199,14 +199,14 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-2">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=1&amp;offset=10&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=2&amp;offset=10&#39;</code></pre>
 <h4 id="ответ-сервера-2">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
         &quot;items&quot;: [
             {
-                &quot;item_id&quot;: &quot;1&quot;,
+                &quot;item_id&quot;: &quot;11&quot;,
                 &quot;first_text&quot;: &quot;Прожить в тюрьме год&quot;,
                 &quot;last_text&quot;: &quot;Пролежать в коме 2 года&quot;,
                 &quot;reason&quot;: &quot;abuse&quot;,
@@ -215,7 +215,7 @@
                 &quot;last_vote&quot;: 10598
             },
             {
-                &quot;item_id&quot;: &quot;2&quot;,
+                &quot;item_id&quot;: &quot;12&quot;,
                 &quot;first_text&quot;: &quot;Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это&quot;,
                 &quot;last_text&quot;: &quot;Икать до конца жизни&quot;,
                 &quot;status&quot;: &quot;approved&quot;,
@@ -256,7 +256,7 @@
 <tr>
 <td>status</td>
 <td>String</td>
-<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию.</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
 </tr>
 <tr>
 <td>reason</td>
@@ -280,7 +280,7 @@
 <h2 id="additem">/addItem</h2>
 <p>Добавление нового вопроса от пользователя.</p>
 <h4 id="запрос-2">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры">Параметры</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-запроса-3">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -335,7 +335,7 @@
 <h2 id="setviewed">/setViewed</h2>
 <p>Метод для добавления ответов пользователя. Позволяет отправить список значений одним запросом.</p>
 <h4 id="запрос-3">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-1">Параметры</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-запроса-4">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -367,6 +367,115 @@
     &quot;result&quot;: true
 }</code></pre>
 <p>В случае удачного выполнения сервер вернет <code>true</code>.</p>
+<h2 id="getfavorite">/getFavorite</h2>
+<p>Получение списка вопросов, добавленных текущим пользователем в избранное.</p>
+<h4 id="запрос-4">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getFavorite</code></pre><h4 id="параметры-запроса-5">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых вопросов в диапазоне 1-100. <br>По умолчанию равен <em>30</em></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого вопросов. <br>По умолчанию равен <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-5">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getFavorite?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=20&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-5">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;11&quot;,
+                &quot;first_text&quot;: &quot;Прожить в тюрьме год&quot;,
+                &quot;last_text&quot;: &quot;Пролежать в коме 2 года&quot;,
+                &quot;reason&quot;: &quot;abuse&quot;,
+                &quot;status&quot;: &quot;rejected&quot;,
+                &quot;first_vote&quot;: 6414,
+                &quot;last_vote&quot;: 10598
+            },
+            {
+                &quot;item_id&quot;: &quot;16&quot;,
+                &quot;first_text&quot;: &quot;Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это&quot;,
+                &quot;last_text&quot;: &quot;Икать до конца жизни&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 12194,
+                &quot;last_vote&quot;: 4712
+            }
+        ],
+        &quot;total&quot;: 2
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code>.  
+Поле <code>total</code> типа <code>Integer</code> содержит общее количество вопросов в выборке. </p>
+<h4 id="описание-полей-вопроса-2">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
+<td>first_text</td>
+<td>String</td>
+<td>Текст первого вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>String</td>
+<td>Текст последнего вопроса длинной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>String</td>
+<td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Integer</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Integer</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong>.</p>
+</blockquote>
 </article>
     </section>
 </body>
