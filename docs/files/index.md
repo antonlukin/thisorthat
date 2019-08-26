@@ -337,7 +337,6 @@ curl --include --request GET 'https://api.thisorthat.ru/getFavorite?token=1:0994
                 "item_id": "11",
                 "first_text": "Прожить в тюрьме год",
                 "last_text": "Пролежать в коме 2 года",
-                "reason": "abuse",
                 "status": "rejected",
                 "first_vote": 6414,
                 "last_vote": 10598
@@ -367,8 +366,42 @@ curl --include --request GET 'https://api.thisorthat.ru/getFavorite?token=1:0994
 | first_text | String  | Текст первого вопроса длинной 4-150 символов. |
 | last_text  | String  | Текст последнего вопроса длинной 4-150 символов. |
 | status     | String  | **new** — новый вопрос, <br>**approved** — прошел модерацию, <br>**rejected** — вопрос отклонен. |
-| reason     | String  | Причина отклонения вопроса. <br>**typo** — в вопросе ошибка, <br>**abuse** — некорректный вопрос, <br>**clone** — такой вопрос уже есть. |
 | first_vote | Integer | Количество ответов на первый вопрос. |
 | last_vote  | Integer | Количество ответов на последний вопрос. |
 
-> Поле `reason` определено только для вопросов со статусом **rejected**.
+
+## /addFavorite
+
+Добавление вопроса в список избранного.
+
+#### Запрос
+
+```
+GET|POST https://api.thisorthat.ru/addFavorite
+```
+
+#### Параметры запроса
+
+| Параметр | Маска | Описание |
+|----------|--------------|----------|
+| **token**      | `^\d+:[a-z0-9]{32}$` | Ключ авторизации, полученный при регистрации. |
+| **item_id**    | `^\d{1,11}$`         | Идентификатор вопроса, который нужно добавить в избранное. |
+
+> Все параметры запроса являются обязательными.  
+
+#### Пример запроса
+
+```bash
+curl --include --request POST --data 'item_id=10' 'https://api.thisorthat.ru/addFavorite?token=1:0994f52572ab3f9432c77615c104db9c'
+```
+
+#### Ответ сервера
+
+```json
+{
+    "ok": true,
+    "result": true
+}
+```
+
+В случае удачного выполнения, даже если вопрос уже был в избранном, сервер вернет `true`. 

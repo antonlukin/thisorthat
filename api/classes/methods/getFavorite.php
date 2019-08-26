@@ -38,7 +38,7 @@ class getFavorite extends \engine
     /**
      * Get favorite items votes
      */
-    private static function get_votes($favorite)
+    private static function get_votes($items)
     {
         $redis = parent::get_redis();
 
@@ -60,7 +60,7 @@ class getFavorite extends \engine
             $item = $item + $votes;
         }
 
-        return $favorite;
+        return $items;
     }
 
 
@@ -72,7 +72,7 @@ class getFavorite extends \engine
         $database = parent::get_database();
 
         // The query to get only certain user favorite items
-        $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status, items.reason
+        $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status
             FROM favorite
             LEFT JOIN items ON items.id = favorite.item_id
             WHERE items.user_id = :user_id
@@ -102,8 +102,13 @@ class getFavorite extends \engine
     {
         $database = parent::get_database();
 
-        // Get only count of user favorite items
-        $select = $database->prepare("SELECT COUNT(*) FROM favorite WHERE user_id = :user_id");
+        // The query to get only count of user favorite items
+        $query = "SELECT COUNT(*)
+            FROM favorite
+            LEFT JOIN items ON items.id = favorite.item_id
+            WHERE items.user_id = :user_id";
+
+        $select = $database->prepare($query);
         $select->execute(compact('user_id'));
 
         return $select->fetchColumn();
@@ -128,11 +133,11 @@ class getFavorite extends \engine
         // Get offset parameter
         $offset = parent::get_parameter('offset', '^[0-9]+$', 0);
 
-        // Get favorite query
-        $favorite = self::get_favorite($user_id, $limit, $offset);
+        // Get favorite items
+        $items = self::get_favorite($user_id, $limit, $offset);
 
         // Get favorite votes
-        $favorite = self::get_votes($favorite);
+        $items = self::get_votes($items);
 
         // Get total count
         $total = self::calc_count($user_id);
@@ -143,7 +148,7 @@ class getFavorite extends \engine
 
         $total = intval($total);
 
-        parent::show_success(compact('favorite', 'total'));
+        parent::show_success(compact('items', 'total'));
     }
 }
 

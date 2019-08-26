@@ -69,7 +69,9 @@ Flight::route('GET|POST /getFavorite', [
 
 
 /**
+ * Add item to user favorite list
  *
+ * @link https://docs.thisorthat.ru/#addfavorite
  */
 Flight::route('GET|POST /addFavorite', [
     'methods\addFavorite', 'run_task'

@@ -62,7 +62,7 @@ class setViewed extends \engine
     /**
      * Add views to database
      */
-    private static function add_views($user_id, $views)
+    private static function insert_views($user_id, $views)
     {
         $database = parent::get_database();
 
@@ -119,7 +119,7 @@ class setViewed extends \engine
         self::update_votes($views);
 
         // Add views to database
-        self::add_views($user_id, $views);
+        self::insert_views($user_id, $views);
 
         parent::show_success(true);
     }
