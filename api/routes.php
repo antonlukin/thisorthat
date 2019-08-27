@@ -79,7 +79,9 @@ Flight::route('GET|POST /addFavorite', [
 
 
 /**
+ * Delete item from user favorite list
  *
+ * @link https://docs.thisorthat.ru/#deletefavorite
  */
 Flight::route('GET|POST /deleteFavorite', [
     'methods\deleteFavorite', 'run_task'

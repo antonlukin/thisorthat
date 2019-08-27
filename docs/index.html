@@ -501,6 +501,40 @@
     &quot;result&quot;: true
 }</code></pre>
 <p>В случае удачного выполнения, даже если вопрос уже был в избранном, сервер вернет <code>true</code>. </p>
+<h2 id="deletefavorite">/deleteFavorite</h2>
+<p>Удаление вопроса из списка избранного.</p>
+<h4 id="запрос-6">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/deleteFavorite</code></pre><h4 id="параметры-запроса-7">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, который нужно удалить из избранного.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.  </p>
+</blockquote>
+<h4 id="пример-запроса-7">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/deleteFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-7">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения, даже если вопроса не было в избранном, сервер вернет <code>true</code>. </p>
 </article>
     </section>
 </body>
