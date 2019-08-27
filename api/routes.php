@@ -89,6 +89,16 @@ Flight::route('GET|POST /deleteFavorite', [
 
 
 /**
+ * Send report to item
+ *
+ * @link  https://docs.thisorthat.ru/#sendreport
+ */
+Flight::route('GET|POST /sendReport', [
+    'methods\sendReport', 'run_task'
+], true);
+
+
+/**
  *
  */
 Flight::route('GET|POST /getComments', [
@@ -101,12 +111,4 @@ Flight::route('GET|POST /getComments', [
  */
 Flight::route('GET|POST /addComment', [
     'methods\addComment', 'run_task'
-], true);
-
-
-/**
- *
- */
-Flight::route('GET|POST /sendReport', [
-    'methods\sendReport', 'run_task'
 ], true);

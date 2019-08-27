@@ -168,7 +168,7 @@ class getItems extends \engine
         // Try to authenticate user
         $user_id = parent::authorize_user();
 
-        // Get approve parameter
+        // Get status parameter
         $status = parent::get_parameter('status', '^(new|approved)$');
 
         // Get items query

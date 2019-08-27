@@ -525,7 +525,7 @@
 </tr>
 </tbody></table>
 <blockquote>
-<p>Все параметры запроса являются обязательными.  </p>
+<p>Все параметры запроса являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-7">Пример запроса</h4>
 <pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/deleteFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
@@ -535,6 +535,45 @@
     &quot;result&quot;: true
 }</code></pre>
 <p>В случае удачного выполнения, даже если вопроса не было в избранном, сервер вернет <code>true</code>. </p>
+<h2 id="sendreport">/sendReport</h2>
+<p>Отправляет жалобу на конкретный вопрос.</p>
+<h4 id="запрос-7">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/sendReport</code></pre><h4 id="параметры-запроса-8">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+</tr>
+<tr>
+<td><strong>reason</strong></td>
+<td><code>^(typo|abuse|clone)$</code></td>
+<td><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-8">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&amp;reason=typo&#39; &#39;https://api.thisorthat.ru/sendReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-8">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения, сервер вернет <code>true</code>. </p>
 </article>
     </section>
 </body>
