@@ -70,8 +70,8 @@ class getComments extends \engine
         }
 
         // Get limit parameter
-        // Numeric range 1-100 and 30 by default
-        $limit = parent::get_parameter('limit', '^[1-9][0-9]?$|^100$', 30);
+        // Numeric range 1-100 and 50 by default
+        $limit = parent::get_parameter('limit', '^[1-9][0-9]?$|^100$', 50);
 
         // Get offset parameter
         $offset = parent::get_parameter('offset', '^[0-9]+$', 0);

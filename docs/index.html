@@ -574,6 +574,144 @@
     &quot;result&quot;: true
 }</code></pre>
 <p>В случае удачного выполнения, сервер вернет <code>true</code>. </p>
+<h2 id="getcomments">/getComments</h2>
+<p>Получает список комментариев к вопросу.</p>
+<h4 id="запрос-8">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getComments</code></pre><h4 id="параметры-запроса-9">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых комментариев в диапазоне 1-100. <br>По умолчанию равен <em>50</em></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого комментария. <br>По умолчанию равен <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-9">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getComments?token=1:0994f52572ab3f9432c77615c104db9c&amp;item_id=4&amp;limit=2&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-9">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;comments&quot;: [
+            {
+                &quot;comment_id&quot;: &quot;17&quot;,
+                &quot;user_id&quot;: &quot;100&quot;,
+                &quot;parent&quot;: &quot;0&quot;,
+                &quot;text&quot;: &quot;Отличный вопрос!&quot;
+            },
+            {
+                &quot;comment_id&quot;: &quot;18&quot;,
+                &quot;user_id&quot;: &quot;200&quot;,
+                &quot;parent&quot;: &quot;0&quot;,
+                &quot;text&quot;: &quot;Полная ерунда&quot;
+            }
+        ],
+        &quot;total&quot;: 18
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>comments</code>.  
+Поле <code>total</code> типа <code>Integer</code> содержит общее количество вопросов в выборке. </p>
+<h4 id="описание-полей-вопроса-3">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>comment_id</td>
+<td>String</td>
+<td>Уникальный идентификатор комментария.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>String</td>
+<td>Идентификатор пользователя, который добавил комментарий.</td>
+</tr>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>Текст комментария длинной 1-300 символов.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>String</td>
+<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em></td>
+</tr>
+</tbody></table>
+<h2 id="addcomment">/addComment</h2>
+<p>Добавление нового комментария к вопросу.</p>
+<h4 id="запрос-9">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addComment</code></pre><h4 id="параметры-запроса-10">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+</tr>
+<tr>
+<td><strong>text</strong></td>
+<td><code>^.{1,300}$</code></td>
+<td>Текст комментария длинной 1-300 символов. <br>К значению применяется фильтр антимата.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор родительского комментария. <br>По умолчанию равен <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-10">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;text=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-10">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;comment_id&quot;: &quot;300&quot;
+    }
+}</code></pre>
+<p>Ответ сервера содержит <code>comment_id</code> типа <code>String</code> добавленного комментария. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
+Между запросами на добавление комментария должно пройти хотя бы 10 секунд. Иначе сервер вернет ошибку.</p>
 </article>
     </section>
 </body>
