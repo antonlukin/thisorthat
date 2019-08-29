@@ -51,10 +51,10 @@ class setViewed extends \engine
             // Update only if already set
             if (isset($votes[$key])) {
                 $votes[$key] = $votes[$key] + 1;
-            }
 
-            // Set votes to redis
-            $redis->set(parent::$redis_prefix . $id , array_map('intval', $votes));
+                // Set votes to redis
+                $redis->set(parent::$redis_prefix . $id , array_map('intval', $votes));
+            }
         }
     }
 

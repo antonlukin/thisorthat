@@ -22,7 +22,7 @@ class addFavorite extends \engine
         $database = parent::get_database();
 
         // The query to insert favorite record
-        $query = "INSERT IGNORE INTO favorite (`user_id`, `item_id`) VALUES (:user_id, :item_id)";
+        $query = "INSERT IGNORE INTO favorite (user_id, item_id) VALUES (:user_id, :item_id)";
 
         $insert = $database->prepare($query);
         $insert->execute(compact('user_id', 'item_id'));

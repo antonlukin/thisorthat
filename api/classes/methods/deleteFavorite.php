@@ -21,11 +21,11 @@ class deleteFavorite extends \engine
     private static function delete_favorite($user_id, $item_id) {
         $database = parent::get_database();
 
-        // The query to insert favorite record
+        // The query to delete favorite record
         $query = "DELETE IGNORE FROM favorite WHERE user_id = :user_id AND item_id = :item_id";
 
-        $insert = $database->prepare($query);
-        $insert->execute(compact('user_id', 'item_id'));
+        $delete = $database->prepare($query);
+        $delete->execute(compact('user_id', 'item_id'));
     }
 
 

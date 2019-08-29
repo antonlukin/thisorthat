@@ -7,6 +7,9 @@
  * @since       2.0
  */
 
+file_put_contents('/tmp//thisorthat-request.log', 'get' . json_encode($_GET) . "\n", FILE_APPEND);
+file_put_contents('/tmp//thisorthat-request.log', 'post' . json_encode($_POST) . "\n", FILE_APPEND);
+
 
 /**
  * Register composer auto loader

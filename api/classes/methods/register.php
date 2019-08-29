@@ -47,7 +47,7 @@ class register extends \engine
         $section = intval($section) + 1;
 
         // The query to insert user object
-        $query = "INSERT INTO users (`secret`, `uniqid`, `client`, `section`)
+        $query = "INSERT INTO users (secret, uniqid, client, section)
             VALUES (:secret, :uniqid, :client, :section)";
 
         $insert = $database->prepare($query);

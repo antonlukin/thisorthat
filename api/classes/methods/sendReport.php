@@ -22,7 +22,7 @@ class sendReport extends \engine
         $database = parent::get_database();
 
         // The query to insert favorite record
-        $query = "INSERT IGNORE INTO reports (`user_id`, `item_id`, `reason`)
+        $query = "INSERT IGNORE INTO reports (user_id, item_id, reason)
             VALUES (:user_id, :item_id, :reason)";
 
         $insert = $database->prepare($query);

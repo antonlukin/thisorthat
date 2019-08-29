@@ -30,23 +30,6 @@ class addItem extends \engine
 
 
     /**
-     * Sanitize item text replacing extra chars and spaces
-     */
-    private static function sanitize_text($question)
-    {
-        foreach ($question as &$text) {
-            // Remove double chars
-            $text = preg_replace('#([?!.:,:]])\1+#', '$1', $text);
-
-            // Remove extra spaces
-            $text = trim(preg_replace('#\s{2,}#', '', $text));
-        }
-
-        return $question;
-    }
-
-
-    /**
      * Find clone questions
      */
     private static function search_clone($question)
@@ -83,7 +66,7 @@ class addItem extends \engine
         $section = intval($section) + 1;
 
         // The query to insert item object
-        $query = "INSERT INTO items (`user_id`, `first_text`, `last_text`, `section`)
+        $query = "INSERT INTO items (user_id, first_text, last_text, section)
             VALUES (:user_id, :first_text, :last_text, :section)";
 
         $insert = $database->prepare($query);
@@ -94,12 +77,14 @@ class addItem extends \engine
 
 
     /**
-     * Add item using first and last texts
+     * Prepare item before inserting to database
      */
     private static function prepare_item($user_id, $question)
     {
         // Santinze question texts
-        $question = self::sanitize_text($question);
+        foreach ($question as &$text) {
+            $text = parent::sanitize_text($text);
+        }
 
         // Check bad words
         $badwords = parent::has_badwords(join(' ', $question));

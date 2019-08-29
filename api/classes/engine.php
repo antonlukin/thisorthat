@@ -198,6 +198,21 @@ class engine
 
 
     /**
+     * Sanitize text replacing extra chars and spaces
+     */
+    protected static function sanitize_text($text)
+    {
+        // Remove double chars
+        $text = preg_replace('#([?!.:,:])\1+#', '$1', $text);
+
+        // Remove extra spaces
+        $text = trim(preg_replace('#\s{2,}#', '', $text));
+
+        return $text;
+    }
+
+
+    /**
      * Show json error with custom http code
      */
     protected static function show_error($description, $code = 500, $parameters = null)

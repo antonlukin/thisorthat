@@ -99,7 +99,7 @@ Flight::route('GET|POST /sendReport', [
 
 
 /**
- *
+ * Get comments by item
  */
 Flight::route('GET|POST /getComments', [
     'methods\getComments', 'run_task'
@@ -107,7 +107,7 @@ Flight::route('GET|POST /getComments', [
 
 
 /**
- *
+ * Add comment to item
  */
 Flight::route('GET|POST /addComment', [
     'methods\addComment', 'run_task'
