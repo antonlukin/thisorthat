@@ -233,10 +233,6 @@ class engine
      */
     protected static function show_success($result, $code = 200)
     {
-        // TODO: remove
-        $data = Flight::request()->url . " - " . round(microtime(true) - Flight::get('config.time'), 5) . "s";
-        file_put_contents('/tmp/thisorthat-speed.txt', $data . "\n", FILE_APPEND);
-
         $message =['ok' => true, 'result' => $result];
 
         Flight::json($message, $code);

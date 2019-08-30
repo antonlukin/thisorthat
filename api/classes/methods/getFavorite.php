@@ -75,7 +75,7 @@ class getFavorite extends \engine
         $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status
             FROM favorite
             LEFT JOIN items ON items.id = favorite.item_id
-            WHERE items.user_id = :user_id
+            WHERE favorite.user_id = :user_id
             LIMIT :limit OFFSET :offset";
 
         $select = $database->prepare($query);
@@ -106,7 +106,7 @@ class getFavorite extends \engine
         $query = "SELECT COUNT(*)
             FROM favorite
             LEFT JOIN items ON items.id = favorite.item_id
-            WHERE items.user_id = :user_id";
+            WHERE favorite.user_id = :user_id";
 
         $select = $database->prepare($query);
         $select->execute(compact('user_id'));
