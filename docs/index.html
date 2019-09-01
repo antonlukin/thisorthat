@@ -223,12 +223,14 @@
                 &quot;last_vote&quot;: 4712
             }
         ],
-        &quot;total&quot;: 247
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 10,
+            &quot;total&quot;: 247
+        }
     }
 }</code></pre>
-<p>Ответ сервера содержит список объектов <code>items</code>.  
-Поле <code>total</code> типа <code>Integer</code> содержит общее количество вопросов в выборке. Например, чтобы получить все 247 вопросов пользователя, 
-нужно сделать три запроса по 100 вопросов со смещением 0, 100 и 200 соответственно.</p>
+<p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
 <h4 id="описание-полей-вопроса-1">Описание полей вопроса</h4>
 <table>
 <thead>
@@ -277,6 +279,32 @@
 <blockquote>
 <p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong>.</p>
 </blockquote>
+<h4 id="описание-полей-пагинации">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество вопросов в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого вопроса.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество вопросов пользователя.</td>
+</tr>
+</tbody></table>
+<p>Чтобы получить все 247 вопросов пользователя, нужно сделать три запроса по 100 вопросов со смещением 0, 100 и 200 соответственно.</p>
 <h2 id="additem">/addItem</h2>
 <p>Добавление нового вопроса от пользователя.</p>
 <h4 id="запрос-2">Запрос</h4>
@@ -422,11 +450,14 @@
                 &quot;last_vote&quot;: 4712
             }
         ],
-        &quot;total&quot;: 2
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 0,
+            &quot;total&quot;: 2
+        }
     }
 }</code></pre>
-<p>Ответ сервера содержит список объектов <code>items</code>.  
-Поле <code>total</code> типа <code>Integer</code> содержит общее количество вопросов в выборке. </p>
+<p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
 <h4 id="описание-полей-вопроса-2">Описание полей вопроса</h4>
 <table>
 <thead>
@@ -465,6 +496,31 @@
 <td>last_vote</td>
 <td>Integer</td>
 <td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<h4 id="описание-полей-пагинации-1">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество вопросов в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого вопроса.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество вопросов пользователя.</td>
 </tr>
 </tbody></table>
 <h2 id="addfavorite">/addFavorite</h2>
@@ -630,11 +686,14 @@
                 &quot;text&quot;: &quot;Полная ерунда&quot;
             }
         ],
-        &quot;total&quot;: 18
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 0,
+            &quot;total&quot;: 18
+        }
     }
 }</code></pre>
-<p>Ответ сервера содержит список объектов <code>comments</code>.  
-Поле <code>total</code> типа <code>Integer</code> отображает общее количество вопросов в выборке. </p>
+<p>Ответ сервера содержит список объектов <code>comments</code> и список настроек пагинации <code>pages</code>. </p>
 <h4 id="описание-полей-вопроса-3">Описание полей вопроса</h4>
 <table>
 <thead>
@@ -663,6 +722,31 @@
 <td>parent</td>
 <td>String</td>
 <td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em></td>
+</tr>
+</tbody></table>
+<h4 id="описание-полей-пагинации-2">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество комментариев в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого комментария.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество комментариев вопроса.</td>
 </tr>
 </tbody></table>
 <h2 id="addcomment">/addComment</h2>

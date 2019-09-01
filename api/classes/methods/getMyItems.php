@@ -109,6 +109,27 @@ class getMyItems extends \engine
 
 
     /**
+     * Get pages options
+     */
+    private static function get_pages($items, $user_id, $offset)
+    {
+        // Calc items count
+        $count = count($items);
+
+        // Get total count
+        $total = self::calc_count($user_id);
+
+        if ($total === false) {
+            $total = 0;
+        }
+
+        $pages = compact('count', 'offset', 'total');
+
+        return array_map('intval', $pages);
+    }
+
+
+    /**
      * Model entry point
      */
     public static function run_task()
@@ -132,16 +153,10 @@ class getMyItems extends \engine
         // Get items votes
         $items = self::get_votes($items);
 
-        // Get total count
-        $total = self::calc_count($user_id);
+        // Get pages options
+        $pages = self::get_pages($items, $user_id, $offset);
 
-        if ($total === false) {
-            $total = 0;
-        }
-
-        $total = intval($total);
-
-        parent::show_success(compact('items', 'total'));
+        parent::show_success(compact('items', 'pages'));
     }
 }
 

@@ -51,6 +51,27 @@ class getComments extends \engine
 
 
     /**
+     * Get pages options
+     */
+    private static function get_pages($comments, $user_id, $offset)
+    {
+        // Calc items count
+        $count = count($comments);
+
+        // Get total count
+        $total = self::calc_count($user_id);
+
+        if ($total === false) {
+            $total = 0;
+        }
+
+        $pages = compact('count', 'offset', 'total');
+
+        return array_map('intval', $pages);
+    }
+
+
+    /**
      * Model entry point
      */
     public static function run_task()
@@ -79,16 +100,10 @@ class getComments extends \engine
         // Get comments
         $comments = self::get_comments($item_id, $limit, $offset);
 
-        // Get total comments count
-        $total = self::calc_count($item_id);
+        // Get pages options
+        $pages = self::get_pages($comments, $user_id, $offset);
 
-        if ($total === false) {
-            $total = 0;
-        }
-
-        $total = intval($total);
-
-        parent::show_success(compact('comments', 'total'));
+        parent::show_success(compact('comments', 'pages'));
     }
 }
 
