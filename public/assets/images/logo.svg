@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="50px" viewBox="0 0 30 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Artboard-2" sketch:type="MSArtboardGroup" transform="translate(-595.000000, -85.000000)">
+            <g id="logo" sketch:type="MSLayerGroup" transform="translate(595.000000, 85.000000)">
+                <g id="Fill-26-+-Fill-27-+-Fill-29" transform="translate(8.741690, 31.852679) rotate(-90.000000) translate(-8.741690, -31.852679) translate(-8.923236, 23.118912)" sketch:type="MSShapeGroup">
+                    <path d="M28.2379582,0.109631749 L14.1812652,0.109631749 L28.2379582,17.4590284 L35.26424,8.78593895 L28.2379582,0.109631749" id="Fill-26" fill="#8B5EA7"></path>
+                    <path d="M14.1812652,0.109631749 L0.125260386,17.4590284 L14.1812652,17.4590284 L21.2112176,8.78593895 L14.1812652,0.109631749" id="Fill-27" fill="#6B4981"></path>
+                </g>
+                <g id="Group" transform="translate(21.161513, 17.859172) rotate(-90.000000) translate(-21.161513, -17.859172) translate(3.832460, 9.125406)" sketch:type="MSShapeGroup">
+                    <path d="M6.98833453,0.162198515 L0.0920465292,8.72287734 L6.98833453,17.2862784 L20.774159,17.2862784 L6.98833453,0.162198515" id="Fill-23" fill="#BE5831"></path>
+                    <path d="M20.774159,0.162198515 L6.9856339,17.2862784 L20.774159,17.2862784 L34.562459,0.162198515 L20.774159,0.162198515" id="Fill-24" fill="#F07040"></path>
+                    <path d="M6.9856339,17.2862784 L6.98675916,17.2842367 L6.98698422,17.2846904 L6.9856339,17.2862784 M13.8805716,8.72333104 L12.8750364,7.4745159 L13.8810217,8.72287734 L13.8805716,8.72333104" id="Fill-30" fill="#9E9F9E"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,8 +1,9 @@
-var gulp = require('gulp');
-var template = require('gulp-md-template');
+const gulp = require('gulp');
+const connect = require('gulp-connect');
+const template = require('gulp-md-template');
 
 
-gulp.task('markdown', function (done) {
+gulp.task('markdown', (done) => {
   gulp.src('./docs/views/index.html')
     .pipe(template('./docs/files'))
     .pipe(gulp.dest('./docs'));
@@ -11,8 +12,13 @@ gulp.task('markdown', function (done) {
 });
 
 
-gulp.task('default', function(done) {
-  console.log('no default task');
+gulp.task('connect', (done) => {
+  connect.server({
+    root: './public'
+  });
 
   done();
-});
+})
+
+gulp.task('default', gulp.parallel('connect'));
+
