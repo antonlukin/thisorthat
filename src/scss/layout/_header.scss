@@ -1,0 +1,60 @@
+.header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+
+  position: relative;
+
+  width: 100%;
+  height: auto;
+
+  margin: 2rem 0;
+
+  & > * {
+    @media screen and (max-width: 1210px) {
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+  }
+
+  .header__inner {
+    display: flex;
+    flex-flow: row nowrap;
+    position: relative;
+
+    align-items: center;
+
+    .header__inner-logo {
+      margin-right: 2rem;
+
+      .header__inner-logo-link {
+        & > img {
+          display: block;
+          position: relative;
+
+          width: 2rem;
+          height: auto;
+        }
+      }
+    }
+
+    .header__inner-menu {
+      @media screen and (max-width: 410px){
+        width: 95%;
+      }
+    }
+  }
+
+  .header__button {
+    display: flex;
+    position: relative;
+
+    align-content: center;
+
+    .header__button-link {
+      @include button();
+
+    }
+  }
+}

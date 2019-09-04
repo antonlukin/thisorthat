@@ -1,0 +1,33 @@
+.head {
+  display: block;
+  position: relative;
+
+  width: 60%;
+
+  margin: 0 auto;
+  padding-bottom: 4rem;
+
+  @media screen and (max-width: 1023px){
+    width: 80%;
+  }
+  @media screen and (max-width: 767px){
+    width: 100%;
+  }
+
+  .head__title {
+    @extend %head-title;
+    margin-bottom: 2rem;
+    text-align: center;
+
+    @media screen and (max-width: 767px){
+      margin-bottom: 1rem;
+    }
+  }
+
+  .head__lead {
+    @extend %lead;
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+  }
+}

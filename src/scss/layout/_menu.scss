@@ -1,0 +1,11 @@
+.menu {
+  display: flex;
+  flex-flow: row wrap;
+
+  .menu__item {
+    margin-right: 2rem;
+    margin-bottom: 0.75rem;
+
+    @extend %menu;
+  }
+}

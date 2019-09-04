@@ -1,0 +1,57 @@
+.cover {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  margin-bottom: 1rem;
+
+  @media screen and (max-width: 767px){
+    flex-flow: row wrap;
+  }
+
+  .cover__text {
+    display: flex;
+    flex-flow: column;
+
+    @media screen and (max-width: 767px){
+      width: 100%;
+    }
+
+    .cover__text-title {
+      margin: 1rem 0;
+
+      @extend %headline;
+    }
+
+    .cover__text-lead {
+      width: 70%;
+
+      @extend %main-lead;
+
+      @media screen and (max-width: 410px){
+        width: 90%;
+      }
+    }
+  }
+
+  .cover__image {
+    display: block;
+    width: 40%;
+
+    z-index: -10;
+    margin-top: -6rem;
+
+    @media screen and (max-width: 767px){
+      width: 100%;
+      margin-top: -10rem;
+    }
+
+    & > svg {
+      object-fit: contain;
+
+      @media screen and (max-width: 767px){
+        width: 100%;
+      }
+    }
+  }
+}

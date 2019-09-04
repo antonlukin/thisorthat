@@ -1,0 +1,77 @@
+.card {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
+  .card__tile {
+    display: block;
+    position: relative;
+
+    width: calc(100% / 3 - 1.5rem);
+    height: 18rem;
+
+    background-color: $color-white;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    padding: 3rem 2rem 1rem;
+
+    margin-bottom: 2rem;
+
+    &:hover {
+      transform: scale(1.02);
+      transition: all 0.25s;
+    }
+
+    @media screen and (max-width: 960px){
+      width: calc(100% / 2 - 1rem);
+      height: 15rem;
+    }
+
+    @media screen and (max-width: 767px){
+      width: 100%;
+
+      margin-bottom: 1rem;
+    }
+
+    .card__tile-title {
+      margin-bottom: 1rem;
+
+      @extend %h3;
+    }
+
+    .card__tile-text {
+      @extend %tile-text;
+
+    }
+    .card__tile-icon {
+      position: absolute;
+      right: 1rem;
+      bottom: 1rem;
+
+
+      width: 4rem;
+      height: 4rem;
+      object-fit: contain;
+
+      margin-top: 0.5rem;
+    }
+
+    .card__tile-cover {
+      display: block;
+      position: relative;
+
+      height: 100%;
+
+      margin: 0 auto;
+    }
+
+    .card__tile-link {
+      border-bottom: 2px dashed #26b1ff;
+    }
+  }
+}
+
+.tile--cover {
+  padding: 1.5rem!important;
+}

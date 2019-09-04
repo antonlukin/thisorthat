@@ -1,0 +1,62 @@
+.banner {
+  display: flex;
+  position: relative;
+  flex-flow: row nowrap;
+
+  background-color: #00ACDC;
+  border-radius: 10px;
+
+  width: 100%;
+
+  padding: 1rem 2rem;
+
+  & > * {
+    margin-right: 3rem;
+  }
+
+  .banner__image{
+    display: block;
+
+    & > img {
+      height: 12.5rem;
+    }
+  }
+
+  .banner__text {
+    display: block;
+
+    width: calc(100% / 3);
+    margin-top: 1rem;
+
+    .banner__text-title {
+      @extend %banner-title;
+
+      margin: 0.5rem 0;
+      margin-right: 3rem;
+    }
+
+    .banner__text-description {
+      @extend %lead;
+    }
+  }
+
+  .banner__button {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    align-content: flex-end;
+
+    width: calc(100% / 3 - 2rem);
+
+    .banner__button-badge {
+      height: 50px;
+      align-self: flex-end;
+
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+
+    }
+  }
+
+}

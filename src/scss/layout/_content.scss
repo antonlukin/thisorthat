@@ -1,0 +1,17 @@
+.content {
+  display: block;
+  position: relative;
+
+  & > * {
+    margin-bottom: 7rem;
+
+    @media screen and (max-width: 1210px){
+      margin-right: 1rem;
+      margin-left: 1rem;
+    }
+
+    @media screen and (max-width: 767px){
+      margin-bottom: 4rem;
+    }
+  }
+}
