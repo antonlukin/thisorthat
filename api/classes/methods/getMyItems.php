@@ -24,8 +24,8 @@ class getMyItems extends \engine
 
         // The query to get only certain user non-answered items from given section
         $query = "SELECT
-            IFNULL(SUM(vote = 'left'), 0) first_vote,
-            IFNULL(SUM(vote = 'right'), 0) last_vote
+            IFNULL(SUM(vote = 'first'), 0) first_vote,
+            IFNULL(SUM(vote = 'last'), 0) last_vote
             FROM views WHERE item_id = :item_id GROUP BY item_id";
 
         $select = $database->prepare($query);
