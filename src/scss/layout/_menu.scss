@@ -2,6 +2,10 @@
   display: flex;
   flex-flow: row wrap;
 
+  @media screen and (max-width: 410px){
+    width: 95%;
+  }
+
   .menu__item {
     margin-right: 2rem;
     margin-bottom: 0.75rem;

@@ -28,20 +28,12 @@
     .header__inner-logo {
       margin-right: 2rem;
 
-      .header__inner-logo-link {
-        & > img {
-          display: block;
-          position: relative;
+      & > img {
+        display: block;
+        position: relative;
 
-          width: 2rem;
-          height: auto;
-        }
-      }
-    }
-
-    .header__inner-menu {
-      @media screen and (max-width: 410px){
-        width: 95%;
+        width: 2rem;
+        height: auto;
       }
     }
   }
@@ -52,9 +44,6 @@
 
     align-content: center;
 
-    .header__button-link {
-      @include button();
-
-    }
+    @include button();
   }
 }
