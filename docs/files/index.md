@@ -113,6 +113,7 @@ curl --include --request GET 'https://api.thisorthat.ru/getItems?token=1:0994f52
                 "first_vote": 7630,
                 "last_vote": 7751
             }
+        ]
     }
 }
 ```
