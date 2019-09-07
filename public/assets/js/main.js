@@ -167,7 +167,7 @@ var UI = {
 
 var Application = {
   init: function () {
-    var user = localStorage.getItem("user");
+    var user = localStorage.getItem("token");
 
     var loader = function () {
       return Application.get_item();
@@ -250,7 +250,7 @@ var Application = {
   },
 
   get_user: function () {
-    var user = localStorage.getItem("user");
+    var user = localStorage.getItem("token");
 
     if (user === null) {
       return UI.error('local storage is empty', 500);
@@ -281,7 +281,7 @@ var Application = {
 
     API.query("/register", 'POST', data, function (response) {
       if (response.ok) {
-        localStorage.setItem("user", response.result.token);
+        localStorage.setItem("token", response.result.token);
       }
 
       if (typeof callback === 'function')
