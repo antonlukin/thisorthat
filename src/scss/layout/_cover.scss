@@ -12,6 +12,7 @@
   .cover__text {
     display: flex;
     flex-flow: column;
+    width: 70%;
 
     @media screen and (max-width: 767px){
       width: 100%;
@@ -36,7 +37,8 @@
 
   .cover__image {
     display: block;
-    width: 40%;
+    position: relative;
+    width: 60%;
 
     z-index: -10;
     margin-top: -6rem;
@@ -46,12 +48,20 @@
       margin-top: -10rem;
     }
 
-    & > svg {
-      object-fit: contain;
+    .cover__image-svg {
+      display: block;
+      position: relative;
+    }
 
-      @media screen and (max-width: 767px){
-        width: 100%;
-      }
+    .cover__image-img {
+      display: block;
+      position: absolute;
+      width: 80%;
+
+      bottom: 1rem;
+      right: 0;
+
+      z-index: 100;
     }
   }
 }
