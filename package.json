@@ -9,5 +9,9 @@
     "gulp": "^4.0.2",
     "gulp-connect": "^5.7.0",
     "gulp-md-template": "^1.1.4"
+  },
+  "dependencies": {
+    "adorable-avatars": "^0.4.1",
+    "express": "^4.17.1"
   }
 }
