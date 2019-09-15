@@ -40,6 +40,12 @@ class engine
 
 
     /**
+     * Add user avatars endpoint
+     */
+    protected static $avatars = 'https://user.thisorthat.ru/200/';
+
+
+    /**
      * Load config form .env file
      */
     protected static function load_config()

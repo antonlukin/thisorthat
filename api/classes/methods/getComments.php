@@ -72,6 +72,19 @@ class getComments extends \engine
 
 
     /**
+     * Add user avatars to comments
+     */
+    private static function add_avatar($comments)
+    {
+        foreach ($comments as &$comment) {
+            $comment['avatar'] = parent::$avatars . $comment['user_id'];
+        }
+
+        return $comments;
+    }
+
+
+    /**
      * Model entry point
      */
     public static function run_task()
@@ -99,6 +112,9 @@ class getComments extends \engine
 
         // Get comments
         $comments = self::get_comments($item_id, $limit, $offset);
+
+        // Add avatar to comments
+        $comments = self::add_avatar($comments);
 
         // Get pages options
         $pages = self::get_pages($comments, $user_id, $offset);

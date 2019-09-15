@@ -542,15 +542,17 @@ curl --include --request GET 'https://api.thisorthat.ru/getComments?token=1:0994
         "comments": [
             {
                 "comment_id": "17",
-                "user_id": "100",
+                "user_id": "425",
                 "parent": "0",
-                "text": "Отличный вопрос!"
+                "text": "Отличный вопрос!",
+                "avatar": "https://user.thisorthat.ru/200/425"
             },
             {
                 "comment_id": "18",
-                "user_id": "200",
+                "user_id": "221",
                 "parent": "0",
-                "text": "Полная ерунда"
+                "text": "Полная ерунда",
+                "avatar": "https://user.thisorthat.ru/200/221"
             }
         ],
         "pages": {
@@ -572,6 +574,8 @@ curl --include --request GET 'https://api.thisorthat.ru/getComments?token=1:0994
 | user_id    | String  | Идентификатор пользователя, который добавил комментарий. |
 | text       | String  | Текст комментария длинной 1-300 символов. |
 | parent     | String  | Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно _0_ |
+| avatar     | String  | Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером _200x200_ |
+
 
 #### Описание полей пагинации
 
