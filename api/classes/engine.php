@@ -42,7 +42,7 @@ class engine
     /**
      * Add user avatars endpoint
      */
-    protected static $avatars = 'https://user.thisorthat.ru/200/';
+    protected static $avatars = 'https://user.thisorthat.ru/100/';
 
 
     /**
