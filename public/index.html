@@ -114,7 +114,6 @@
         </div>
 
         <div class="playlist">
-
             <div class="head">
                 <h3 class="head__title">Посмотрите, как играют остальные</h3>
                 <p class="head__lead">
@@ -125,8 +124,41 @@
             <div class="video">
                 <iframe class="video__youtube" src="https://www.youtube.com/embed/videoseries?list=PLu_Wkh4CKQVzI4ZWa4XeIV5YxBpaJiBrj" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-
         </div>
+
+        <div class="sharing">
+
+            <form class="sharing__form" id="sharing__form" action="#send">
+                <h4 class="sharing__form-title">Присылайте ссылки на классные ролики</h4>
+                <p class="sharing__form-lead">Если вы или ваш любимый блогер записываете видео c игрой в «То или это» — присылайте.
+                    Лучшие мы добавим в наш плейлист, чтобы их увидели все-все-все!</p>
+
+                <div class="sharing__form-content">
+
+                    <div class="sharing__form-fields">
+                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Отправить ссылку на видео" required>
+                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Ваше имя" required>
+                        <input class="sharing__form-fields-input" type="email" name="email" placeholder="Ваш email" required>
+                    </div>
+
+                    <button class="sharing__form-submit" type="submit" data-toggle="Подождите…">Отправить</button>
+
+                </div>
+            </form>
+
+            <div class="cover__image">
+                <svg class=cover__image-svg svg-elem" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>
+                </svg>
+                <img class="cover__image-img" src="/assets/images/data.png" alt="cloud"/>
+            </div>
+
+            <!--<figure class="sharing__image">-->
+                <!--<path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>-->
+                <!--<img src="/assets/images/data.png" alt="cloud" />-->
+            <!--</figure>-->
+        </div>
+
     </div>
 
 </body>

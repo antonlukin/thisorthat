@@ -64,6 +64,11 @@
 
     .card__tile-link {
       border-bottom: 2px dashed #26b1ff;
+
+      &:hover {
+        transform: scale(1.05);
+        transition: all 0.25s;
+      }
     }
   }
 }

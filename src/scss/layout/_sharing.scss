@@ -1,0 +1,27 @@
+.sharing {
+  display: flex;
+  position: relative;
+  flex-flow: row nowrap;
+
+  justify-content: space-between;
+}
+
+.sharing__form {
+
+  width: 50%;
+
+  .sharing__form-title {
+    @extend %h4;
+    margin-bottom: 2rem;
+  }
+
+  .sharing__form-lead {
+    @extend %lead;
+    margin-bottom: 3.75rem;
+  }
+}
+
+.sharing__image {
+  display: block;
+  width: 40%;
+}

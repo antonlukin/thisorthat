@@ -43,13 +43,14 @@
   .banner__button {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
 
     align-content: flex-end;
 
     width: calc(100% / 3 - 2rem);
 
     .banner__button-badge {
+      display: block;
+
       height: 50px;
       align-self: flex-end;
 
