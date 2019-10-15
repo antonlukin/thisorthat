@@ -1,7 +1,9 @@
 .card {
   display: flex;
+  position: relative;
   flex-flow: row wrap;
   justify-content: space-between;
+
 
   .card__tile {
     display: block;

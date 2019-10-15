@@ -2,14 +2,36 @@
   display: flex;
   flex-flow: row wrap;
 
-  @media screen and (max-width: 410px){
+  @media screen and (max-width: 767px) {
+    margin-bottom: 1rem;
+  }
+
+  @media screen and (max-width: 410px) {
     width: 95%;
   }
 
   .menu__item {
+    position: relative;
+    z-index: 1;
     margin-right: 2rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.25rem;
+    overflow: hidden;
 
     @extend %menu;
+  }
+
+  .menu__item:hover::before {
+    width: 100%;
+  }
+
+  .menu__item::before {
+    transition-timing-function: linear;
+    transition-duration: 0.3s;
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 100%;
+    z-index: -1;
+    background-color: #CDEDFF;
   }
 }

@@ -7,7 +7,11 @@
 
     <link rel="stylesheet" href="/assets/styles.min.css" type="text/css" media="all">
 
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext"
+          rel="stylesheet">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <!-- Сделать фавиконку-->
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <title>То или Это</title>
@@ -15,151 +19,166 @@
 
 <body>
 
-    <header class="header">
-        <div class="header__inner">
-            <a class="header__inner-logo" href="#">
-                <img src="/assets/images/logo.svg" alt="logo"/>
+<header class="header">
+    <div class="header__inner">
+        <!-- Добавить логотип -->
+
+        <nav class="menu">
+            <a class="menu__item" target="_blank" href="#">
+                Приложение для iOS
+                <i class="icon ion-logo-apple" style="font-size: 1.5rem; margin-left: 0.5rem"></i>
             </a>
+            <a class="menu__item" target="_blank" href="#">
+                Приложение для Android
+                <i class="icon ion-logo-android" style="font-size: 1.5rem; margin-left: 0.5rem"></i>
+            </a>
+        </nav>
+    </div>
+    <button class="header__button">Начать игру</button>
+</header>
 
-            <nav class="menu">
-                <a class="menu__item" target="_blank" href="#">Приложение для iOS</a>
-                <a class="menu__item" target="_blank" href="#">Приложение для Android</a>
-            </nav>
-        </div>
-        <button class="header__button">Начать игру</button>
-    </header>
 
-    <div class="content">
-        <div class="hero">
-            <div class="cover">
-                <div class="cover__text">
-                    <h2 class="cover__text-title">
-                        <span class="pink">Т</span><span class="blue">о</span>
-                        <span class="yellow">и</span><span class="pink">л</span><span class="blue">и</span>
-                        <span class="pink">э</span><span class="yellow">т</span><span class="blue">о</span>
-                    </h2>
-                    <p class="cover__text-lead">Игра о&nbsp;предпочтениях, где пользователи придумывают вопросы и&nbsp;делают непростой выбор</p>
-                </div>
+<div class="content">
+    <div class="hero">
 
-                <div class="cover__image">
-                    <svg class=cover__image-svg svg-elem" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path class="svg-elem-1" fill-rule="evenodd" clip-rule="evenodd" d="M217.572 44.0045C247.903 43.5518 268.363 77.2814 294.705 93.3939C319.256 108.411 346.675 116.704 368.308 136.202C392.5 158.007 428.726 179.667 427.989 213.526C427.177 250.857 369.713 263.996 364.723 300.953C359.054 342.943 417.768 382.904 400.001 420.822C384.204 454.536 331.676 433.024 297.877 443.611C269.861 452.386 246.742 479.123 217.572 477.963C188.471 476.806 168.008 446.201 140.088 437.336C105.945 426.496 63.6261 444.07 35.8072 420.255C8.98695 397.295 -3.13936 354.551 0.692177 318.003C4.55914 281.116 39.5443 258.059 56.2217 225.523C68.3169 201.927 71.188 174.288 85.6444 152.269C100.569 129.536 120.872 112.582 141.467 95.6808C165.613 75.8659 187.159 44.4584 217.572 44.0045Z" fill="#BEC9FF"/>
-                        <path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>
-                    </svg>
-                    <img class="cover__image-img" src="/assets/images/robot.png" alt="robot"/>
-                </div>
+        <div class="cover">
+            <div class="cover__text">
+                <h2 class="cover__text-title">
+                    <span class="pink">Т</span><span class="blue">о</span>
+                    <span class="yellow">и</span><span class="pink">л</span><span class="blue">и</span>
+                    <span class="pink">э</span><span class="yellow">т</span><span class="blue">о</span>
+                </h2>
+                <p class="cover__text-lead">Игра о&nbsp;предпочтениях, где пользователи придумывают вопросы и&nbsp;делают
+                    непростой выбор</p>
             </div>
-
-            <div class="card">
-                <div class="card__tile">
-                    <h3 class="card__tile-title">Выбирайте</h3>
-                    <p class="card__tile-text">Суть игры — решить, какой из двух вариантов подходит именно тебе, и проголосовать за него</p>
-                    <img class="card__tile-icon" src="/assets/images/icons/icons8-puzzle-100.png" alt="puzzle"/>
-                </div>
-
-                <div class="card__tile tile--cover">
-                    <img class="card__tile-cover" src="/assets/images/hand.png" alt="puzzle"/>
-                </div>
-
-                <div class="card__tile">
-                    <h3 class="card__tile-title">Добавляйте свои вопросы</h3>
-                    <p class="card__tile-text">Ведь интересно, за что проголосует большинство?</p>
-                    <img class="card__tile-icon" src="/assets/images/icons/icons8-ask-question-100.png" alt="puzzle"/>
-                </div>
-
-                <div class="card__tile">
-                    <h3 class="card__tile-title">Играйте вместе с друзьями</h3>
-                    <p class="card__tile-text">Так ещё веселее! И это поможет вам лучше узнать друг друга</p>
-                    <img class="card__tile-icon" src="/assets/images/icons/icons8-trust-100.png" alt="puzzle"/>
-                </div>
-
-                <div class="card__tile">
-                    <h3 class="card__tile-title">Подписывайтесь в социалках</h3>
-                    <p class="card__tile-text">Мы публикуем в <a class="card__tile-link" href="#" target="_blank">Инстаграме</a> и <a class="card__tile-link" href="#" target="_blank">Вконтакте</a> самые оригинальные и смешные вопросы из игры</p>
-                    <img class="card__tile-icon" src="/assets/images/icons/icons8-comments-100.png" alt="puzzle"/>
-                </div>
-
-                <div class="card__tile tile--cover">
-                    <img class="card__tile-cover" src="/assets/images/brain.png" alt="puzzle"/>
-                </div>
-
-            </div>
-        </div>
-
-
-        <div class="about">
-            <div class="head">
-                <h3 class="head__title">100 000<span class="pink">+</span> уникальных вопросов в игре</h3>
-                <p class="head__lead">
-                    И на них ответили уже 133 404 945 раз!
-                    Хотели бы получить в подарок плюшевого медведя или коробку конфет?
-                    Иметь бесконечно много денег или бесконечно долгую жизнь? Фастфуд или бабушкин кисель?
-                    Что&nbsp;выберете?</p>
-            </div>
-
-            <div class="banner">
-                <figure class="banner__image">
-                    <img src="/assets/images/welcome.png" alt="join us"/>
-                </figure>
-                <div class="banner__text">
-                    <h4 class="banner__text-title">Присоединяйтесь!</h4>
-                    <p class="banner__text-description">Уже 700 000+ игроков установили приложение «То или это» в&nbsp;App Store
-                        и&nbsp;Google Play</p>
-                </div>
-                <div class="banner__button">
-                    <img class="banner__button-badge" src="/assets/images/icons/googleplay.png" alt="google-play"/>
-                    <img class="banner__button-badge" src="/assets/images/icons/appstore.png" alt="app-store"/>
-                </div>
-            </div>
-        </div>
-
-        <div class="playlist">
-            <div class="head">
-                <h3 class="head__title">Посмотрите, как играют остальные</h3>
-                <p class="head__lead">
-                    В «То или это» интересно не только играть самому:
-                    в этой подборке видео с Youtube вы можете увидеть, как другие делают выбор и отвечают на каверзные вопросы. </p>
-            </div>
-
-            <div class="video">
-                <iframe class="video__youtube" src="https://www.youtube.com/embed/videoseries?list=PLu_Wkh4CKQVzI4ZWa4XeIV5YxBpaJiBrj" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="sharing">
-
-            <form class="sharing__form" id="sharing__form" action="#send">
-                <h4 class="sharing__form-title">Присылайте ссылки на классные ролики</h4>
-                <p class="sharing__form-lead">Если вы или ваш любимый блогер записываете видео c игрой в «То или это» — присылайте.
-                    Лучшие мы добавим в наш плейлист, чтобы их увидели все-все-все!</p>
-
-                <div class="sharing__form-content">
-
-                    <div class="sharing__form-fields">
-                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Отправить ссылку на видео" required>
-                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Ваше имя" required>
-                        <input class="sharing__form-fields-input" type="email" name="email" placeholder="Ваш email" required>
-                    </div>
-
-                    <button class="sharing__form-submit" type="submit" data-toggle="Подождите…">Отправить</button>
-
-                </div>
-            </form>
 
             <div class="cover__image">
-                <svg class=cover__image-svg svg-elem" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>
+                <img id="robot" class="cover__image-img" src="/assets/images/robot.png" alt="robot"/>
+
+                <svg id="blue-bubble" class="cover__image-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill-opacity="0.5">
+                    <path d="M217.572 44.0045C247.903 43.5518 268.363 77.2814 294.705 93.3939C319.256 108.411 346.675 116.704 368.308 136.202C392.5 158.007 428.726 179.667 427.989 213.526C427.177 250.857 369.713 263.996 364.723 300.953C359.054 342.943 417.768 382.904 400.001 420.822C384.204 454.536 331.676 433.024 297.877 443.611C269.861 452.386 246.742 479.123 217.572 477.963C188.471 476.806 168.008 446.201 140.088 437.336C105.945 426.496 63.6261 444.07 35.8072 420.255C8.98695 397.295 -3.13936 354.551 0.692177 318.003C4.55914 281.116 39.5443 258.059 56.2217 225.523C68.3169 201.927 71.188 174.288 85.6444 152.269C100.569 129.536 120.872 112.582 141.467 95.6808C165.613 75.8659 187.159 44.4584 217.572 44.0045Z"/>
                 </svg>
-                <img class="cover__image-img" src="/assets/images/data.png" alt="cloud"/>
+                <svg id="pink-bubble" class="cover__image-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill-opacity="0.5">
+                    <path d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z"/>
+                </svg>
             </div>
 
-            <!--<figure class="sharing__image">-->
-                <!--<path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>-->
-                <!--<img src="/assets/images/data.png" alt="cloud" />-->
-            <!--</figure>-->
         </div>
 
+        <div class="card">
+            <div class="card__tile">
+                <h3 class="card__tile-title">Выбирайте</h3>
+                <p class="card__tile-text">Суть игры — решить, какой из двух вариантов подходит именно тебе, и
+                    проголосовать за него</p>
+                <img class="card__tile-icon" src="/assets/images/icons/icons8-puzzle-100.png" alt="puzzle"/>
+            </div>
+
+            <div class="card__tile tile--cover">
+                <img class="card__tile-cover" src="/assets/images/hand.png" alt="puzzle"/>
+            </div>
+
+            <div class="card__tile">
+                <h3 class="card__tile-title">Добавляйте свои вопросы</h3>
+                <p class="card__tile-text">Ведь интересно, за что проголосует большинство?</p>
+                <img class="card__tile-icon" src="/assets/images/icons/icons8-ask-question-100.png" alt="puzzle"/>
+            </div>
+
+            <div class="card__tile">
+                <h3 class="card__tile-title">Играйте вместе с друзьями</h3>
+                <p class="card__tile-text">Так ещё веселее! И это поможет вам лучше узнать друг друга</p>
+                <img class="card__tile-icon" src="/assets/images/icons/icons8-trust-100.png" alt="puzzle"/>
+            </div>
+
+            <div class="card__tile">
+                <h3 class="card__tile-title">Подписывайтесь в социалках</h3>
+                <p class="card__tile-text">Мы публикуем в <a class="card__tile-link" href="#"
+                                                             target="_blank">Инстаграме</a> и <a class="card__tile-link"
+                                                                                                 href="#"
+                                                                                                 target="_blank">Вконтакте</a>
+                    самые оригинальные и смешные вопросы из игры</p>
+                <img class="card__tile-icon" src="/assets/images/icons/icons8-comments-100.png" alt="puzzle"/>
+            </div>
+
+            <div class="card__tile tile--cover">
+                <img class="card__tile-cover" src="/assets/images/brain.png" alt="puzzle"/>
+            </div>
+
+        </div>
     </div>
+</div>
+
+
+<!--        <div class="about">-->
+<!--            <div class="head">-->
+<!--                <h3 class="head__title">100 000<span class="pink">+</span> уникальных вопросов в игре</h3>-->
+<!--                <p class="head__lead">-->
+<!--                    И на них ответили уже 133 404 945 раз!-->
+<!--                    Хотели бы получить в подарок плюшевого медведя или коробку конфет?-->
+<!--                    Иметь бесконечно много денег или бесконечно долгую жизнь? Фастфуд или бабушкин кисель?-->
+<!--                    Что&nbsp;выберете?</p>-->
+<!--            </div>-->
+
+<!--            <div class="banner">-->
+<!--                <figure class="banner__image">-->
+<!--                    <img src="/assets/images/welcome.png" alt="join us"/>-->
+<!--                </figure>-->
+<!--                <div class="banner__text">-->
+<!--                    <h4 class="banner__text-title">Присоединяйтесь!</h4>-->
+<!--                    <p class="banner__text-description">Уже 700 000+ игроков установили приложение «То или это» в&nbsp;App Store-->
+<!--                        и&nbsp;Google Play</p>-->
+<!--                </div>-->
+<!--                <div class="banner__button">-->
+<!--                    <img class="banner__button-badge" src="/assets/images/icons/googleplay.png" alt="google-play"/>-->
+<!--                    <img class="banner__button-badge" src="/assets/images/icons/appstore.png" alt="app-store"/>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="playlist">-->
+<!--            <div class="head">-->
+<!--                <h3 class="head__title">Посмотрите, как играют остальные</h3>-->
+<!--                <p class="head__lead">-->
+<!--                    В «То или это» интересно не только играть самому:-->
+<!--                    в этой подборке видео с Youtube вы можете увидеть, как другие делают выбор и отвечают на каверзные вопросы. </p>-->
+<!--            </div>-->
+
+<!--            <div class="video">-->
+<!--                <iframe class="video__youtube" src="https://www.youtube.com/embed/videoseries?list=PLu_Wkh4CKQVzI4ZWa4XeIV5YxBpaJiBrj" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="sharing">-->
+
+<!--            <form class="sharing__form" id="sharing__form" action="#send">-->
+<!--                <h4 class="sharing__form-title">Присылайте ссылки на классные ролики</h4>-->
+<!--                <p class="sharing__form-lead">Если вы или ваш любимый блогер записываете видео c игрой в «То или это» — присылайте.-->
+<!--                    Лучшие мы добавим в наш плейлист, чтобы их увидели все-все-все!</p>-->
+
+<!--                <div class="sharing__form-content">-->
+
+<!--                    <div class="sharing__form-fields">-->
+<!--                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Отправить ссылку на видео" required>-->
+<!--                        <input class="sharing__form-fields-input" type="text" name="name" placeholder="Ваше имя" required>-->
+<!--                        <input class="sharing__form-fields-input" type="email" name="email" placeholder="Ваш email" required>-->
+<!--                    </div>-->
+
+<!--                    <button class="sharing__form-submit" type="submit" data-toggle="Подождите…">Отправить</button>-->
+
+<!--                </div>-->
+<!--            </form>-->
+
+<!--            <div class="cover__image">-->
+<!--                <svg class=cover__image-svg svg-elem" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>-->
+<!--                </svg>-->
+<!--                <img class="cover__image-img" src="/assets/images/data.png" alt="cloud"/>-->
+<!--            </div>-->
+
+<!--<figure class="sharing__image">-->
+<!--<path class="svg-elem-2" fill-rule="evenodd" clip-rule="evenodd" d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>-->
+<!--<img src="/assets/images/data.png" alt="cloud" />-->
+<!--</figure>-->
+<!--        </div>-->
 
 </body>
 
