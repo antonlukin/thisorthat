@@ -6,75 +6,110 @@
 
 
   .card__tile {
-    display: block;
+    display: flex;
+    flex-flow: column;
     position: relative;
 
     width: calc(100% / 3 - 1.5rem);
-    height: 18rem;
 
     background-color: $color-white;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 
-    padding: 3rem 2rem 1rem;
+    padding: 2.5rem 2rem 1rem;
 
     margin-bottom: 2rem;
 
 
     @media screen and (max-width: 960px){
       width: calc(100% / 2 - 1rem);
-      height: 15rem;
     }
 
     @media screen and (max-width: 767px){
       width: 100%;
+      padding: 2rem 1.5rem 1rem;
 
       margin-bottom: 1rem;
     }
 
     .card__tile-title {
-      margin-bottom: 1rem;
+      display: inline-block;
+      position: relative;
+
+      margin-bottom: 0.75rem;
 
       @extend %h3;
     }
 
     .card__tile-text {
-      @extend %tile-text;
+      display: inline-block;
+      position: relative;
 
+      @extend %tile-text;
     }
+
     .card__tile-icon {
-      position: absolute;
-      right: 1rem;
-      bottom: 1rem;
+      display: block;
+      position: relative;
+      align-self: flex-end;
+      flex-grow: 1;
+
+      margin-top: 0.3rem;
 
 
       width: 4rem;
       height: 4rem;
       object-fit: contain;
 
-      margin-top: 0.5rem;
+      @media screen and (max-width: 767px) {
+        width: 3rem;
+        height: 3rem;
+      }
     }
 
     .card__tile-cover {
-      display: block;
+      display: flex;
       position: relative;
 
-      height: 100%;
-
       margin: 0 auto;
+
+      width: 13rem;
+      height: auto;
+
+      @media screen and (max-width: 767px){
+        width: 10rem;
+      }
     }
 
     .card__tile-link {
-      border-bottom: 2px dashed #26b1ff;
+      display: inline-block;
+      position: relative;
 
-      &:hover {
-        transform: scale(1.05);
-        transition: all 0.25s;
-      }
+      border-bottom: 2px dashed #26b1ff;
+      z-index: 9;
     }
   }
 }
 
 .tile--cover {
-  padding: 1.5rem!important;
+  padding: 1rem!important;
+
+  @media screen and (max-width: 767px){
+    padding: 0.5rem;
+  }
+}
+
+.card__tile-link:hover::before {
+  width: 100%;
+}
+
+.card__tile-link::before {
+  transition-timing-function: linear;
+  transition-duration: 0.3s;
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  z-index: -1;
+  background-color: #CDEDFF;
 }

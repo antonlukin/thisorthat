@@ -107,7 +107,7 @@
   position: absolute;
   bottom: 0;
 
-  animation: changeColor-1 10s infinite, slideInRight 2s ease-in;
+  animation: changeColor-1 5s infinite, slideInRight 2s ease-in;
 
   @media screen and (max-width: 767px) {
     top: 0;
@@ -120,7 +120,7 @@
   top: -3rem;
   bottom: 0;
 
-  animation: changeColor-2 10s infinite, slideInRight 2.2s ease-in;
+  animation: changeColor-2 5s infinite, slideInRight 2.2s ease-in;
 
   @media screen and (max-width: 767px) {
     top: 0;
