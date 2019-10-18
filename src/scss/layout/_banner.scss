@@ -1,7 +1,9 @@
 .banner {
   display: flex;
   position: relative;
+
   flex-flow: row nowrap;
+  justify-content: space-between;
 
   background-color: #00ACDC;
   border-radius: 10px;
@@ -10,33 +12,29 @@
 
   padding: 1rem 2rem;
 
-  & > * {
-    margin-right: 3rem;
-  }
-
-  .banner__image{
-    display: block;
+  .banner__image {
+    display: flex;
 
     & > img {
-      height: 12.5rem;
+      max-width: 13rem;
+      height: auto;
     }
   }
 
   .banner__text {
-    display: block;
+    display: flex;
+    flex-flow: column;
 
-    width: calc(100% / 3);
-    margin-top: 1rem;
+    padding: 0 1.5rem;
 
     .banner__text-title {
       @extend %banner-title;
-
-      margin: 0.5rem 0;
-      margin-right: 3rem;
+      margin: 2rem 0 0.5rem;
     }
 
     .banner__text-description {
-      @extend %lead;
+      width: 70%;
+      @extend %head-lead;
     }
   }
 
@@ -44,20 +42,15 @@
     display: flex;
     flex-flow: row nowrap;
 
-    align-content: flex-end;
+    justify-content: flex-end;
+    align-items: flex-end;
 
-    width: calc(100% / 3 - 2rem);
+    margin: 1rem 0;
 
-    .banner__button-badge {
-      display: block;
-
+    & > img {
       height: 50px;
-      align-self: flex-end;
 
-      margin-right: 1rem;
-      margin-bottom: 1rem;
-
+      margin-right: 0.5rem;
     }
   }
-
 }
