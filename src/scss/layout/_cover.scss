@@ -38,13 +38,10 @@
       width: 70%;
       margin-left: 1rem;
 
-      @extend %main-lead;
+      @extend %lead;
 
       @media screen and (max-width: 410px) {
         margin-left: 0;
-      }
-
-      @media screen and (max-width: 410px) {
         width: 90%;
       }
     }

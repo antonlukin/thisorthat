@@ -1,0 +1,89 @@
+.cloud {
+  display: block;
+  position: relative;
+
+  width: 100%;
+
+  .cloud__image {
+    display: block;
+    position: relative;
+
+    width: 60%;
+    margin: 0 auto;
+
+    object-fit: contain;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
+
+    .cloud__image-img {
+      display: block;
+      position: relative;
+
+      max-width: 45rem;
+      width: 100%;
+      height: auto;
+
+      z-index: 10;
+
+      margin: 0 auto;
+    }
+
+    .cloud__image-svg {
+      display: block;
+      position: relative;
+      z-index: -10;
+    }
+  }
+}
+
+#yellow-bubble {
+  display: block;
+  position: absolute;
+
+  width: 100%;
+  max-width: 37rem;
+
+  top: 3rem;
+  right: 2rem;
+
+  animation: changeColor-3 5s infinite;
+}
+
+#violet-bubble {
+  display: block;
+  position: absolute;
+
+  width: 100%;
+  max-width: 37rem;
+
+  top: 5rem;
+  right: 3rem;
+
+  animation: changeColor-4 5s infinite;
+}
+
+@keyframes changeColor-3 {
+  from {
+    fill: #FDB813;
+  }
+  50% {
+    fill: #D67EFF;
+  }
+  to {
+    fill: #FDB813;
+  }
+}
+
+@keyframes changeColor-4 {
+  from {
+    fill: #D67EFF;
+  }
+  50% {
+    fill: #FDB813;
+  }
+  to {
+    fill: #D67EFF;
+  }
+}
