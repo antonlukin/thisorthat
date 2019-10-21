@@ -2,39 +2,53 @@
   display: flex;
   position: relative;
 
-  flex-flow: row nowrap;
   justify-content: space-between;
+
+  flex-flow: row nowrap;
 
   background-color: #00ACDC;
   border-radius: 10px;
 
   width: 100%;
 
-  padding: 1rem 2rem;
+  @media screen and (max-width: 960px) {
+    flex-flow: row wrap;
+  }
 
   .banner__image {
-    display: flex;
+    width: 13rem;
+    height: 13rem;
 
-    & > img {
-      max-width: 13rem;
-      height: auto;
+    @media screen and (max-width: 1023px) {
+      width: 10rem;
+      height: 10rem;
+    }
+    @media screen and (max-width: 410px) {
+      width: 8rem;
+      height: 8rem;
     }
   }
 
   .banner__text {
     display: flex;
     flex-flow: column;
-
-    padding: 0 1.5rem;
+    margin: 1rem 1rem 2rem;
 
     .banner__text-title {
       @extend %banner-title;
-      margin: 2rem 0 0.5rem;
+      margin: 0.5rem 0;
     }
 
     .banner__text-description {
-      width: 70%;
+      width: 60%;
       @extend %head-lead;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+      @media screen and (max-width: 410px) {
+        width: 100%;
+      }
     }
   }
 
@@ -45,12 +59,28 @@
     justify-content: flex-end;
     align-items: flex-end;
 
-    margin: 1rem 0;
+    margin: 1rem;
+
+    @media screen and (max-width: 960px) {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 410px) {
+      justify-content: flex-start;
+    }
 
     & > img {
       height: 50px;
+      width: auto;
 
       margin-right: 0.5rem;
+
+      @media screen and (max-width: 1023px) {
+        height: 40px;
+      }
+      @media screen and (max-width: 767px) {
+        height: 30px;
+      }
     }
   }
 }
