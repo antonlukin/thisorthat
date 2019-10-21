@@ -11,28 +11,55 @@
 
   width: 100%;
 
+  @media screen and (max-width: 1210px) {
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+  }
+
   @media screen and (max-width: 960px) {
     flex-flow: row wrap;
   }
 
   .banner__image {
-    width: 13rem;
-    height: 13rem;
+    display: flex;
+    position: relative;
+    flex: 0 0 auto;
 
-    @media screen and (max-width: 1023px) {
-      width: 10rem;
-      height: 10rem;
+    @media screen and (max-width: 767px) {
+      width: 100%;
     }
-    @media screen and (max-width: 410px) {
-      width: 8rem;
-      height: 8rem;
+
+    & > img {
+      width: 13rem;
+      height: 13rem;
+
+      @media screen and (max-width: 1023px) {
+        width: 10rem;
+        height: 10rem;
+      }
+      @media screen and (max-width: 767px) {
+        width: 8rem;
+        height: 8rem;
+      }
     }
   }
 
   .banner__text {
     display: flex;
+    position: relative;
     flex-flow: column;
+
+    width: 50%;
+
+    flex: 1 1 auto;
+
     margin: 1rem 1rem 2rem;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+
+      margin: 0 1rem 0.5rem;
+    }
 
     .banner__text-title {
       @extend %banner-title;
@@ -54,22 +81,23 @@
 
   .banner__button {
     display: flex;
+    position: relative;
     flex-flow: row nowrap;
+    flex: 0 0 auto;
 
     justify-content: flex-end;
     align-items: flex-end;
 
     margin: 1rem;
 
-    @media screen and (max-width: 960px) {
-      width: 100%;
-    }
-
     @media screen and (max-width: 410px) {
       justify-content: flex-start;
     }
 
-    & > img {
+    .banner__button-badge > img {
+      display: block;
+      position: relative;
+
       height: 50px;
       width: auto;
 
