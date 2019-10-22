@@ -112,8 +112,28 @@
   }
 }
 
-.bold {
+.hashtag__link {
+  display: inline-block;
+  position: relative;
+
+  border-bottom: 2px dashed #F00E96;
+  z-index: 9;
   font-weight: 500;
+}
+
+.hashtag__link:hover::before {
+  width: 100%;
+}
+
+.hashtag__link::before {
+  transition-timing-function: linear;
+  transition-duration: 0.3s;
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  z-index: -1;
+  background-color: #FEB5E1;
 }
 
 .violet-gradient {
