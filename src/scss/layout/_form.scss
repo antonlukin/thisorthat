@@ -1,0 +1,35 @@
+.form__content {
+  display: block;
+  position: relative;
+
+  width: 100%;
+
+  .form__content-field {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    & > * {
+      @include field();
+      margin-bottom: 1rem;
+    }
+  }
+
+  .form__content-submit {
+    @include button();
+  }
+}
+
+textarea {
+  width: 100%;
+  resize: none;
+
+}
+
+.field__info {
+  width: calc(50% - 0.5rem);
+
+  @media screen and (max-width: 410px) {
+    width: 100%;
+  }
+}
