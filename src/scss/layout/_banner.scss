@@ -94,14 +94,16 @@
       justify-content: flex-start;
     }
 
+    .banner__button-badge {
+      margin-right: 0.5rem;
+    }
+
     .banner__button-badge > img {
       display: block;
       position: relative;
 
       height: 50px;
       width: auto;
-
-      margin-right: 0.5rem;
 
       @media screen and (max-width: 1023px) {
         height: 40px;

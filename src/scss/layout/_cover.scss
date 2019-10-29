@@ -49,6 +49,7 @@
 
   .cover__image {
     display: flex;
+    flex-flow: column;
     position: relative;
 
     object-fit: contain;
