@@ -9,7 +9,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext"
           rel="stylesheet">
-    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+<!--    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">-->
 
     <!-- Сделать фавиконку-->
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
@@ -168,30 +168,36 @@
 
     <div class="sharing">
 
-        <form class="sharing__form" id="sharing__form" action="#send">
-            <h4 class="sharing__form-title">Присылайте ссылки на классные ролики</h4>
-            <p class="sharing__form-lead">
+        <form class="sharing__form form" id="sharing__form" action="#send">
+
+            <h4 class="form__title">Присылайте ссылки на классные ролики</h4>
+            <p class="form__lead">
                 Если вы или ваш любимый блогер записываете видео c игрой в «То или это» — присылайте.
-                Лучшие мы добавим в наш плейлист, чтобы их увидели все-все-все!</p>
+                Лучшие мы добавим в наш плейлист, чтобы их увидели все-все-все!
+            </p>
 
-            <div class="form__content">
-
-                <div class="form__content-field">
-                    <label for="textarea" class="control-label">Ваше сообщение</label>
-                    <textarea class="form__content-field-textarea field__message" type="text" name="textarea" placeholder="Отправить ссылку на видео" rows="6" required="required"></textarea>
-                    <input class="form__content-field-input field__info" type="text" name="name" placeholder="Ваше имя" required="required">
-                    <input class="form__content-field-input field__info" type="email" name="email" placeholder="Ваш email" required="required">
+            <div class="sharing__form-content">
+                <div class="form__field sharing__form-content-textarea">
+                    <textarea class="form__field-textarea" name="text" required placeholder="Отправить ссылку на видео" rows="3"></textarea>
+                </div>
+                <div class="form__field sharing__form-content-input">
+                    <input class="form__field-input" name="name" type="text" required autocomplete="name" maxlength="50" placeholder="Ваше имя">
+                </div>
+                <div class="form__field sharing__form-content-input">
+                    <input class="form__field-input" name="email" type="email" required autocomplete="email" maxlength="50" placeholder="Ваш email">
                 </div>
 
-                <button class="form__content-submit" type="submit" data-toggle="Подождите…">Отправить</button>
-
+                <div class="form__control">
+                    <button class="form__control-submit" type="submit" data-toggle="Подождите…">Отправить</button>
+                </div>
             </div>
+
         </form>
 
         <div class="sharing__image">
-<!--            <svg class=sharing__image-svg" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--            <path d="M309.907 27.1332C352.065 19.8699 399.149 -18.9636 433.836 11.5221C468.463 41.955 451.336 110.386 462.342 161.103C472.511 207.961 513.034 253.366 495.773 296.939C478.017 341.763 420.316 325.302 386.494 352.574C355.566 377.512 346.706 432.16 309.907 436C273.55 439.794 252.072 397.345 223.309 369.603C195.875 343.142 158.395 328.274 145.563 288.298C132.474 247.524 145.15 202.278 156.22 160.6C167.257 119.043 179.818 75.4455 208.776 50.2973C237.531 25.3261 275.099 33.1302 309.907 27.1332Z" fill="#F00E96" fill-opacity="0.35"/>-->
-<!--            </svg>-->
+            <svg class="sharing__image-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                <path d="M238.358 0.00408481C271.503 -0.405814 293.86 30.1373 322.646 44.7277C349.475 58.3258 379.436 65.8353 403.076 83.4915C429.512 103.237 469.098 122.85 468.293 153.511C467.405 187.316 404.611 199.213 399.159 232.679C392.963 270.702 457.125 306.888 437.709 341.224C420.447 371.752 363.046 352.273 326.112 361.86C295.497 369.806 270.233 394.017 238.358 392.967C206.558 391.919 184.197 364.205 153.687 356.178C116.377 346.362 70.1322 362.276 39.7328 340.71C10.4247 319.919 -2.82644 281.214 1.36051 248.118C5.58617 214.716 43.8165 193.837 62.0409 164.375C75.258 143.007 78.3955 117.98 94.1929 98.0409C110.502 77.4558 132.689 62.1028 155.194 46.7985C181.58 28.8556 205.124 0.415095 238.358 0.00408481Z"/>
+            </svg>
             <img class="sharing__image-img" src="/assets/images/data.png" alt="cloud"/>
         </div>
     </div>
