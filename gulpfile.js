@@ -31,17 +31,17 @@ gulp.task('public-styles', function (done) {
     .pipe(cleanCss({
       compatibility: 'ie9'
     }))
-    .pipe(gulp.dest('./public/assets/'))
+    .pipe(gulp.dest('./public/assets/'));
 
   done();
-})
+});
 
 
 gulp.task('watch', function (done) {
   gulp.watch('./src/**/*', gulp.series('public-styles'));
 
   done();
-})
+});
 
 gulp.task('connect', function (done) {
   connect.server({
@@ -51,4 +51,18 @@ gulp.task('connect', function (done) {
   done();
 });
 
-gulp.task('default', gulp.parallel('public-styles', 'connect', 'watch'));
+gulp.task('import_animate', function (done) {
+  gulp.src('./node_modules/animate.css/animate.min.css')
+      .pipe(gulp.dest('./public/css'));
+
+  done();
+});
+
+gulp.task('import_wow', function (done) {
+  gulp.src('./node_modules/wow.js/dist/wow.min.js')
+      .pipe(gulp.dest('./public/js'));
+
+  done();
+});
+
+gulp.task('default', gulp.parallel('public-styles', 'connect', 'watch', "import_animate", "import_wow"));

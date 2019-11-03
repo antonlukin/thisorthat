@@ -5,14 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, minimal-ui">
 
-    <link rel="stylesheet" href="/assets/styles.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/styles.min.css" type="text/css" media="all">
 
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&display=swap&subset=cyrillic,cyrillic-ext,latin-ext"
           rel="stylesheet">
-<!--    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">-->
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/animate.min.css">
+    <script src="js/wow.min.js"></script>
 
     <!-- Сделать фавиконку-->
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
 
     <title>То или Это</title>
 </head>
@@ -41,7 +44,7 @@
 <div class="content">
     <div class="hero">
 
-        <div class="cover">
+        <div class="cover wow bounceInUp">
             <div class="cover__text">
                 <h2 class="cover__text-title">
                     <span class="pink">Т</span><span class="blue">о</span>
@@ -53,7 +56,7 @@
             </div>
 
             <div class="cover__image">
-                <img id="robot" class="cover__image-img" src="/assets/images/robot.png" alt="robot"/>
+                <img id="robot" class="cover__image-img" src="assets/images/robot.png" alt="robot"/>
 
                 <svg id="blue-bubble" class="cover__image-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill-opacity="0.5">
                     <path d="M217.572 44.0045C247.903 43.5518 268.363 77.2814 294.705 93.3939C319.256 108.411 346.675 116.704 368.308 136.202C392.5 158.007 428.726 179.667 427.989 213.526C427.177 250.857 369.713 263.996 364.723 300.953C359.054 342.943 417.768 382.904 400.001 420.822C384.204 454.536 331.676 433.024 297.877 443.611C269.861 452.386 246.742 479.123 217.572 477.963C188.471 476.806 168.008 446.201 140.088 437.336C105.945 426.496 63.6261 444.07 35.8072 420.255C8.98695 397.295 -3.13936 354.551 0.692177 318.003C4.55914 281.116 39.5443 258.059 56.2217 225.523C68.3169 201.927 71.188 174.288 85.6444 152.269C100.569 129.536 120.872 112.582 141.467 95.6808C165.613 75.8659 187.159 44.4584 217.572 44.0045Z"/>
@@ -70,23 +73,23 @@
                 <h3 class="card__tile-title">Выбирайте</h3>
                 <p class="card__tile-text">Суть игры — решить, какой из двух вариантов подходит именно тебе, и
                     проголосовать за него</p>
-                <img class="card__tile-icon" src="/assets/images/icons/message.png" alt="choose"/>
+                <img class="card__tile-icon" src="assets/images/icons/message.png" alt="choose"/>
             </div>
 
             <div class="card__tile tile--cover">
-                <img class="card__tile-cover" src="/assets/images/hand.png" alt="puzzle"/>
+                <img class="card__tile-cover" src="assets/images/hand.png" alt="puzzle"/>
             </div>
 
             <div class="card__tile">
                 <h3 class="card__tile-title">Добавляйте свои&nbsp;вопросы</h3>
                 <p class="card__tile-text">Ведь интересно, за что проголосует большинство?</p>
-                <img class="card__tile-icon" src="/assets/images/icons/add.png" alt="add"/>
+                <img class="card__tile-icon" src="assets/images/icons/add.png" alt="add"/>
             </div>
 
             <div class="card__tile">
                 <h3 class="card__tile-title">Играйте вместе с&nbsp;друзьями</h3>
                 <p class="card__tile-text">Так ещё веселее! И это поможет вам лучше узнать друг друга</p>
-                <img class="card__tile-icon" src="/assets/images/icons/dog.png" alt="friend"/>
+                <img class="card__tile-icon" src="assets/images/icons/dog.png" alt="friend"/>
             </div>
 
             <div class="card__tile">
@@ -96,7 +99,7 @@
             </div>
 
             <div class="card__tile tile--cover">
-                <img class="card__tile-cover" src="/assets/images/brain.png" alt="puzzle"/>
+                <img class="card__tile-cover" src="assets/images/brain.png" alt="puzzle"/>
             </div>
         </div>
     </div>
@@ -116,7 +119,7 @@
 
                 <!-- Заменить скриншоты на главном изображении -->
 
-                <img id="phones" class="cloud__image-img" src="/assets/images/phones.png" alt="robot"/>
+                <img id="phones" class="cloud__image-img" src="assets/images/phones.png" alt="robot"/>
                 <svg id="yellow-bubble" class="cloud__image-svg" viewBox="0 0 536 545" xmlns="http://www.w3.org/2000/svg">
                     <path d="M458.442 123.479C486.634 158.621 514.252 195.806 526.675 237.937C538.967 279.623 537.052 322.083 528.43 360.834C520.252 397.588 499.401 426.665 478.337 455.196C457.896 482.882 436.879 510.545 406.508 525.97C375.905 541.511 340.155 546.947 303.515 543.981C267.192 541.04 232.133 522.79 196.236 508.946C155.73 493.325 106.63 492.71 77.4878 456.813C48.2828 420.837 62.0437 370.747 48.9076 327.463C36.1266 285.349 -2.6175 245.827 1.01603 204.835C4.64542 163.889 42.5975 142.823 67.7387 115.016C90.4735 89.8703 114.233 67.1316 142.328 48.539C172.843 28.3441 202.063 3.83561 240.242 0.854356C279.8 -2.23457 322.56 9.83968 361.034 31.4611C399.272 52.9504 429.935 87.9445 458.442 123.479Z"/>
                 </svg>
@@ -137,7 +140,7 @@
 
     <div class="banner">
         <div class="banner__image">
-            <img src="/assets/images/welcome.png" alt="join us"/>
+            <img src="assets/images/welcome.png" alt="join us"/>
         </div>
         <div class="banner__text">
             <h4 class="banner__text-title">Присоединяйтесь!</h4>
@@ -146,10 +149,10 @@
         </div>
         <div class="banner__button">
             <a class="banner__button-badge" href="#" target="_blank">
-                <img src="/assets/images/icons/googleplay.png" alt="google-play"/>
+                <img src="assets/images/icons/googleplay.png" alt="google-play"/>
             </a>
             <a class="banner__button-badge" href="#" target="_blank">
-                <img src="/assets/images/icons/appstore.png" alt="app-store"/>
+                <img src="assets/images/icons/appstore.png" alt="app-store"/>
             </a>
         </div>
     </div>
@@ -198,13 +201,13 @@
             <svg class="sharing__image-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
                 <path d="M238.358 0.00408481C271.503 -0.405814 293.86 30.1373 322.646 44.7277C349.475 58.3258 379.436 65.8353 403.076 83.4915C429.512 103.237 469.098 122.85 468.293 153.511C467.405 187.316 404.611 199.213 399.159 232.679C392.963 270.702 457.125 306.888 437.709 341.224C420.447 371.752 363.046 352.273 326.112 361.86C295.497 369.806 270.233 394.017 238.358 392.967C206.558 391.919 184.197 364.205 153.687 356.178C116.377 346.362 70.1322 362.276 39.7328 340.71C10.4247 319.919 -2.82644 281.214 1.36051 248.118C5.58617 214.716 43.8165 193.837 62.0409 164.375C75.258 143.007 78.3955 117.98 94.1929 98.0409C110.502 77.4558 132.689 62.1028 155.194 46.7985C181.58 28.8556 205.124 0.415095 238.358 0.00408481Z"/>
             </svg>
-            <img class="sharing__image-img" src="/assets/images/data.png" alt="cloud"/>
+            <img class="sharing__image-img" src="assets/images/data.png" alt="cloud"/>
         </div>
     </div>
 
     <div class="hashtag">
         <div class="hashtag__image">
-            <img class="cover__image-img" src="/assets/images/screen.png" alt="screenshot"/>
+            <img class="cover__image-img" src="assets/images/screen.png" alt="screenshot"/>
         </div>
 
         <div class="hashtag__text">
@@ -222,7 +225,7 @@
             </div>
 
             <div class="hashtag__text-pic">
-                <img src="/assets/images/pack.png" alt="picture"/>
+                <img src="assets/images/pack.png" alt="picture"/>
             </div>
         </div>
     </div>
@@ -249,7 +252,7 @@
         <div class="contacts__personal">
             <div class="person">
                 <div class="person__author">
-                    <img class="person__author-avatar" src="/assets/images/ava-anton.svg" alt="avatar"/>
+                    <img class="person__author-avatar" src="assets/images/ava-anton.svg" alt="avatar"/>
 
                     <div class="person__author-text">
                         <h4 class="person__author-text-name">Антон</h4>
@@ -258,7 +261,7 @@
                     </div>
                 </div>
                 <div class="person__author">
-                    <img class="person__author-avatar" src="/assets/images/ava-ilia.svg" alt="avatar"/>
+                    <img class="person__author-avatar" src="assets/images/ava-ilia.svg" alt="avatar"/>
 
                     <div class="person__author-text">
                         <h4 class="person__author-text-name">Илья</h4>
@@ -267,7 +270,7 @@
                     </div>
                 </div>
                 <div class="person__author">
-                    <img class="person__author-avatar" src="/assets/images/ava-dinis.svg" alt="avatar"/>
+                    <img class="person__author-avatar" src="assets/images/ava-dinis.svg" alt="avatar"/>
 
                     <div class="person__author-text">
                         <h4 class="person__author-text-name">Динис</h4>
@@ -276,7 +279,7 @@
                     </div>
                 </div>
                 <div class="person__author">
-                    <img class="person__author-avatar" src="/assets/images/ava-vika.svg" alt="avatar"/>
+                    <img class="person__author-avatar" src="assets/images/ava-vika.svg" alt="avatar"/>
 
                     <div class="person__author-text">
                         <h4 class="person__author-text-name">Вика</h4>
@@ -285,7 +288,7 @@
                     </div>
                 </div>
                 <div class="person__author">
-                    <img class="person__author-avatar" src="/assets/images/ava-lera.svg" alt="avatar"/>
+                    <img class="person__author-avatar" src="assets/images/ava-lera.svg" alt="avatar"/>
 
                     <div class="person__author-text">
                         <h4 class="person__author-text-name">Лера</h4>
@@ -297,6 +300,11 @@
         </div>
     </div>
 </footer>
+
+<script>
+    new WOW().init();
+</script>
+
 </body>
 
 </html>
