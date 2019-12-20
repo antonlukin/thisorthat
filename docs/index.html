@@ -651,7 +651,7 @@
 <tr>
 <td><strong>item_id</strong></td>
 <td><code>^\d{1,11}$</code></td>
-<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+<td>Идентификатор вопроса, для которого запрашиваются комментарии.</td>
 </tr>
 <tr>
 <td>limit</td>
@@ -777,7 +777,7 @@
 <tr>
 <td><strong>item_id</strong></td>
 <td><code>^\d{1,11}$</code></td>
-<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+<td>Идентификатор вопроса, к которому добавляется комментарий.</td>
 </tr>
 <tr>
 <td><strong>text</strong></td>
@@ -803,7 +803,41 @@
     }
 }</code></pre>
 <p>Ответ сервера содержит <code>comment_id</code> типа <code>String</code> добавленного комментария. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
-Между запросами на добавление комментария должно пройти минимум 10 секунд, иначе сервер вернет ошибку.</p>
+Между запросами на добавление комментария должно пройти минимум 20 секунд, иначе сервер вернет ошибку.</p>
+<h2 id="reportcomment">/reportComment</h2>
+<p>Отправляет жалобу на комментарий.</p>
+<h4 id="запрос-10">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/reportComment</code></pre><h4 id="параметры-запроса-11">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>comment_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор комментария, на который отправляется жалоба.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-11">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST &#39;https://api.thisorthat.ru/reportComment?token=1:0994f52572ab3f9432c77615c104db9c&amp;comment_id=1&#39;</code></pre>
+<h4 id="ответ-сервера-11">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
 </article>
     </section>
 </body>

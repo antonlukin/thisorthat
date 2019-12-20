@@ -99,7 +99,9 @@ Flight::route('GET|POST /sendReport', [
 
 
 /**
- * Get comments by item
+ * Get comments by item id
+ *
+ * @link https://docs.thisorthat.ru/#getcomments
  */
 Flight::route('GET|POST /getComments', [
     'methods\getComments', 'run_task'
@@ -108,7 +110,17 @@ Flight::route('GET|POST /getComments', [
 
 /**
  * Add comment to item
+ *
+ * @link https://docs.thisorthat.ru/#addcomment
  */
 Flight::route('GET|POST /addComment', [
     'methods\addComment', 'run_task'
+], true);
+
+
+/**
+ * Send report to comment
+ */
+Flight::route('GET|POST /reportComment', [
+    'methods\reportComment', 'run_task'
 ], true);

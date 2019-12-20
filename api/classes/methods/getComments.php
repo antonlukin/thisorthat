@@ -53,13 +53,13 @@ class getComments extends \engine
     /**
      * Get pages options
      */
-    private static function get_pages($comments, $user_id, $offset)
+    private static function get_pages($comments, $item_id, $offset)
     {
         // Calc items count
         $count = count($comments);
 
         // Get total count
-        $total = self::calc_count($user_id);
+        $total = self::calc_count($item_id);
 
         if ($total === false) {
             $total = 0;
@@ -117,7 +117,7 @@ class getComments extends \engine
         $comments = self::add_avatar($comments);
 
         // Get pages options
-        $pages = self::get_pages($comments, $user_id, $offset);
+        $pages = self::get_pages($comments, $item_id, $offset);
 
         parent::show_success(compact('comments', 'pages'));
     }

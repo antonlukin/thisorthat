@@ -18,7 +18,8 @@ class deleteFavorite extends \engine
     /**
      * Delete item from favoite tabe
      */
-    private static function delete_favorite($user_id, $item_id) {
+    private static function delete_favorite($user_id, $item_id)
+    {
         $database = parent::get_database();
 
         // The query to delete favorite record

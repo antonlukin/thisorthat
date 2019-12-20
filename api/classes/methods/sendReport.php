@@ -18,7 +18,8 @@ class sendReport extends \engine
     /**
      * Insert report to database
      */
-    private static function insert_report($user_id, $item_id, $reason) {
+    private static function insert_report($user_id, $item_id, $reason)
+    {
         $database = parent::get_database();
 
         // The query to insert favorite record

@@ -18,7 +18,8 @@ class addFavorite extends \engine
     /**
      * Insert item to database
      */
-    private static function insert_favorite($user_id, $item_id) {
+    private static function insert_favorite($user_id, $item_id)
+    {
         $database = parent::get_database();
 
         // The query to insert favorite record
