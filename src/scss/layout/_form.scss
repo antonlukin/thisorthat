@@ -1,0 +1,72 @@
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 2rem 0;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .form__title {
+    display: block;
+    width: 100%;
+    margin-bottom: 2rem;
+    @extend %h4;
+
+    @media screen and (max-width: 767px){
+      margin-bottom: 1rem;
+    }
+  }
+
+  .form__lead {
+    display: block;
+    width: 80%;
+    margin-bottom: 2rem;
+    @extend %head-lead;
+
+    @media screen and (max-width: 767px){
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 410px){
+      width: 90%;
+    }
+  }
+
+  .form__field {
+    display: flex;
+
+    .form__field-input {
+      display: flex;
+      margin-bottom: 1rem;
+
+      padding: 0.65rem 1.25rem;
+
+      @include field();
+    }
+
+    .form__field-textarea {
+      display: flex;
+      resize: none;
+
+      margin-bottom: 1rem;
+      padding: 1.5rem 1.25rem;
+
+      @include field();
+    }
+  }
+
+  .form__control {
+    display: block;
+    width: 100%;
+
+    .form__control-submit {
+      @include button();
+
+      &:focus {
+        background-image: linear-gradient(#18B9E8, #1763D1);
+      }
+    }
+  }
+}

@@ -15,19 +15,38 @@
   }
 
   .head__title {
-    @extend %head-title;
-    margin-bottom: 2rem;
+    display: block;
+    position: relative;
+
+    margin-bottom: 1.5rem;
     text-align: center;
+
+    @extend %head-title;
 
     @media screen and (max-width: 767px){
       margin-bottom: 1rem;
+      text-align: left;
     }
   }
 
   .head__lead {
-    @extend %lead;
-    width: 75%;
+    display: block;
+    position: relative;
+
+    width: 70%;
     margin: 0 auto;
     text-align: center;
+
+    @extend %head-lead;
+
+    @media screen and (max-width: 767px){
+      width: 80%;
+      margin: 0;
+      text-align: left;
+    }
+
+    @media screen and (max-width: 410px){
+      width: 90%;
+    }
   }
 }

@@ -1,6 +1,9 @@
 .banner {
   display: flex;
   position: relative;
+
+  justify-content: space-between;
+
   flex-flow: row nowrap;
 
   background-color: #00ACDC;
@@ -8,55 +11,106 @@
 
   width: 100%;
 
-  padding: 1rem 2rem;
-
-  & > * {
-    margin-right: 3rem;
+  @media screen and (max-width: 1210px) {
+    width: calc(100% - 2rem);
+    margin: 0 auto;
   }
 
-  .banner__image{
-    display: block;
+  @media screen and (max-width: 960px) {
+    flex-flow: row wrap;
+  }
+
+  .banner__image {
+    display: flex;
+    position: relative;
+    flex: 0 0 auto;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
 
     & > img {
-      height: 12.5rem;
+      width: 13rem;
+      height: 13rem;
+
+      @media screen and (max-width: 1023px) {
+        width: 10rem;
+        height: 10rem;
+      }
+      @media screen and (max-width: 767px) {
+        width: 8rem;
+        height: 8rem;
+      }
     }
   }
 
   .banner__text {
-    display: block;
+    display: flex;
+    position: relative;
+    flex-flow: column;
 
-    width: calc(100% / 3);
-    margin-top: 1rem;
+    width: 50%;
+
+    flex: 1 1 auto;
+
+    margin: 1rem 1rem 2rem;
+
+    @media screen and (max-width: 767px) {
+      width: 100%;
+
+      margin: 0 1rem 0.5rem;
+    }
 
     .banner__text-title {
       @extend %banner-title;
-
       margin: 0.5rem 0;
-      margin-right: 3rem;
     }
 
     .banner__text-description {
-      @extend %lead;
+      width: 60%;
+      @extend %head-lead;
+
+      @media screen and (max-width: 767px) {
+        width: 80%;
+      }
+      @media screen and (max-width: 410px) {
+        width: 100%;
+      }
     }
   }
 
   .banner__button {
     display: flex;
+    position: relative;
     flex-flow: row nowrap;
-    justify-content: space-between;
+    flex: 0 0 auto;
 
-    align-content: flex-end;
+    justify-content: flex-end;
+    align-items: flex-end;
 
-    width: calc(100% / 3 - 2rem);
+    margin: 1rem;
+
+    @media screen and (max-width: 410px) {
+      justify-content: flex-start;
+    }
 
     .banner__button-badge {
+      margin-right: 0.5rem;
+    }
+
+    .banner__button-badge > img {
+      display: block;
+      position: relative;
+
       height: 50px;
-      align-self: flex-end;
+      width: auto;
 
-      margin-right: 1rem;
-      margin-bottom: 1rem;
-
+      @media screen and (max-width: 1023px) {
+        height: 40px;
+      }
+      @media screen and (max-width: 767px) {
+        height: 30px;
+      }
     }
   }
-
 }

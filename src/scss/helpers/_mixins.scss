@@ -4,14 +4,13 @@
   line-height: 1.2;
   color: #ffffff;
 
-  background-color: #26B1FF;
-  box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.25);
+  background-image: linear-gradient(#1AC9FC, #1D73F1);
   border-radius: 4px;
 
-  padding: 0.75rem 1.25rem;
+  padding: 0.65rem 1.25rem;
 
+  -webkit-appearance: none;
   cursor: pointer;
-  outline: none;
 
   &:hover {
     transform: scale(1.05);
@@ -20,11 +19,36 @@
 
   @media screen and (max-width: 767px){
     font-size: 1rem;
-    margin-left: 3.75rem;
     padding: 0.5rem 1rem;
   }
 
   @media screen and (max-width: 410px){
     padding: 0.5rem 1rem;
+  }
+}
+
+@mixin field() {
+  width: 100%;
+
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.5;
+
+  border: 1px solid #ffffff;
+
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.25);
+
+  &:hover {
+    border: 1px solid $color-blue;
+  }
+
+  &:active {
+    color: #1b1f23;
+  }
+
+  &:focus {
+    color: #000000;
   }
 }

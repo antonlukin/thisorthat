@@ -1,0 +1,78 @@
+.person {
+  display: flex;
+  position: relative;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+
+  @media screen and (max-width: 1023px){
+    justify-content: flex-start;
+  }
+
+  & > * {
+    width: calc(100% / 5 - 2rem);
+
+    @media screen and (max-width: 1023px) {
+      width: calc(100% / 3 - 2rem);
+    }
+    @media screen and (max-width: 767px) {
+      width: calc(100% / 2 - 2rem);
+    }
+    @media screen and (max-width: 410px) {
+      width: 100%;
+    }
+  }
+
+
+  .person__author {
+    display: flex;
+    position: relative;
+    flex-flow: row nowrap;
+
+    margin: 1rem;
+
+    @media screen and (max-width: 1023px){
+      margin: 0.5rem;
+    }
+
+    .person__author-avatar {
+      display: flex;
+      position: relative;
+
+      margin-right: 0.5rem;
+
+      width: 5rem;
+      height: 5rem;
+
+      @media screen and (max-width: 1023px) {
+        width: 4rem;
+        height: 4rem;
+      }
+      @media screen and (max-width: 767px) {
+        width: 3rem;
+        height: 3rem;
+      }
+      @media screen and (max-width: 410px) {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .person__author-text {
+      display: flex;
+      flex-flow: column;
+      position: relative;
+
+      .person__author-text-name {
+        @extend %person-name;
+      }
+      .person__author-text-description {
+        @extend %person-info;
+        margin-bottom: 0.25rem;
+      }
+      .person__author-text-link {
+        @extend %person-link;
+      }
+    }
+  }
+}
