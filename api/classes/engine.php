@@ -93,7 +93,7 @@ class engine
     {
         // Connect database if empty instance
         if (self::$database === null) {
-            $dsn = "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};charset=utf8";
+            $dsn = "mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']};charset=utf8mb4";
 
             // Set PDO options
             $settings = [
