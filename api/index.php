@@ -35,12 +35,12 @@ Flight::path(__DIR__ . '/classes/');
  * Remap default errors
  */
 Flight::map('error', function (Exception $exception) {
-    Flight::json(['ok' => false, 'description' => 'Server internal error'], 500);
+    Flight::json(['ok' => false, 'description' => 'Ошибка сервера'], 500);
     exit;
 });
 
 Flight::map('notFound', function () {
-    Flight::json(['ok' => false, 'description' => 'Method not found'], 404);
+    Flight::json(['ok' => false, 'description' => 'Метод не найден'], 404);
     exit;
 });
 
