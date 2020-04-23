@@ -132,6 +132,11 @@ class addItem extends \engine
             parent::show_error('Вопрос должен состоять из 4-150 символов', 400);
         }
 
+        // Check text params for indentity
+        if ($last_text === $first_text) {
+            parent::show_error('Вопросы не могут быть одинаковыми', 400);
+        }
+
         $question = self::prepare_item($user_id, [$first_text, $last_text]);
 
         // Parse first and last texts from question
