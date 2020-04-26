@@ -229,7 +229,7 @@ class engine
             $message['parameters'] = $parameters;
         }
 
-        Flight::json($message, $code);
+        Flight::json($message, $code, true, 'utf-8', JSON_UNESCAPED_UNICODE);
         exit;
     }
 
@@ -241,7 +241,7 @@ class engine
     {
         $message =['ok' => true, 'result' => $result];
 
-        Flight::json($message, $code);
+        Flight::json($message, $code, true, 'utf-8', JSON_UNESCAPED_UNICODE);
         exit;
     }
 }
