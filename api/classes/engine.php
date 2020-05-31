@@ -239,7 +239,7 @@ class engine
      */
     protected static function show_success($result, $code = 200)
     {
-        $message =['ok' => true, 'result' => $result];
+        $message = ['ok' => true, 'result' => $result];
 
         Flight::json($message, $code, true, 'utf-8', JSON_UNESCAPED_UNICODE);
         exit;

@@ -23,8 +23,8 @@ class getComments extends \engine
         $database = parent::get_database();
 
         // The query to get item comments
-        $query = "SELECT id AS comment_id, user_id, parent, text
-            FROM comments WHERE item_id = :item_id
+        $query = "SELECT comments.id AS comment_id, user_id, parent, message, name
+            FROM comments, users WHERE item_id = :item_id AND user_id = users.id
             LIMIT :limit OFFSET :offset";
 
         $select = $database->prepare($query);

@@ -656,12 +656,12 @@
 <tr>
 <td>limit</td>
 <td><code>^[1-9][0-9]?$|100$</code></td>
-<td>Количество запрашиваемых комментариев в диапазоне 1-100. <br>По умолчанию равно <em>50</em></td>
+<td>Количество запрашиваемых комментариев в диапазоне 1-100. <br>По умолчанию равно <em>50</em>.</td>
 </tr>
 <tr>
 <td>offset</td>
 <td><code>^[0-9]+$</code></td>
-<td>Смещение относительно первого комментария. <br>По умолчанию равно <em>0</em></td>
+<td>Смещение относительно первого комментария. <br>По умолчанию равно <em>0</em>.</td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -678,15 +678,17 @@
                 &quot;comment_id&quot;: &quot;17&quot;,
                 &quot;user_id&quot;: &quot;425&quot;,
                 &quot;parent&quot;: &quot;0&quot;,
-                &quot;text&quot;: &quot;Отличный вопрос!&quot;,
-                &quot;avatar&quot;: &quot;https://user.thisorthat.ru/200/425&quot;
+                &quot;message&quot;: &quot;Отличный вопрос!&quot;,
+                &quot;name&quot;: &quot;Волосатый монстр&quot;,
+                &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/425&quot;
             },
             {
                 &quot;comment_id&quot;: &quot;18&quot;,
                 &quot;user_id&quot;: &quot;221&quot;,
                 &quot;parent&quot;: &quot;0&quot;,
-                &quot;text&quot;: &quot;Полная ерунда&quot;,
-                &quot;avatar&quot;: &quot;https://user.thisorthat.ru/200/221&quot;
+                &quot;message&quot;: &quot;Полная ерунда&quot;,
+                &quot;name&quot;: &quot;Умный багажник&quot;,
+                &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/221&quot;
             }
         ],
         &quot;pages&quot;: {
@@ -717,19 +719,24 @@
 <td>Идентификатор пользователя, который добавил комментарий.</td>
 </tr>
 <tr>
-<td>text</td>
+<td>message</td>
 <td>String</td>
 <td>Текст комментария длиной 1-300 символов.</td>
 </tr>
 <tr>
+<td>name</td>
+<td>String</td>
+<td>Имя пользователя длинной 1-64 символов.</td>
+</tr>
+<tr>
 <td>parent</td>
 <td>String</td>
-<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em></td>
+<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em>.</td>
 </tr>
 <tr>
 <td>avatar</td>
 <td>String</td>
-<td>Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером <em>200x200</em></td>
+<td>Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером <em>200x200</em>.</td>
 </tr>
 </tbody></table>
 <h4 id="описание-полей-пагинации-2">Описание полей пагинации</h4>
@@ -780,7 +787,7 @@
 <td>Идентификатор вопроса, к которому добавляется комментарий.</td>
 </tr>
 <tr>
-<td><strong>text</strong></td>
+<td><strong>message</strong></td>
 <td><code>^.{1,300}$</code></td>
 <td>Текст комментария длиной 1-300 символов. <br>К значению применяется фильтр антимата.</td>
 </tr>
@@ -794,16 +801,43 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-10">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;text=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;message=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
 <h4 id="ответ-сервера-10">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
-        &quot;comment_id&quot;: &quot;300&quot;
+        &quot;comment_id&quot;: &quot;300&quot;,
+        &quot;name&quot;: &quot;Волосатый монстр&quot;,
+        &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/1&quot;
     }
 }</code></pre>
-<p>Ответ сервера содержит <code>comment_id</code> типа <code>String</code> добавленного комментария. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
+<p>В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
 Между запросами на добавление комментария должно пройти минимум 20 секунд, иначе сервер вернет ошибку.</p>
+<h4 id="описание-полей-ответа">Описание полей ответа</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>comment_id</td>
+<td>String</td>
+<td>Идентификатор комментария.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Имя пользователя длинной 1-64 символов.</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td>String</td>
+<td>Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером <em>200x200</em>.</td>
+</tr>
+</tbody></table>
 <h2 id="reportcomment">/reportComment</h2>
 <p>Отправляет жалобу на комментарий.</p>
 <h4 id="запрос-10">Запрос</h4>
