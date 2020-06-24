@@ -212,7 +212,7 @@ class addComment extends \engine
         // Get avatar with user id
         $avatar = parent::$avatars . $user_id;
 
-        parent::show_success(compact('comment_id', 'name', 'avatar'));
+        parent::show_success(compact('comment_id', 'user_id', 'parent', 'message', 'name', 'avatar'));
     }
 }
 

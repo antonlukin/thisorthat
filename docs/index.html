@@ -807,6 +807,9 @@
     &quot;ok&quot;: true,
     &quot;result&quot;: {
         &quot;comment_id&quot;: &quot;300&quot;,
+        &quot;user_id&quot;: &quot;1&quot;,
+        &quot;parent&quot;: &quot;0&quot;,
+        &quot;message&quot;: &quot;Отличный комментарий&quot;,
         &quot;name&quot;: &quot;Волосатый монстр&quot;,
         &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/1&quot;
     }
@@ -825,12 +828,27 @@
 <tbody><tr>
 <td>comment_id</td>
 <td>String</td>
-<td>Идентификатор комментария.</td>
+<td>Уникальный идентификатор комментария.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>String</td>
+<td>Идентификатор пользователя, который добавил комментарий.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>Текст комментария длиной 1-300 символов.</td>
 </tr>
 <tr>
 <td>name</td>
 <td>String</td>
 <td>Имя пользователя длинной 1-64 символов.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>String</td>
+<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em>.</td>
 </tr>
 <tr>
 <td>avatar</td>
