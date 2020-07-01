@@ -133,7 +133,7 @@ class addComment extends \engine
 
         // The query to find last user comment date
         $query = "SELECT * FROM comments
-            WHERE user_id = :user_id AND created >= NOW() - INTERVAL 20 SECOND
+            WHERE user_id = :user_id AND created >= NOW() - INTERVAL 10 SECOND
             LIMIT 1";
 
         $select = $database->prepare($query);
