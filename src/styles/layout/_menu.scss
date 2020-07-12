@@ -1,0 +1,25 @@
+.menu {
+  display: none;
+  align-items: center;
+
+  margin-left: auto;
+
+  .menu-link {
+    display: flex;
+    align-items: center;
+
+    margin: 0 2rem 0 0;
+    padding: 0.25rem;
+
+    color: $color-text;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      color: $color-purple;
+      transition: color 0.5s;
+    }
+  }
+}

@@ -1,119 +1,77 @@
 <!DOCTYPE html>
-<html class="no-js" lang="ru">
+<html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>То или это / Определись в предпочтениях</title>
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <meta name="title" content="То или это">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Перед Вами классическая игра То или Это, основанная на выявлении предпочтений людей. Она поможет решить самые сложные жизненные вопросы. Проверьте, насколько Ваш выбор совпадает с выбором окружающих!">
-    <link rel="canonical" href="https://thisorthat.ru">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/styles.min.css?v=1.0.1">
 
-    <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/normalize.css">
-    <link rel="stylesheet" href="/assets/css/style.css?03">
-
-    <link rel="icon" type="image/x-icon" href="/assets/images/icon-100.png" sizes="16x16">
-    <link rel="icon" sizes="192x192" href="/assets/images/icon-192.png">
-
-    <link rel="shortcut icon" href="/assets/images/icon-100.png" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/apple-touch-icon-152x152.png" />
-    <link rel="apple-touch-icon-precomposed" type="image/png" href="/assets/images/apple-touch-icon-114x114.png" sizes="114x114">
-
-    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/assets/images/apple-touch-icon-152x152.png" sizes="16x16 32x32 48x48">
-    <link rel="image_src" href="/assets/images/icon-192.png" />
-
-    <meta name="apple-mobile-web-app-title" content="ThisOrThat">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-
-    <script type="text/javascript">
-
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-30717968-4']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-
-    </script>
+    <title>То или Это</title>
 </head>
-<body>
-    <header class="container">
-        <h1>То или это</h1>
 
-        <div class="manage">
-            <a href="https://vk.com/thisorthat_ru" class="info-link" title="Мы ВКонтакте" onclick="_gaq.push(['_trackEvent', 'web', 'click', 'vk-page']);" target="_blank">Мы ВКонтакте</a>
-        </div>
+<body>
+    <header class="header">
+        <h1 class="logo">
+            <a class="logo-link" href="/">То или Это</a>
+        </h1>
+
+        <nav class="menu">
+            <a class="menu-link" href="/#about">Об игре</a>
+            <a class="menu-link" href="/#reactions">Реакции</a>
+            <a class="menu-link" href="/#share">Поделиться</a>
+        </nav>
     </header>
 
-    <section id="ui-questions" class="questions container">
-        <div id="moderate" class="moderate">
-            <span class="moderate-info">Вопрос пока не прошел модерацию</span>
-            <span class="moderate-skip skip" title="Пропустить вопрос"></span>
-        </div>
+    <section class="hero">
+        <h2 class="hero-title">Играй и определись в своих предпочтениях</h2>
+        <p class="hero-lead">Это игра, в которой пользователи придумывают вопросы и делают непростой выбор. Вы решаете, какой из двух вариантов подходит вам, и смотрите, сколько человек согласны с вами.</p>
 
-        <article class="question question-left">
-            <div class="question-table">
-                <div class="question-cell" id="q-left">
-                    <h3><b>0</b>%</h3>
-                      <h4></h4>
-                    <h2></h2>
-                </div>
-            </div>
-        </article><!--
+        <div class="hero-cta">
+            <a class="hero-button" href="/play/">
+                <span>Начать игру</span>
+            </a>
 
-         --><article class="question question-right">
-             <div class="question-table">
-                <div class="question-cell" id="q-right">
-                    <h3><b>0</b>%</h3>
-                     <h4></h4>
-                    <h2></h2>
-                </div>
-            </div>
-        </article>
+            <a class="hero-button" href="https://apps.apple.com/ru/app/id963727722">
+                <svg viewBox="0 0 512 512">
+                    <path d="M333.6,153.9c-33.6,0-47.8,16.5-71.2,16.5c-24,0-42.3-16.4-71.4-16.4c-28.5,0-58.9,17.9-78.2,48.4   c-27.1,43-22.5,124,21.4,193c15.7,24.7,36.7,52.4,64.2,52.7c0.2,0,0.3,0,0.5,0c23.9,0,31-16.1,63.9-16.3c0.2,0,0.3,0,0.5,0   c32.4,0,38.9,16.2,62.7,16.2c0.2,0,0.3,0,0.5,0c27.5-0.3,49.6-31,65.3-55.6c11.3-17.7,15.5-26.6,24.2-46.6   c-63.5-24.8-73.7-117.4-10.9-152.9C385.9,168.2,359,153.9,333.6,153.9L333.6,153.9z" />
+                    <path d="M326.2,64c-20,1.4-43.3,14.5-57,31.6c-12.4,15.5-22.6,38.5-18.6,60.8c0.5,0,1,0,1.6,0c21.3,0,43.1-13.2,55.8-30.1   C320.3,110.2,329.6,87.4,326.2,64L326.2,64z" />
+                </svg>
 
-        <div id="ui-versus" class="versus onload">
-            <h5><b>или</b></h5>
+                <span>App Store</span>
+            </a>
 
-            <div class="preloader"></div>
-            <canvas id="ui-result" width="120" height="120">
+            <a class="hero-button" href="https://play.google.com/store/apps/details?id=com.svobnick.thisorthat">
+                <svg viewBox="0 0 56.6934 56.6934">
+                    <path d="M39.332,18.0622L12.6744,3.7905C11.2891,3.0489,9.787,3.011,8.4869,3.485l22.7111,22.7111L39.332,18.0622z" />
+                    <path d="M49.2731,23.3844l-7.6787-4.1109l-8.6595,8.6594l8.6595,8.6595l7.6786-4.111   C52.9054,30.5368,52.9054,25.329,49.2731,23.3844z" />
+                    <path d="M6.4077,4.8794C5.5932,5.7746,5.0798,6.9697,5.0798,8.339v39.1878c0,1.3693,0.5134,2.5645,1.3278,3.4597l23.0536-23.0536   L6.4077,4.8794z" />
+                    <path d="M8.4869,52.3809c1.3,0.4739,2.8022,0.4362,4.1875-0.3055L39.332,37.8037l-8.1339-8.1339L8.4869,52.3809z" />
+                </svg>
+
+                <span>Google Play</span>
+            </a>
         </div>
     </section>
-
-    <script src="/assets/js/jquery-3.4.1.min.js"></script>
-    <script src="/assets/js/chart.js"></script>
-    <script src="/assets/js/main.js?07"></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
 
     <script>
-      var firebaseConfig = {
-        apiKey: "AIzaSyDDlZNEQ96H8KYZDnQpERSKrCxDCOJUVZ0",
-        authDomain: "thisorthat-firebase.firebaseapp.com",
-        databaseURL: "https://thisorthat-firebase.firebaseio.com",
-        projectId: "thisorthat-firebase",
-        storageBucket: "thisorthat-firebase.appspot.com",
-        messagingSenderId: "284058840795",
-        appId: "1:284058840795:web:b4bd1b0e1e064383",
-        measurementId: "G-5N5QFW9YFT"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
+        var firebaseConfig = {
+            apiKey: "AIzaSyDDlZNEQ96H8KYZDnQpERSKrCxDCOJUVZ0",
+            authDomain: "thisorthat-firebase.firebaseapp.com",
+            databaseURL: "https://thisorthat-firebase.firebaseio.com",
+            projectId: "thisorthat-firebase",
+            storageBucket: "thisorthat-firebase.appspot.com",
+            messagingSenderId: "284058840795",
+            appId: "1:284058840795:web:b4bd1b0e1e064383",
+            measurementId: "G-5N5QFW9YFT"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
     </script>
 </body>
 </html>
