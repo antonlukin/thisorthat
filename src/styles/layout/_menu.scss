@@ -1,8 +1,11 @@
 .menu {
-  display: none;
+  display: flex;
   align-items: center;
 
   margin-left: auto;
+
+  font-size: 1rem;
+  font-weight: 400;
 
   .menu-link {
     display: flex;
@@ -13,13 +16,41 @@
 
     color: $color-text;
 
-    &:last-child {
-      margin-right: 0;
-    }
-
     &:hover {
-      color: $color-purple;
+      color: $color-light;
       transition: color 0.5s;
     }
+
+    @media screen and (max-width: 1023px) {
+      margin-right: 1.5rem;
+    }
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .menu-game {
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+    padding: 0.5rem 2rem;
+
+    color: $color-light;
+    background-color: $color-orange;
+
+    border: 0.125rem solid $color-orange;
+    border-radius: 0.25rem;
+
+    transition: background 0.5s;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    display: none;
   }
 }

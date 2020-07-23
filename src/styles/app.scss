@@ -1,3 +1,4 @@
+$color-light: #fff;
 $color-text: #e4e4e4;
 $color-orange: #ff633a;
 $color-purple: #b454b7;
@@ -7,21 +8,31 @@ $color-top:  #322e5a;
 // Import config styles
 @import "config/reset";
 
+// Import fonts styles
+@import "config/fonts";
+
+// Import mixins
+@import "config/mixins";
+
 
 html {
   background: $color-bottom;
+  scroll-behavior: smooth;
 }
 
 body {
-  font: 400 16px/1.5 'Ubuntu', sans-serif;
+  font: 300 16px/1.5 'Ubuntu', sans-serif;
 
   color: $color-text;
   background: linear-gradient(to bottom, $color-top, $color-bottom);
 }
 
 
-// Import layout styles
+// Import landing styles
 @import "layout/header";
-@import "layout/hero";
 @import "layout/logo";
 @import "layout/menu";
+@import "layout/welcome";
+@import "layout/about";
+@import "layout/reactions";
+@import "layout/social";

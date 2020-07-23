@@ -1,0 +1,13 @@
+.social {
+  @include container;
+
+  padding: 0 2rem 4rem;
+
+  .social-footer {
+    border-top: solid 1px $color-top;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 2rem 1.25rem;
+  }
+}

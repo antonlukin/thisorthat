@@ -14,5 +14,10 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
+
+    @media screen and (max-width: 479px) {
+      width: 10rem;
+      height: 3.5rem;
+    }
   }
 }

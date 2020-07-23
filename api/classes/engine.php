@@ -36,7 +36,7 @@ class engine
      * All items are divided into sections.
      * This variable stores total sections count
      */
-    protected static $sections = 1000;
+    protected static $sections = 500;
 
 
     /**

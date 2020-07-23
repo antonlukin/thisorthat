@@ -1,0 +1,36 @@
+.reactions {
+  @include container;
+
+  padding: 4rem 2rem;
+
+  .reactions-head {
+    @include heading;
+  }
+
+  .reactions-demo {
+    display: block;
+    width: 100%;
+  }
+
+  .reactions-player {
+    display: block;
+    position: relative;
+
+    width: 100%;
+    padding-top: 56.25%;
+
+    iframe {
+      position: absolute;
+
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 2rem 1.25rem;
+  }
+}

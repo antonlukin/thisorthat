@@ -1,12 +1,13 @@
 .header {
+  @include container;
+
   display: flex;
   align-items: center;
   position: relative;
 
-  width: 100%;
-  height: 6rem;
-  max-width: 70rem;
+  padding: 2rem;
 
-  margin: 0 auto;
-  padding: 2rem 2rem 0;
+  @media screen and (max-width: 479px) {
+    padding: 1rem 1.25rem;
+  }
 }

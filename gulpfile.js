@@ -33,17 +33,19 @@ gulp.task('styles', (done) => {
 });
 
 
-gulp.task('watch', (done) => {
-  gulp.watch('./src/**/*', gulp.series('styles'));
+gulp.task('images', (done) => {
+  gulp.src([path.source + '/images/*.{jpg,png,svg}'])
+    .pipe(flatten())
+    .pipe(gulp.dest(path.assets + '/images/'));
 
   done();
 });
 
 
-gulp.task('images', (done) => {
-  gulp.src([path.source + '/images/*.{jpg,png}'])
+gulp.task('fonts', (done) => {
+  gulp.src([path.source + '/fonts/*.{woff,woff2}'])
     .pipe(flatten())
-    .pipe(gulp.dest(path.assets + '/images/'));
+    .pipe(gulp.dest(path.assets + '/fonts/'));
 
   done();
 });
@@ -64,7 +66,15 @@ gulp.task('connect', (done) => {
   });
 
   done();
-})
+});
 
-gulp.task('default', gulp.parallel('styles', 'images', 'watch', 'connect'));
+
+gulp.task('watch', (done) => {
+  gulp.watch('./src/**/*', gulp.series('styles'));
+
+  done();
+});
+
+
+gulp.task('default', gulp.parallel('styles', 'images', 'fonts', 'connect', 'watch'));
 
