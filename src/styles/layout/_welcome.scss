@@ -89,85 +89,75 @@
     display: flex;
     margin: 0 -0.75rem;
 
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+
+      margin: 1rem 0.75rem 0;
+      padding: 0.5rem 2rem 0.5rem 1.5rem;
+
+      font-size: 1rem;
+      font-weight: 400;
+
+      color: $color-text;
+      background-color: transparent;
+
+      border: 0.125rem solid $color-purple;
+      border-radius: 0.25rem;
+      transition: background 0.5s;
+
+      svg {
+        display: block;
+        position: relative;
+        z-index: 2;
+        fill: $color-text;
+
+        width: 1.75rem;
+        height: 1.75rem;
+
+        margin-right: .75rem;
+      }
+
+      span {
+        position: relative;
+        z-index: 2;
+      }
+
+      &:hover {
+        background-color: $color-purple;
+      }
+
+      &:last-child {
+        display: none;
+
+        color: $color-text;
+        background-color: $color-orange;
+
+        border: 0.125rem solid $color-orange;
+        border-radius: 0.25rem;
+        transition: background 0.5s;
+
+        &:hover {
+          background-color: transprent;
+        }
+
+        @media screen and (max-width: 479px) {
+          display: flex;
+        }
+      }
+
+      @media screen and (max-width: 479px) {
+        flex: 1 1 100%;
+      }
+    }
+
     @media screen and (max-width: 767px) {
       flex-flow: row wrap;
-    }
-  }
-
-  .welcome-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-
-    margin: 1rem 0.75rem 0;
-    padding: 0.5rem 2rem 0.5rem 1.5rem;
-
-    font-size: 1rem;
-    font-weight: 400;
-
-    color: $color-text;
-    background-color: transparent;
-
-    border: 0.125rem solid $color-purple;
-    border-radius: 0.25rem;
-    transition: background 0.5s;
-
-    svg {
-      display: block;
-      position: relative;
-      z-index: 2;
-      fill: $color-text;
-
-      width: 1.75rem;
-      height: 1.75rem;
-
-      margin-right: .75rem;
-    }
-
-    span {
-      position: relative;
-      z-index: 2;
-    }
-
-    &:hover {
-      background-color: $color-purple;
-    }
-
-    @media screen and (max-width: 479px) {
-      flex: 1 1 100%;
-    }
-  }
-
-  .welcome-game {
-    display: none;
-    align-items: center;
-    justify-content: center;
-
-    flex: 1 1 100%;
-
-    margin: 1rem 0.75rem 0;
-    padding: 0.5rem 1.5rem;
-
-    font-size: 1rem;
-    font-weight: 400;
-
-    color: $color-text;
-    background-color: $color-orange;
-
-    border: 0.125rem solid $color-orange;
-    border-radius: 0.25rem;
-    transition: background 0.5s;
-
-    &:hover {
-      background-color: transprent;
-    }
-
-    @media screen and (max-width: 479px) {
-      display: flex;
     }
   }
 
