@@ -14,6 +14,9 @@ $color-top:  #322e5a;
 // Import mixins
 @import "config/mixins";
 
+html, body {
+  height: 100%;
+}
 
 html {
   background: $color-bottom;
@@ -21,18 +24,18 @@ html {
 }
 
 body {
+  padding: 2rem 2rem 1rem;
   font: 300 16px/1.5 'Ubuntu', sans-serif;
 
   color: $color-text;
   background: linear-gradient(to bottom, $color-top, $color-bottom);
+
+  @media screen and (max-width: 479px) {
+    padding: 1rem 1rem 0;
+  }
 }
 
 
 // Import landing styles
 @import "layout/header";
-@import "layout/logo";
-@import "layout/menu";
 @import "layout/welcome";
-@import "layout/about";
-@import "layout/reactions";
-@import "layout/social";

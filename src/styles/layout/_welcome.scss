@@ -6,11 +6,11 @@
   justify-content: center;
   position: relative;
 
-  height: calc(100vh - 8rem);
+  height: calc(100% - 3.25rem);
   max-width: 70rem;
-  min-height: 32rem;
+  min-height: 30rem;
 
-  padding: 4rem 2rem;
+  padding: 2rem 0;
 
   .welcome-demo {
     display: flex;
@@ -40,7 +40,7 @@
     flex: 0 1 36rem;
 
     width: 100%;
-    padding-bottom: 4rem;
+    margin-bottom: 4rem;
 
     h2 {
       display: block;
@@ -80,8 +80,8 @@
     }
 
     @media screen and (max-width: 767px) {
+      justify-content: flex-start;
       flex: 1 1 100%;
-      padding-bottom: 0;
     }
   }
 
@@ -171,12 +171,74 @@
     }
   }
 
-  @media screen and (max-width: 1023px) {
-    height: auto;
-    min-height: auto;
+  .welcome-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    font-size: 0.8125rem;
+  }
+
+  .welcome-copy {
+    display: block;
+    flex: 0 0  auto;
+    cursor: default;
+
+    color: rgba($color-text, 0.5);
+
+    @media screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  .welcome-social {
+    display: flex;
+
+    width: 100%;
+    white-space: nowrap;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    a {
+      display: inline-block;
+
+      margin-right: 1.25rem;
+      padding: 0.5rem 0;
+
+      color: rgba($color-text, 0.875);
+      font-size: 0.8125rem;
+
+      transition: color 0.25s;
+
+      &:hover {
+        color: $color-light;
+      }
+
+      &:nth-child(-n+2) {
+        display: none;
+
+        @media screen and (max-width: 767px) {
+          display: inline-block;
+        }
+      }
+
+      @media screen and (max-width: 767px) {
+        margin-right: 0.875rem;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      text-align: center;
+    }
   }
 
   @media screen and (max-width: 479px) {
-    padding: 1rem 1.25rem;
+    height: calc(100% - 4rem);
   }
 }
