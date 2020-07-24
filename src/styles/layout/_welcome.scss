@@ -186,8 +186,9 @@
 
   .welcome-copy {
     display: block;
-    flex: 0 0  auto;
     cursor: default;
+
+    margin-left: auto;
 
     color: rgba($color-text, 0.5);
 
@@ -198,15 +199,13 @@
 
   .welcome-social {
     display: flex;
-
-    width: 100%;
     white-space: nowrap;
 
     overflow-x: auto;
     overflow-y: hidden;
 
     a {
-      display: inline-block;
+      display: block;
 
       margin-right: 1.25rem;
       padding: 0.5rem 0;
@@ -224,7 +223,7 @@
         display: none;
 
         @media screen and (max-width: 767px) {
-          display: inline-block;
+          display: block;
         }
       }
 
@@ -234,7 +233,7 @@
     }
 
     @media screen and (max-width: 479px) {
-      text-align: center;
+      margin: 0 auto;
     }
   }
 
