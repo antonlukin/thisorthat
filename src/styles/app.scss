@@ -14,6 +14,9 @@ $color-top:  #322e5a;
 // Import mixins
 @import "config/mixins";
 
+// Import animations
+@import "config/animate";
+
 html, body {
   height: 100%;
 }
@@ -38,4 +41,5 @@ body {
 
 // Import landing styles
 @import "layout/header";
+@import "layout/feedback";
 @import "layout/welcome";

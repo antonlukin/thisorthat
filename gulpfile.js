@@ -8,6 +8,8 @@ const flatten = require('gulp-flatten');
 const prefix = require('gulp-autoprefixer');
 const connect = require('gulp-connect');
 const template = require('gulp-md-template');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
 
 
 const path = {
@@ -31,6 +33,18 @@ gulp.task('styles', (done) => {
 
   done();
 });
+
+
+gulp.task('scripts', (done) => {
+  gulp.src([path.source] + '/scripts/*.js')
+    .pipe(plumber())
+    .pipe(babel())
+    .pipe(uglify())
+    .pipe(concat('scripts.min.js'))
+    .pipe(gulp.dest(path.assets))
+
+  done();
+})
 
 
 gulp.task('images', (done) => {
@@ -70,11 +84,11 @@ gulp.task('connect', (done) => {
 
 
 gulp.task('watch', (done) => {
-  gulp.watch('./src/**/*', gulp.series('styles'));
+  gulp.watch('./src/**/*', gulp.series('styles', 'scripts'));
 
   done();
 });
 
 
-gulp.task('default', gulp.parallel('styles', 'images', 'fonts', 'connect', 'watch'));
+gulp.task('default', gulp.parallel('styles', 'scripts', 'images', 'fonts', 'connect', 'watch'));
 

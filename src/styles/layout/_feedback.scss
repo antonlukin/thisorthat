@@ -1,0 +1,192 @@
+.feedback {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+  min-height: 20rem;
+
+  background-color: rgba(0, 0, 0, 0.85);
+
+  .feedback-popup {
+    display: block;
+    position: relative;
+
+    width: 30rem;
+    height: auto;
+    max-width: calc(100% - 4rem);
+    padding: 2rem;
+
+    background-color: #383744;
+    background-color: $color-top;
+    border-radius: 0.25rem;
+
+    animation: upswing .375s ease-out;
+
+    @media screen and (max-width: 479px) {
+      max-width: calc(100% - 2rem);
+      padding: 1rem;
+    }
+  }
+
+  .feedback-form {
+    display: block;
+    position: relative;
+
+    label {
+      display: block;
+
+      width: 100%;
+      margin: 0 0 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    input, textarea {
+      display: block;
+
+      width: 100%;
+      padding: 0.625rem;
+      margin-top: 0.625rem;
+
+      font-size: 0.875rem;
+      line-height: 1.5;
+      outline: none;
+
+      background-color: $color-light;
+      border-radius: 0.25rem;
+
+      &:focus {
+        box-shadow: inset 0 0 0 0.125rem $color-orange;
+      }
+    }
+
+    textarea {
+      min-height: 8rem;
+      resize: none;
+    }
+  }
+
+  .feedback-close {
+    display: block;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.75rem;
+
+    width: 1.25rem;
+    height: 1.25rem;
+
+    opacity: 0.85;
+    outline: none;
+
+    background: transparent;
+    border: none;
+
+    transition: opacity 0.25s;
+
+    svg {
+      fill: $color-light;
+    }
+
+    &:focus {
+      opacity: 0.375;
+    }
+
+    &:hover {
+      opacity: 0.375;
+    }
+  }
+
+  .feedback-submit {
+    display: block;
+    outline: none;
+
+    width: 100%;
+    padding: 0.5rem 2rem;
+    font-size: 0.875rem;
+
+    color: $color-light;
+    background-color: $color-orange;
+
+    border-radius: 0.25rem;
+    border: 0.125rem solid $color-orange;
+
+    transition: background 0.5s;
+
+    &:focus {
+      background-color: transparent;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  .feedback-error {
+    display: none;
+
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+
+    strong {
+      display: block;
+
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    a {
+      color: $color-orange;
+      transition: color 0.25s;
+
+      &:hover {
+        color: darken($color-orange, 10);
+      }
+    }
+  }
+
+  .feedback-sent {
+    display: none;
+
+    width: 100%;
+    margin: 1.5rem 0;
+    font-size: 0.875rem;
+
+    strong {
+      display: block;
+
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  &.feedback--visible {
+    display: flex;
+  }
+
+  &.feedback--error {
+    .feedback-form {
+      display: none;
+    }
+
+    .feedback-error {
+      display: block;
+    }
+  }
+
+  &.feedback--sent {
+    .feedback-form {
+      display: none;
+    }
+
+    .feedback-sent {
+      display: block;
+    }
+  }
+}

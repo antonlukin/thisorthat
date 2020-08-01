@@ -31,7 +31,7 @@
         </h1>
 
         <nav class="header-menu">
-            <a href="mailto:help@thisorthat.ru" target="_blank">Написать нам</a>
+            <a href="#feedback">Написать нам</a>
             <a href="https://www.youtube.com/playlist?list=PLu_Wkh4CKQVzI4ZWa4XeIV5YxBpaJiBrj" target="_blank" rel="noopener">Реакции блогеров</a>
             <a href="https://thisorthat.ru/game/">Начать игру</a>
         </nav>
@@ -73,7 +73,7 @@
 
         <div class="welcome-footer">
             <nav class="welcome-social">
-                <a href="mailto:help@thisorthat.ru" target="_blank">Написать нам</a>
+                <a href="#feedback">Написать нам</a>
                 <a href="https://www.youtube.com/playlist?list=PLu_Wkh4CKQVzI4ZWa4XeIV5YxBpaJiBrj" target="_blank" rel="noopener">Реакции</a>
 
                 <a href="https://vk.com/thisorthat_ru" target="_blank" rel="noopener">ВКонтакте</a>
@@ -84,6 +84,42 @@
             <p class="welcome-copy">&copy; 2015 – 2020</p>
         </div>
     </section>
+
+    <aside class="feedback">
+        <div class="feedback-popup">
+            <form class="feedback-form" action="#feedback-send" data-url="/feedback-submit/?text=">
+                <label>
+                    <span>Как с вами связаться:</span>
+                    <input type="text" value="" placeholder="Почта или ссылка на соцсеть"></label>
+                </label>
+
+                <label>
+                    <span>Текст сообщения:</span>
+                    <textarea placeholder="Задайте вопрос или добавьте ссылку на свою реакцию, чтобы мы добавили ее в плейлист" required></textarea>
+                </label>
+
+                <button class="feedback-submit" type="submit">Отправить</button>
+            </form>
+
+            <button class="feedback-close" type="button">
+                <svg enable-background="new 0 0 32 32" viewBox="0 0 32 32">
+                    <path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z"/>
+                </svg>
+            </button>
+
+            <p class="feedback-error">
+                <strong>Произошла ошибка</strong>
+                Что-то пошло не так и ваше сообщение не доставлено. Напишите лучше нам <a href="mailto:help@thisorthat.ru">на почту</a> – так будет надежнее.
+            </p>
+
+            <p class="feedback-sent">
+                <strong>Сообщение отправлено</strong>
+                Скорее всего, мы уже получили ваше послание и даже прочитали его. Ответим сразу, как будет возможность.
+            </p>
+        </form>
+    </aside>
+
+    <script src="assets/scripts.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
