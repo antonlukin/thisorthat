@@ -23,6 +23,7 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
+    "adorable-avatars": "^0.4.1",
     "express": "^4.17.1"
   }
 }
