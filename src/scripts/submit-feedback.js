@@ -31,29 +31,38 @@
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Create message from textarea
-    let message = form.querySelector('textarea').value;
+    let message = [];
+
+    // Append textarea value
+    message.push(form.querySelector('textarea').value);
 
     // Try to add concat if exists
     let contact = form.querySelector('input').value;
 
     if (contact) {
-      message = `Контакт: ${contact}\n` + message;
+      message.push(`<b>${contact}</b>`);
     }
 
+    let payload = {text: message.join("\n")};
+
+    // Create AJAX request
     let request = new XMLHttpRequest();
-    request.open('POST', form.dataset.url + message);
+    request.open('POST', '/help/');
+    request.setRequestHeader('Content-Type', 'application/json');
 
     request.onload = () => {
-      // Check if successfully sent
       if (request.status === 200) {
-        return popup.classList.add('feedback--success');
+        return popup.classList.add('feedback--sent');
       }
 
-      return popup.classList.add('feedback--error');
+      popup.classList.add('feedback--error');
     }
 
-    request.send();
+    request.onerror = () => {
+      popup.classList.add('feedback--error');
+    }
+
+    request.send(JSON.stringify(payload));
   });
 
 
