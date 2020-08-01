@@ -43,7 +43,7 @@
       message.push(`<b>${contact}</b>`);
     }
 
-    let payload = {text: message.join("\n")};
+    let payload = {text: message.join("\n\n")};
 
     // Create AJAX request
     let request = new XMLHttpRequest();
