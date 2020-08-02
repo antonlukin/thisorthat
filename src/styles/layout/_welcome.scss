@@ -171,6 +171,17 @@
 
     width: 100%;
     font-size: 0.8125rem;
+
+    @media screen and (max-width: 767px) {
+      overflow-y: hidden;
+      overflow-x: auto;
+
+      padding-bottom: 1rem;
+      margin-bottom: -1rem;
+
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   .welcome-copy {
@@ -218,11 +229,6 @@
       @media screen and (max-width: 767px) {
         margin-right: 0.875rem;
       }
-    }
-
-    @media screen and (max-width: 767px) {
-      overflow-x: auto;
-      overflow-y: hidden;
     }
 
     @media screen and (max-width: 479px) {
