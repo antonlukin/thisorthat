@@ -31,6 +31,11 @@
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Set form button disabled
+    let button = form.querySelector('.feedback-submit');
+    button.setAttribute('disabled', 'disabled');
+    button.textContent = '…';
+
     let message = [];
 
     // Append textarea value
@@ -52,7 +57,11 @@
 
     request.onload = () => {
       if (request.status === 200) {
-        return popup.classList.add('feedback--sent');
+        popup.classList.add('feedback--sent');
+
+        return setTimeout(() => {
+          popup.querySelector('.feedback-close').click();
+        }, 2500);
       }
 
       popup.classList.add('feedback--error');

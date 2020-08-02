@@ -118,6 +118,10 @@
 
     transition: background 0.5s;
 
+    &[disabled] {
+      pointer-events: none;
+    }
+
     &:focus {
       background-color: transparent;
     }
