@@ -40,7 +40,7 @@ class register extends \engine
         $section = self::get_section();
 
         // Reset section value if too big
-        if ($section === false || $section > parent::$sections) {
+        if ($section === false || $section >= parent::$sections) {
             $section = 0;
         }
 
