@@ -1,0 +1,51 @@
+.discuss-form {
+  display: block;
+  position: relative;
+
+  margin: 2rem 0 0;
+
+  input {
+    display: block;
+
+    width: 100%;
+    padding: 0.625rem 0.5rem;
+
+    font-size: 1rem;
+    font-weight: 300;
+
+    background-color: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.25rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-last);
+    }
+  }
+
+  button {
+    display: block;
+
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+
+    width: 1.25rem;
+    height: 1.25rem;
+
+    overflow: hidden;
+    text-indent: -9999rem;
+
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: contain;
+    background-position: center;
+    background-image: url('/images/send.svg');
+
+    border: 0;
+    transition: filter 0.375s;
+    transform: translateY(-50%);
+
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,51 @@
+.tools {
+  display: flex;
+  justify-content: space-around;
+
+  width: 100%;
+  margin: 1.5rem auto 2.5rem;
+  padding: 0 4rem;
+
+  button {
+    display: block;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    overflow: hidden;
+    text-indent: -9999rem;
+
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: contain;
+    background-position: center;
+
+    border: 0;
+    transition: filter 0.375s;
+
+    cursor: pointer;
+
+    &.like {
+      transform: translateY(-2px);
+      background-image: url('/images/vote.svg');
+    }
+
+    &.dislike {
+      transform: rotate(180deg);
+      background-image: url('/images/vote.svg');
+    }
+
+    &.replies {
+      background-size: 75%;
+      background-image: url('/images/comments.svg');
+    }
+
+    &:hover {
+      filter: brightness(60%);
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    padding: 0 2rem;
+  }
+}
