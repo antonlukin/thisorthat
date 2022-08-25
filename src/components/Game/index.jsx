@@ -6,6 +6,8 @@ import Questions from '../Questions';
 import Tools from '../Tools';
 // import Discuss from '../Discuss';
 
+import register from '../../api/register';
+
 import './styles.scss';
 
 const Game = function() {
@@ -14,29 +16,20 @@ const Game = function() {
   document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
 
   useEffect(() => {
-    const fetchData = async () => {
-      let url = '/register/';
+    async function fetchData() {
+      try {
+        const response = await register(token);
 
-      const data = new FormData();
-      data.append('client', 'test');
-      data.append('uniqid', '0');
+        if (!response.token) {
+          throw new Error();
+        }
 
-      const options = {
-        method: 'POST',
-        body: data
-      };
-
-      const response = await fetch(url, options);
-
-      if (response.status > 200) {
-          return console.log('123');
+        setToken(response.token);
+        localStorage.setItem('token', response.token);
+      } catch (error) {
+        console.log(error);
       }
-
-      const answer = await response.json();
-
-      setToken(answer.result.token);
-      localStorage.setItem('token', answer.result.token);
-    };
+    }
 
     const localToken = localStorage.getItem('token');
 
@@ -45,7 +38,7 @@ const Game = function() {
     } else {
       setToken(localToken);
     }
-  }, []);
+  }, [token]);
 
   return (
     <>
