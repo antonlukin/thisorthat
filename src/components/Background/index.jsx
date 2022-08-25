@@ -20,7 +20,6 @@ const Background = function() {
 
   return (
     <ParticlesBg type="custom" config={config} />
-    // <div className="particles-bg-canvas-self"></div>
   );
 }
 

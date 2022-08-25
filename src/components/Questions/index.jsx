@@ -1,56 +1,54 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import Versus from '../Versus';
-import Counter from '../Counter';
+import QuestionsBlock from '../QuestionsBlock';
+import getItems from '../../api/getItems';
 
 import './styles.scss';
 
-const Questions = function() {
-  const [result, setResult] = useState(null);
+const Questions = function({token}) {
+  const [items, setItems] = useState([]);
 
-  const item = {
-    "item_id": "5811",
-    // "first_text": "Дневники Вампира",
-    "first_text": "Конечно, музыку. Я интроверт. Конечно, музыку. Я интроверт. Конечно, музыку. Я интроверт. Конечно, музыку. Я интроверт. Конечно, музыку. Я интроверт 2",
-    "last_text": "Сверхъестественное",
-    "status": "approved",
-    "first_vote": 4267,
-    "last_vote": 10982
-  };
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const first = {
-    id: item.item_id,
-    text: item.first_text,
-    amount: item.first_vote,
-    percent: Math.ceil(item.first_vote / item.last_vote * 100),
-  };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await getItems(token);
 
-  const last = {
-    id: item.item_id,
-    text: item.last_text,
-    amount: item.last_vote,
-    percent: 100 - first.percent,
-  };
+        if (!response.items) {
+          throw new Error();
+        }
+
+        setItems(items.concat(response.items));
+      } catch (error) {
+        if (error.response?.data?.description) {
+          setError(error.response?.data?.description);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    if (items.length < 10) {
+      console.log('refresh');
+      fetchData();
+    }
+
+    console.log(items);
+  }, [token, items]);
 
   return (
     <div className="questions">
-      <div className="questions-item" onClick={(e) => setResult(first)}>
-        {result &&
-          <Counter result={first} />
-        }
-
-        <p>{first.text}</p>
-      </div>
-
-      <Versus />
-
-      <div className="questions-item" onClick={(e) => setResult(last)}>
-        {result &&
-          <Counter result={last} />
-        }
-
-        <p>{last.text}</p>
-      </div>
+      {isLoading &&
+        <p>Загрузка</p>
+      }
+      {error &&
+        <p>{error}</p>
+      }
+      {items.length &&
+        <QuestionsBlock items={items} setItems={setItems} />
+      }
     </div>
   );
 }

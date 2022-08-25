@@ -10,15 +10,17 @@ html, body {
   height: 100%;
 }
 
+html {
+  color: var(--color-light);
+  background-color: var(--color-bg-bottom);
+}
+
 body {
   max-width: 100%;
   margin: 0;
   padding: 0;
 
   font: 400 16px/1.5 'Ubuntu', sans-serif;
-
-  color: var(--color-light);
-  background-color: var(--color-bg-bottom);
 }
 
 img {
