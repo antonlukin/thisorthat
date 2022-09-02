@@ -5,7 +5,7 @@ import './styles.scss';
 const QuestionsItem = function({data, result, updateResult}) {
   const classes = ['questions-item'];
 
-  if (result === null) {
+  if (!result) {
     classes.push('is-recent');
   }
 
@@ -13,8 +13,12 @@ const QuestionsItem = function({data, result, updateResult}) {
     classes.push('is-picked');
   }
 
+  function selectItem() {
+    updateResult(data.pick)
+  }
+
   return (
-    <div className={classes.join(' ')} onClick={(e) => updateResult(data.pick)}>
+    <div className={classes.join(' ')} onClick={selectItem}>
       <p>{data.text}</p>
 
       {result &&

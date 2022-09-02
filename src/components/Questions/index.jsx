@@ -1,54 +1,77 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
-import QuestionsBlock from '../QuestionsBlock';
-import getItems from '../../api/getItems';
+import API from '../../api';
+import AuthContext from '../../context';
+
+import Versus from '../Versus';
+import QuestionsItem from '../QuestionsItem';
 
 import './styles.scss';
 
-const Questions = function({token}) {
-  const [items, setItems] = useState([]);
+const Questions = function({current, shiftItem}) {
+  const [result, setResult] = useState(null);
+  const token = useContext(AuthContext);
 
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const start = Math.round(window.performance.now());
+  const prepared = prepareItem(current);
 
   useEffect(() => {
-    async function fetchData() {
+    async function sendData() {
       try {
-        const response = await getItems(token);
-
-        if (!response.items) {
-          throw new Error();
-        }
-
-        setItems(items.concat(response.items));
+        await API.setViewed(token, current.item_id, result);
       } catch (error) {
-        if (error.response?.data?.description) {
-          setError(error.response?.data?.description);
-        }
-      } finally {
-        setIsLoading(false);
+        console.error(error);
       }
     }
 
-    if (items.length < 10) {
-      console.log('refresh');
-      fetchData();
+    if (result) {
+      console.log('send data');
+      sendData();
+    }
+  }, [result, current, token]);
+
+  function prepareItem(current) {
+    const prepared = {};
+    const sum = current.first_vote + current.last_vote;
+
+    prepared.first = {
+      pick: 'first',
+      text: current.first_text,
+      amount: current.first_vote,
+      percent: Math.ceil(current.first_vote / sum  * 100),
+    };
+
+    prepared.last = {
+      pick: 'last',
+      text: current.last_text,
+      percent: 100 - prepared.first.percent,
+      amount: current.last_vote
+    };
+
+    return prepared;
+  }
+
+  function updateResult(pick) {
+    if (!result) {
+      return setResult(pick);
     }
 
-    console.log(items);
-  }, [token, items]);
+    const end = Math.round(window.performance.now());
+
+    // Wait until counters are displayed
+    if (start > end - 1000) {
+      return;
+    }
+
+    setResult(null);
+    shiftItem();
+  }
 
   return (
     <div className="questions">
-      {isLoading &&
-        <p>Загрузка</p>
-      }
-      {error &&
-        <p>{error}</p>
-      }
-      {items.length &&
-        <QuestionsBlock items={items} setItems={setItems} />
-      }
+      <QuestionsItem data={prepared.first} result={result} updateResult={updateResult} />
+      <Versus />
+      <QuestionsItem data={prepared.last} result={result} updateResult={updateResult} />
     </div>
   );
 }

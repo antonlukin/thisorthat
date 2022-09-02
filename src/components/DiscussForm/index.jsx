@@ -1,28 +1,69 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
+
+import API from '../../api';
+import AuthContext from '../../context';
+
+import Loader from '../Loader';
+import Warning from '../Warning';
 
 import './styles.scss';
 
-const DiscussForm = function() {
-  const [comment, setComment] = useState('');
+const DiscussForm = function({current, addComment}) {
+  const [message, setMessage] = useState('');
+  const [warning, setWarning] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const addComment = (e) => {
+  const token = useContext(AuthContext);
+
+  async function submitForm(e) {
     e.preventDefault();
 
-    alert(1);
+    setIsLoading(true);
+
+    try {
+      const data = await API.addComment(token, current.item_id, message);
+      addComment(data);
+
+      setMessage('');
+    } catch (error) {
+      setWarning(error.response.data?.description || 'Не удалось добавить комментарий');
+    }
+
+    setIsLoading(false);
+  }
+
+  function updateMessage(e) {
+    e.preventDefault();
+
+    if (!isLoading) {
+      setMessage(e.target.value);
+    }
+
+    setWarning('');
   }
 
   return (
-    <form className="discuss-form" action="/" onSubmit={addComment}>
-        <input
+    <form className="discuss-form" action="/" onSubmit={submitForm}>
+      <fieldset>
+        <TextareaAutosize
           type="text"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={message}
+          rows="1"
+          maxLength={300}
+          onChange={updateMessage}
           placeholder="Ваш комментарий"
         />
 
-        {comment &&
-          <button type="submit">Отправить</button>
+        {isLoading
+          ? <Loader position="on-discuss" />
+          : message && <button type="submit">Отправить</button>
         }
+      </fieldset>
+
+      {warning &&
+        <Warning position="on-discuss">{warning}</Warning>
+      }
     </form>
   );
 }

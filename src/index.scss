@@ -28,9 +28,33 @@ img {
   height: auto;
 }
 
+a {
+  color: inherit;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  color: inherit;
+  background: transparent;
+  border: 0;
+
+  cursor: pointer;
+}
+
 input {
   color: var(--color-light);
   font-family: inherit;
+}
+
+textarea {
+  color: var(--color-light);
+  font-family: inherit;
+  line-height: 1.25;
 }
 
 #root {
@@ -38,5 +62,5 @@ input {
   position: relative;
 
   height: 100%;
-  padding: 0 2rem;
+  padding: 0 1rem;
 }

@@ -1,0 +1,36 @@
+.backlink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  padding: 0 0 0.5rem;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.25);
+
+  h1 {
+    margin: 0;
+
+    font-size: 1.125rem;
+    font-weight: 400;
+
+    cursor: default;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    position: absolute;
+    left: 0;
+
+    width: 2rem;
+    height: 2rem;
+    margin-right: auto;
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

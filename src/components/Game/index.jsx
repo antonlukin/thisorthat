@@ -1,58 +1,104 @@
 import { useState, useEffect } from 'react';
 
+import API from '../../api';
+import AuthContext from '../../context';
+
 import Header from '../Header';
-import Background from '../Background'
 import Questions from '../Questions';
 import Tools from '../Tools';
-// import Discuss from '../Discuss';
-
-import register from '../../api/register';
-
-import './styles.scss';
+import Discuss from '../Discuss';
+import Loader from '../Loader';
+import Warning from '../Warning';
 
 const Game = function() {
   const [token, setToken] = useState(null);
+  const [items, setItems] = useState([]);
+  const [current, setCurrent] = useState(null);
+  const [warning, setWarning] = useState(null);
 
-  document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isDiscuss, setIsDiscuss] = useState(false);
 
   useEffect(() => {
-    async function fetchData() {
+    async function getToken() {
       try {
-        const response = await register(token);
+        const data = await API.register();
+        setToken(data);
 
-        if (!response.token) {
-          throw new Error();
-        }
-
-        setToken(response.token);
-        localStorage.setItem('token', response.token);
-      } catch (error) {
-        console.log(error);
+        localStorage.setItem('token', data);
+      } catch(error) {
+        setWarning('Не удалось зарегистрироваться. Попробуйте обновить страницу');
       }
     }
 
     const localToken = localStorage.getItem('token');
+    setToken(localToken);
 
-    if (localToken === null) {
-      fetchData();
-    } else {
-      setToken(localToken);
+    if (!localToken) {
+      getToken();
     }
   }, [token]);
 
+  useEffect(() => {
+    async function getItems() {
+      try {
+        const data = await API.getItems(token);
+        setItems(items.concat(data));
+      } catch (error) {
+        setWarning('Не удалось загрузить вопросы. Попробуйте обновить страницу.');
+      }
+    }
+
+    if (items.length) {
+      setIsLoading(false);
+      setCurrent(items[0]);
+    }
+
+    if (token && items.length < 5) {
+      getItems();
+    }
+  }, [token, items]);
+
+  function toggleComments() {
+    if (!isDiscuss) {
+      return setIsDiscuss(true);
+    }
+
+    document.body.scrollIntoView({ behavior: "smooth" });
+
+    setTimeout(() => {
+      setIsDiscuss(false);
+    }, 600);
+  }
+
+  function shiftItem() {
+    if (!isDiscuss) {
+      return setItems(items.slice(1));
+    }
+
+    toggleComments();
+    setItems(items.slice(1));
+  }
+
   return (
     <>
-      {token &&
-        <div className="game">
-          <Header />
-          <Questions token={token} />
-          <Tools />
-
-          {/* <Discuss /> */}
-        </div>
+      {warning &&
+        <Warning>{warning}</Warning>
       }
+      {!warning && isLoading &&
+        <Loader />
+      }
+      {!warning && current &&
+        <AuthContext.Provider value={token}>
+          <Header />
+          <Questions current={current} shiftItem={shiftItem} />
+          <Tools current={current} toggleComments={toggleComments} />
 
-      <Background />
+          {isDiscuss &&
+            <Discuss current={current} />
+          }
+        </AuthContext.Provider>
+      }
     </>
   );
 }

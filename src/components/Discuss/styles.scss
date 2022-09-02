@@ -1,7 +1,9 @@
 .discuss {
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  position: relative;
 
-  width: 22.75rem;
-  max-width: 100%;
-  margin: 0 auto 3.25rem;
+  width: 100%;
+  margin: 0 auto 1.5rem;
 }

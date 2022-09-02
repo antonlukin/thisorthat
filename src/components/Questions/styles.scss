@@ -1,7 +1,6 @@
 .questions {
   display: grid;
   grid-template-rows: 1fr 1fr;
-  flex: 1 1 auto;
 
   position: relative;
 
@@ -9,6 +8,7 @@
   height: calc(var(--app-height) - 13.5rem);
   min-height: 30rem;
   max-height: 40rem;
+  margin: 0 auto;
 
   font-size: 1.25rem;
   font-weight: 300;
@@ -18,7 +18,7 @@
     font-size: 1.125rem;
   }
 
-  @media screen and (max-width: 360px) {
+  @media screen and (max-width: 359px) {
     height: calc(var(--app-height) - 10.25rem);
   }
 }

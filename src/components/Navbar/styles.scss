@@ -1,0 +1,56 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--color-blackout);
+
+  nav {
+    display: block;
+    position: fixed;
+
+    width: 20rem;
+    max-width: calc(100% - 1rem);
+    padding: 0.5rem 1.25rem;
+
+    color: var(--color-light);
+    background-color: var(--color-popup);
+    border-radius: 0.75rem;
+
+    animation: decrease 0.125s;
+  }
+
+  a, button {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 0.75rem 0.125rem;
+
+    font-weight: 300;
+
+    text-decoration: none;
+    border-bottom: solid 1px var(--color-lines);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    svg {
+      display: block;
+
+      width: 1.25rem;
+      height: auto;
+
+      margin-right: 0.75rem;
+    }
+  }
+}

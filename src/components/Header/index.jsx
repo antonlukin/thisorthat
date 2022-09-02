@@ -1,11 +1,14 @@
-import './styles.scss';
+import { Link } from "react-router-dom";
+
 import Logo from '../../images/logo.png';
+
+import './styles.scss';
 
 const Header = function() {
   return (
-    <a href="/" className="header">
+    <Link to="/" className="header">
       <img src={Logo} alt="То или Это"/>
-    </a>
+    </Link>
   );
 }
 
