@@ -99,6 +99,16 @@ Flight::route('GET|POST /sendReport', [
 
 
 /**
+ * Cancel report for item
+ *
+ * @link  https://docs.thisorthat.ru/#cancelreport
+ */
+Flight::route('GET|POST /cancelReport', [
+    'methods\cancelReport', 'run_task'
+], true);
+
+
+/**
  * Get comments by item id
  *
  * @link https://docs.thisorthat.ru/#getcomments

@@ -51,7 +51,7 @@ class sendReport extends \engine
         }
 
         // Get reason parameter
-        $reason = parent::get_parameter('reason', '^(typo|abuse|clone)$');
+        $reason = parent::get_parameter('reason', '^(typo|abuse|clone|dislike)$');
 
         if ($reason === false) {
             parent::show_error('Параметр reason не соответствует условиям', 400);
