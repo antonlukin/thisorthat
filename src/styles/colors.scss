@@ -1,9 +1,16 @@
 :root {
   --color-bg-bottom: #110f26;
   --color-bg-top: #322e5a;
+
+  --color-field-dark: #110f26;
+  --color-field-light: #322e5a;
+
   --color-blackout: rgba(0, 0, 0, 0.875);
   --color-lines: rgba(0, 0, 0, 0.125);
+  --color-border: rgba(255, 255, 255, 0.25);
   --color-popup: #2e2e3a;
+  --color-approve: #3da38c;
+  --color-decline: #d85168;
 
   --color-first: #FF6642;
   --color-last: #B454B7;

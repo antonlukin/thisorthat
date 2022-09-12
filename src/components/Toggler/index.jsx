@@ -1,20 +1,20 @@
 import './styles.scss';
 
-const Toggler = function({isOpened, setIsOpened}) {
+const Toggler = function({opened, setOpened}) {
   const classes = ['toggler'];
 
-  if (isOpened) {
+  if (opened) {
     classes.push('is-opened');
   }
 
   function toggleMenu(e) {
     e.preventDefault();
 
-    if (isOpened) {
-      return setIsOpened(false);
+    if (opened) {
+      return setOpened(false);
     }
 
-    setIsOpened(true);
+    setOpened(true);
   }
 
   return (

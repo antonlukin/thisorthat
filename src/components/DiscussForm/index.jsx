@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 
+import { ReactComponent as SendIcon } from '../../images/send.svg';
+
 import API from '../../api';
 import AuthContext from '../../context';
 
@@ -12,14 +14,15 @@ import './styles.scss';
 const DiscussForm = function({current, addComment}) {
   const [message, setMessage] = useState('');
   const [warning, setWarning] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const token = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   async function submitForm(e) {
     e.preventDefault();
 
-    setIsLoading(true);
+    setWarning('');
+    setLoading(true);
 
     try {
       const data = await API.addComment(token, current.item_id, message);
@@ -30,13 +33,13 @@ const DiscussForm = function({current, addComment}) {
       setWarning(error.response.data?.description || 'Не удалось добавить комментарий');
     }
 
-    setIsLoading(false);
+    setLoading(false);
   }
 
   function updateMessage(e) {
     e.preventDefault();
 
-    if (!isLoading) {
+    if (!loading) {
       setMessage(e.target.value);
     }
 
@@ -55,9 +58,9 @@ const DiscussForm = function({current, addComment}) {
           placeholder="Ваш комментарий"
         />
 
-        {isLoading
+        {loading
           ? <Loader position="on-discuss" />
-          : message && <button type="submit">Отправить</button>
+          : message && <button type="submit"><SendIcon /></button>
         }
       </fieldset>
 

@@ -4,7 +4,7 @@
   grid-template-columns: 4rem 1fr;
 
   padding: 1rem 0;
-  border-bottom: solid 1px rgba(0, 0, 0, 0.25);
+  border-top: solid 1px rgba(0, 0, 0, 0.25);
 
   cursor: default;
 
@@ -14,7 +14,9 @@
 
     width: 3rem;
     height: 3rem;
+    opacity: 0;
 
+    background-image: var(--color-field-dark);
     border-radius: 0.25rem;
   }
 
@@ -37,8 +39,8 @@
     word-break: break-word;
   }
 
-  &:last-child {
-    border-bottom: 0;
+  &:first-child {
+    border-top: 0;
   }
 
   &:nth-child(odd) span {
@@ -47,5 +49,9 @@
 
   &:nth-child(even) span {
     color: var(--color-last);
+  }
+
+  &.is-loaded img {
+    animation: fade 0.5s forwards;
   }
 }

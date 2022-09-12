@@ -5,16 +5,13 @@ import { ReactComponent as AdminIcon } from '../../images/admin.svg';
 import { ReactComponent as ReportIcon } from '../../images/report.svg';
 import { ReactComponent as LogoutIcon } from '../../images/logout.svg';
 
+import resetToken from '../../utils/logout';
+
 import './styles.scss';
 
-const Navbar = function({setIsOpened}) {
-  function resetToken() {
-    window.localStorage.removeItem('token');
-    window.location.reload();
-  }
-
+const Navbar = function({setOpened}) {
   function hideNavbar() {
-    setIsOpened(false);
+    setOpened(false);
   }
 
   function stopClick(e) {
@@ -24,7 +21,7 @@ const Navbar = function({setIsOpened}) {
   return (
     <div className="navbar" onClick={hideNavbar}>
       <nav onClick={stopClick}>
-        <Link to="/about">
+        <Link to="/about" onClick={hideNavbar}>
           <AboutIcon />
           О проекте
         </Link>
@@ -34,7 +31,7 @@ const Navbar = function({setIsOpened}) {
           Модерация вопросов
         </Link>
 
-        <a href="https://t.me/thisorthat_robot" target="_blank" rel="noreferrer">
+        <a href="https://t.me/thisorthat_robot" target="_blank" rel="noreferrer" onClick={hideNavbar}>
           <ReportIcon />
           Сообщить о проблеме
         </a>

@@ -10,9 +10,9 @@ import './styles.scss';
 
 const Questions = function({current, shiftItem}) {
   const [result, setResult] = useState(null);
-  const token = useContext(AuthContext);
+  const [delay, setDelay] = useState(0);
 
-  const start = Math.round(window.performance.now());
+  const { token } = useContext(AuthContext);
   const prepared = prepareItem(current);
 
   useEffect(() => {
@@ -53,18 +53,19 @@ const Questions = function({current, shiftItem}) {
 
   function updateResult(pick) {
     if (!result) {
+      setDelay(Math.round(window.performance.now()));
+
       return setResult(pick);
     }
 
-    const end = Math.round(window.performance.now());
-
     // Wait until counters are displayed
-    if (start > end - 1000) {
+    if (delay + 1000 > Math.round(window.performance.now())) {
       return;
     }
 
-    setResult(null);
-    shiftItem();
+    shiftItem(() => {
+      setResult(null);
+    });
   }
 
   return (

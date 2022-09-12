@@ -11,17 +11,17 @@ import './styles.scss';
 const Discuss = function({current}) {
   const [comments, setComments] = useState(null);
   const discussRef = useRef(null);
-  const token = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
-    discussRef.current.scrollIntoView({ behavior: "smooth" });
+    discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [comments]);
 
   useEffect(() => {
     async function getComments() {
       try {
-        const data = await API.getComments(token, current.item_id);
-        // const data = await API.getComments(token, 354225);
+        // const data = await API.getComments(token, current.item_id);
+        const data = await API.getComments(token, 354225);
         setComments(data);
       } catch(error) {
         setComments([]);
@@ -37,11 +37,11 @@ const Discuss = function({current}) {
 
   return (
     <div className="discuss" ref={discussRef}>
-      <DiscussForm current={current} addComment={addComment} />
-
-      {comments && comments.reverse().map((comment) =>
+      {comments && comments.map((comment) =>
         <DiscussItem comment={comment} key={comment.comment_id} />
       )}
+
+      <DiscussForm current={current} addComment={addComment} />
     </div>
   );
 }

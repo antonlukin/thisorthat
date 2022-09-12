@@ -9,7 +9,7 @@ import './styles.scss';
 
 const Moderation = function() {
   const [items, setItems] = useState([]);
-  const token = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
   useEffect(() => {
     async function getItems() {
@@ -21,12 +21,14 @@ const Moderation = function() {
       }
     }
 
-    getItems();
-  }, [token]);
+    if (token && items.length < 5) {
+      getItems();
+    }
+  }, [token, items]);
 
   return (
     <div className="moderation">
-      {items && items.map((item) =>
+      {items && items.slice(0, 8).map((item) =>
         <ModerationItem item={item} key={item.item_id} />
       )}
     </div>
