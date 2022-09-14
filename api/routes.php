@@ -130,7 +130,30 @@ Flight::route('GET|POST /addComment', [
 
 /**
  * Send report to comment
+ *
+ * @link https://docs.thisorthat.ru/#reportcomment
  */
 Flight::route('GET|POST /reportComment', [
     'methods\reportComment', 'run_task'
 ], true);
+
+
+/**
+ * Get unaudited items for certain user
+ *
+ * @link https://docs.thisorthat.ru/#getaudit
+ */
+Flight::route('GET|POST /getAudit', [
+    'methods\getAudit', 'run_task'
+], true);
+
+
+/**
+ * Set audit vote for new items
+ *
+ * @link https://docs.thisorthat.ru/#setaudit
+ */
+Flight::route('GET|POST /setAudit', [
+    'methods\setAudit', 'run_task'
+], true);
+

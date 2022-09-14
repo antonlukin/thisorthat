@@ -102,8 +102,8 @@ class getItems extends \engine
                 ON (items.id = views.item_id AND views.user_id = :user_id)
                 LEFT JOIN comments
                 ON (items.id = comments.item_id)
-                WHERE (views.id IS NULL) AND items.section = :section AND " . $condition . "
-                LIMIT " . (int) $limit;
+                WHERE (views.id IS NULL) AND items.section = :section AND {$condition}
+                LIMIT {$limit}";
 
             $select = $database->prepare($query);
             $select->execute(compact('user_id', 'section', 'status'));
