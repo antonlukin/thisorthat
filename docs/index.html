@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
+    <title>То или Это / Документация API</title>
+
+    <meta name="description" content="Описание принципов работы с публичным API сайта thisorthat.ru">
+    <meta property="og:url" content="https://docs.thisorthat.ru">
+    <meta property="og:title" content="Документация API сервиса вопросов То или Это">
+    <meta property="og:description" content="Описание принципов работы с публичным API сайта thisorthat.ru">
+
+    <link rel="stylesheet" href="/assets/github-markdown.css" type="text/css">
+    <link rel="stylesheet" href="/assets/github-gist.css" type="text/css">
+
+    <link rel="stylesheet" href="/assets/custom-styles.css" type="text/css">
+</head>
+
+<body>
+    <section class="wrap">
+        <article class="markdown-body" id="markdown"><h1 id="то-или-это-документация-api">То или Это: документация API</h1>
+<p>Все запросы к API должны выполняться через HTTPS и быть представлены в таком виде:</p>
+<pre><code>https://api.thisorthat.ru/&lt;method_name&gt;</code></pre><p>Для всех запросов, кроме <code>/register</code>, поддерживаются HTTP-методы <strong>GET</strong> и <strong>POST</strong>.  
+Выбор HTTP-метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.
+Параметры запроса могут быть переданны одним из трех способов:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Query_string">URL query string</a></li>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+</ul>
+<p>Ответ содержит объект JSON, который всегда имеет логическое поле <code>ok</code>. Если <code>ok</code> равно true, значит, запрос был выполнен успешно и результат запроса можно найти в поле <code>result</code>. В случае неудачного запроса <code>ok</code> равно false, и суть ошибки объясняется в поле <code>descriprion</code>. Некоторые ошибки содержат необязательное поле <code>parameters</code>, которое поможет автоматически обработать ошибку. Все такие случаи подробно описаны в пояснениях к конкретным методам.<br>Для всех запросов сервер возвращает корректный <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">код состояния</a> HTTP-запроса.</p>
+<ul>
+<li>Все методы API не чувствительны к регистру</li>
+<li>Запросы должны выполняться с использованием кодировки UTF-8</li>
+</ul>
+<p>Все методы, кроме регистрации, требуют обязательного параметра <code>token</code>, который клиент получает при регистрации.
+При успешном вызове будет возвращен JSON-объект, содержащий результат.</p>
+<h2 id="register">/register</h2>
+<p>Метод служит для регистрации клиента и получения токена авторизации.
+Регистрацию следует выполнять только через <strong>POST</strong>.</p>
+<h4 id="запрос">Запрос</h4>
+<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>client</strong></td>
+<td><code>^[a-z0-9-_]{0,16}$</code></td>
+<td>Название клиента, с которого выполняется авторизация.</td>
+</tr>
+<tr>
+<td><strong>uniqid</strong></td>
+<td><code>^[a-z0-9-_]{0,64}$</code></td>
+<td>Уникальное для платформы значение, идентификатор пользователя или uuid.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными</p>
+</blockquote>
+<h4 id="пример-запроса">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;client=vkontakte&amp;uniqid=5655655&#39; &#39;https://api.thisorthat.ru/register&#39;</code></pre>
+<h4 id="ответ-сервера">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;token&quot;: &quot;1:0994f52572ab3f9432c77615c104db9c&quot;
+    }
+}</code></pre>
+<p>В случае удачного выполнения запроса сервер возвращает параметр <code>token</code>, который представляет из себя <code>user_id</code>, отделенный двоеточием от 32-символьного хеша.</p>
+<h2 id="getitems">/getItems</h2>
+<p>Возвращает список из <strong>30</strong> вопросов, на которые пользователь ещё не ответил. Метод не возвращает отклоненные после модерации объекты.</p>
+<blockquote>
+<p>Этот метод может изменять полe базы данных.</p>
+</blockquote>
+<h4 id="запрос-1">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>^(new|approved)$</code></td>
+<td><strong>new</strong> — получить вопросы, не прошедшие модерацию, <br><strong>approved</strong> — для прошедших модерацию. <br>По умолчанию вернутся оба типа вопросов.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-1">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;status=approve&#39;</code></pre>
+<h4 id="ответ-сервера-1">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;1926&quot;,
+                &quot;first_text&quot;: &quot;Остаться слепым на всю жизнь&quot;,
+                &quot;last_text&quot;: &quot;Остаться глухим на всю жизнь&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 3443,
+                &quot;last_vote&quot;: 11679,
+                &quot;comments&quot;: null
+            },
+            {
+                &quot;item_id&quot;: &quot;5043&quot;,
+                &quot;first_text&quot;: &quot;Быть нервным&quot;,
+                &quot;last_text&quot;: &quot;Быть ранимым&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 7630,
+                &quot;last_vote&quot;: 7751,
+                &quot;comments&quot;: &quot;available&quot;
+            }
+        ]
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code>. Клиент может перемешать вопросы после получения.</p>
+<h4 id="описание-полей-вопроса">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
+<td>first_text</td>
+<td>String</td>
+<td>Текст первого вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>String</td>
+<td>Текст последнего вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — вопрос прошел модерацию.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Integer</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Integer</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+<tr>
+<td>comments</td>
+<td>String</td>
+<td><strong>availble</strong>, если у вопроса есть комментарии, либо null.</td>
+</tr>
+</tbody></table>
+<h2 id="getmyitems">/getMyItems</h2>
+<p>Метод возвращает вопросы, которые добавил текущий пользователь.</p>
+<pre><code>GET|POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-2">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых вопросов в диапазоне 1-100. <br>По умолчанию равно <em>30</em></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого вопроса. <br>По умолчанию равно <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-2">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=2&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-2">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;11&quot;,
+                &quot;first_text&quot;: &quot;Прожить в тюрьме год&quot;,
+                &quot;last_text&quot;: &quot;Пролежать в коме 2 года&quot;,
+                &quot;reason&quot;: &quot;abuse&quot;,
+                &quot;status&quot;: &quot;rejected&quot;,
+                &quot;first_vote&quot;: 6414,
+                &quot;last_vote&quot;: 10598
+            },
+            {
+                &quot;item_id&quot;: &quot;12&quot;,
+                &quot;first_text&quot;: &quot;Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это&quot;,
+                &quot;last_text&quot;: &quot;Икать до конца жизни&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 12194,
+                &quot;last_vote&quot;: 4712
+            }
+        ],
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 10,
+            &quot;total&quot;: 247
+        }
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
+<h4 id="описание-полей-вопроса-1">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
+<td>first_text</td>
+<td>String</td>
+<td>Текст первого вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>String</td>
+<td>Текст последнего вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — вопрос прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
+</tr>
+<tr>
+<td>reason</td>
+<td>String</td>
+<td>Причина отклонения вопроса. <br><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Integer</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Integer</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Поле <code>reason</code> определено только для вопросов со статусом <strong>rejected</strong>.</p>
+</blockquote>
+<h4 id="описание-полей-пагинации">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество вопросов в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого вопроса.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество вопросов пользователя.</td>
+</tr>
+</tbody></table>
+<p>Чтобы получить все 247 вопросов пользователя, нужно сделать три запроса по 100 вопросов со смещением 0, 100 и 200 соответственно.</p>
+<h2 id="additem">/addItem</h2>
+<p>Добавление нового вопроса от пользователя.</p>
+<h4 id="запрос-2">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-запроса-3">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>first_text</strong></td>
+<td><code>^.{4,150}$</code></td>
+<td>Первый вопрос длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td><strong>last_text</strong></td>
+<td><code>^.{4,150}$</code></td>
+<td>Последний вопрос длиной 4-150 символов.</td>
+</tr>
+</tbody></table>
+<p>Клиент должен провести предварительную фильтрацию вопросов.</p>
+<blockquote>
+<p>Все параметры запроса являются обязательными.  </p>
+</blockquote>
+<h4 id="пример-запроса-3">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-3">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;item_id&quot;: &quot;10000&quot;
+    }
+}</code></pre>
+<p>Ответ сервера содержит <code>item_id</code> типа <code>String</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
+<h4 id="ответ-сервера-с-ошибкой">Ответ сервера с ошибкой</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: false,
+    &quot;description&quot;: &quot;В нашей базе уже есть такой вопрос&quot;,
+    &quot;parameters&quot;: {
+        &quot;clone_id&quot;: &quot;18007&quot;
+    }
+}</code></pre>
+<p>В процессе добавления вопроса сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
+содержащее параметр <code>clone_id</code> типа <code>String</code> с идентификатором похожего вопроса.</p>
+<blockquote>
+<p>Если поле <code>parameters.clone_id</code> не пустое, клиент может предложить добавить вопрос в избранное.</p>
+</blockquote>
+<h2 id="setviewed">/setViewed</h2>
+<p>Метод для добавления ответов пользователя. Позволяет отправить список значений одним запросом.</p>
+<h4 id="запрос-3">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-запроса-4">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>views</strong></td>
+<td><code>&lt;Array&gt;</code></td>
+<td>Массив значений <strong>first</strong>, <strong>last</strong> или <strong>skip</strong> и id вопросов в качестве ключей.<br> Единовременно можно отправить до 1000 значений.</td>
+</tr>
+</tbody></table>
+<p>Если не удалось получить ответ на вопрос (например, пользователь отправил жалобу), но необходимо засчитать просмотр, то следует отправить значение <strong>skip</strong>.</p>
+<blockquote>
+<p>Все параметры запроса являются обязательными.  </p>
+</blockquote>
+<h4 id="пример-запроса-4">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;views[100]=first&amp;views[245]=last&amp;views[376]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-4">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>.</p>
+<h2 id="getfavorite">/getFavorite</h2>
+<p>Получение списка вопросов, добавленных текущим пользователем в избранное.</p>
+<h4 id="запрос-4">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getFavorite</code></pre><h4 id="параметры-запроса-5">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых вопросов в диапазоне 1-100. <br>По умолчанию равно <em>30</em></td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого вопроса. <br>По умолчанию равно <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-5">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getFavorite?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=20&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-5">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;11&quot;,
+                &quot;first_text&quot;: &quot;Прожить в тюрьме год&quot;,
+                &quot;last_text&quot;: &quot;Пролежать в коме 2 года&quot;,
+                &quot;status&quot;: &quot;rejected&quot;,
+                &quot;first_vote&quot;: 6414,
+                &quot;last_vote&quot;: 10598
+            },
+            {
+                &quot;item_id&quot;: &quot;16&quot;,
+                &quot;first_text&quot;: &quot;Хотеть чихнуть каждую секунду своей жизни но не иметь возможности сделать это&quot;,
+                &quot;last_text&quot;: &quot;Икать до конца жизни&quot;,
+                &quot;status&quot;: &quot;approved&quot;,
+                &quot;first_vote&quot;: 12194,
+                &quot;last_vote&quot;: 4712
+            }
+        ],
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 0,
+            &quot;total&quot;: 2
+        }
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
+<h4 id="описание-полей-вопроса-2">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
+<td>first_text</td>
+<td>String</td>
+<td>Текст первого вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>String</td>
+<td>Текст последнего вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td><strong>new</strong> — новый вопрос, <br><strong>approved</strong> — вопрос прошел модерацию, <br><strong>rejected</strong> — вопрос отклонен.</td>
+</tr>
+<tr>
+<td>first_vote</td>
+<td>Integer</td>
+<td>Количество ответов на первый вопрос.</td>
+</tr>
+<tr>
+<td>last_vote</td>
+<td>Integer</td>
+<td>Количество ответов на последний вопрос.</td>
+</tr>
+</tbody></table>
+<h4 id="описание-полей-пагинации-1">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество вопросов в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого вопроса.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество вопросов пользователя.</td>
+</tr>
+</tbody></table>
+<h2 id="addfavorite">/addFavorite</h2>
+<p>Добавление вопроса в список избранного.</p>
+<h4 id="запрос-5">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addFavorite</code></pre><h4 id="параметры-запроса-6">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, который нужно добавить в избранное.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.  </p>
+</blockquote>
+<h4 id="пример-запроса-6">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/addFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-6">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения, даже если вопрос уже был добавлен в избранное, сервер вернет <code>true</code>. </p>
+<h2 id="deletefavorite">/deleteFavorite</h2>
+<p>Удаление вопроса из списка избранного.</p>
+<h4 id="запрос-6">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/deleteFavorite</code></pre><h4 id="параметры-запроса-7">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, который нужно удалить из избранного.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-7">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/deleteFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-7">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения, даже если вопроса не было в избранном, сервер вернет <code>true</code>. </p>
+<h2 id="sendreport">/sendReport</h2>
+<p>Отправляет жалобу на конкретный вопрос.</p>
+<h4 id="запрос-7">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/sendReport</code></pre><h4 id="параметры-запроса-8">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, на который отправляется жалоба.</td>
+</tr>
+<tr>
+<td><strong>reason</strong></td>
+<td><code>^(typo|abuse|clone|none)$</code></td>
+<td><strong>typo</strong> — в вопросе ошибка, <br><strong>abuse</strong> — некорректный вопрос, <br><strong>clone</strong> — такой вопрос уже есть, <br><strong>none</strong> — без причины.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-8">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&amp;reason=typo&#39; &#39;https://api.thisorthat.ru/sendReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-8">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
+<h2 id="cancelreport">/cancelReport</h2>
+<p>Снимает жалобу с вопроса.</p>
+<h4 id="запрос-8">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/cancelReport</code></pre><h4 id="параметры-запроса-9">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, с которого нужно снять жалобу.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Все параметры запроса являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-9">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/cancelReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-9">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
+<h2 id="getcomments">/getComments</h2>
+<p>Получает список комментариев к вопросу.</p>
+<h4 id="запрос-9">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getComments</code></pre><h4 id="параметры-запроса-10">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, для которого запрашиваются комментарии.</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>^[1-9][0-9]?$|100$</code></td>
+<td>Количество запрашиваемых комментариев в диапазоне 1-100. <br>По умолчанию равно <em>50</em>.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td><code>^[0-9]+$</code></td>
+<td>Смещение относительно первого комментария. <br>По умолчанию равно <em>0</em>.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-10">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getComments?token=1:0994f52572ab3f9432c77615c104db9c&amp;item_id=4&amp;limit=2&amp;offset=10&#39;</code></pre>
+<h4 id="ответ-сервера-10">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;comments&quot;: [
+            {
+                &quot;comment_id&quot;: &quot;17&quot;,
+                &quot;user_id&quot;: &quot;425&quot;,
+                &quot;parent&quot;: &quot;0&quot;,
+                &quot;message&quot;: &quot;Отличный вопрос!&quot;,
+                &quot;name&quot;: &quot;Волосатый монстр&quot;,
+                &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/425&quot;
+            },
+            {
+                &quot;comment_id&quot;: &quot;18&quot;,
+                &quot;user_id&quot;: &quot;221&quot;,
+                &quot;parent&quot;: &quot;0&quot;,
+                &quot;message&quot;: &quot;Полная ерунда&quot;,
+                &quot;name&quot;: &quot;Умный багажник&quot;,
+                &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/221&quot;
+            }
+        ],
+        &quot;pages&quot;: {
+            &quot;count&quot;: 2,
+            &quot;offset&quot;: 0,
+            &quot;total&quot;: 18
+        }
+    }
+}</code></pre>
+<p>Ответ сервера содержит список объектов <code>comments</code> и список настроек пагинации <code>pages</code>. </p>
+<h4 id="описание-полей-вопроса-3">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>comment_id</td>
+<td>String</td>
+<td>Уникальный идентификатор комментария.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>String</td>
+<td>Идентификатор пользователя, который добавил комментарий.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>Текст комментария длиной 1-300 символов.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Имя пользователя длинной 1-64 символов.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>String</td>
+<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em>.</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td>String</td>
+<td>Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером <em>200x200</em>.</td>
+</tr>
+</tbody></table>
+<h4 id="описание-полей-пагинации-2">Описание полей пагинации</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>count</td>
+<td>Integer</td>
+<td>Количество комментариев в текущей выборке.</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>Integer</td>
+<td>Смещение относительно первого комментария.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>Integer</td>
+<td>Общее количество комментариев вопроса.</td>
+</tr>
+</tbody></table>
+<h2 id="addcomment">/addComment</h2>
+<p>Добавление нового комментария к вопросу.</p>
+<h4 id="запрос-10">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addComment</code></pre><h4 id="параметры-запроса-11">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, к которому добавляется комментарий.</td>
+</tr>
+<tr>
+<td><strong>message</strong></td>
+<td><code>^.{1,300}$</code></td>
+<td>Текст комментария длиной 1-300 символов. <br>К значению применяется фильтр антимата.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор родительского комментария. <br>По умолчанию равен <em>0</em></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-11">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;message=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<h4 id="ответ-сервера-11">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;comment_id&quot;: &quot;300&quot;,
+        &quot;user_id&quot;: &quot;1&quot;,
+        &quot;parent&quot;: &quot;0&quot;,
+        &quot;message&quot;: &quot;Отличный комментарий&quot;,
+        &quot;name&quot;: &quot;Волосатый монстр&quot;,
+        &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/1&quot;
+    }
+}</code></pre>
+<p>В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
+Между запросами на добавление комментария должно пройти минимум 20 секунд, иначе сервер вернет ошибку.</p>
+<h4 id="описание-полей-ответа">Описание полей ответа</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>comment_id</td>
+<td>String</td>
+<td>Уникальный идентификатор комментария.</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>String</td>
+<td>Идентификатор пользователя, который добавил комментарий.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>String</td>
+<td>Текст комментария длиной 1-300 символов.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>Имя пользователя длинной 1-64 символов.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>String</td>
+<td>Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно <em>0</em>.</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td>String</td>
+<td>Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером <em>200x200</em>.</td>
+</tr>
+</tbody></table>
+<h2 id="reportcomment">/reportComment</h2>
+<p>Отправляет жалобу на комментарий.</p>
+<h4 id="запрос-11">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/reportComment</code></pre><h4 id="параметры-запроса-12">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>comment_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор комментария, на который отправляется жалоба.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-12">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request POST &#39;https://api.thisorthat.ru/reportComment?token=1:0994f52572ab3f9432c77615c104db9c&amp;comment_id=1&#39;</code></pre>
+<h4 id="ответ-сервера-12">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
+</article>
+    </section>
+</body>
+
+<script src="/assets/highlight.pack.js"></script>
+<script src="/assets/sidebar-loader.js"></script>
+</html>
