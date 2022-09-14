@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from './constants';
 
 const addComment = async (token, item, message) => {
   const data = new FormData();
@@ -6,7 +7,7 @@ const addComment = async (token, item, message) => {
   data.append('item_id', item);
   data.append('message', message);
 
-  const response = await axios('https://api.thisorthat.ru/addComment', {
+  const response = await axios(API_URL + '/addComment', {
     method: 'POST',
     data: data,
   });

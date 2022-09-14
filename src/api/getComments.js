@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from './constants';
 
 const getComments = async (token, item) => {
   const data = new FormData();
@@ -6,7 +7,7 @@ const getComments = async (token, item) => {
   data.append('item_id', item);
   data.append('limit', 100);
 
-  const response = await axios('https://api.thisorthat.ru/getComments', {
+  const response = await axios(API_URL + '/getComments', {
     method: 'POST',
     data: data,
   });
