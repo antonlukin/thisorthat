@@ -4,7 +4,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { ReactComponent as SendIcon } from '../../images/send.svg';
 
 import API from '../../api';
-import AuthContext from '../../context';
+import GameContext from '../../context';
 
 import Loader from '../Loader';
 import Warning from '../Warning';
@@ -16,7 +16,7 @@ const DiscussForm = function({current, addComment}) {
   const [warning, setWarning] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const { token } = useContext(AuthContext);
+  const token = useContext(GameContext);
 
   async function submitForm(e) {
     e.preventDefault();
@@ -25,9 +25,7 @@ const DiscussForm = function({current, addComment}) {
     setLoading(true);
 
     try {
-      const data = await API.addComment(token, current.item_id, message);
-      addComment(data);
-
+      addComment(await API.addComment(token, current.item_id, message));
       setMessage('');
     } catch (error) {
       setWarning(error.response.data?.description || 'Не удалось добавить комментарий');

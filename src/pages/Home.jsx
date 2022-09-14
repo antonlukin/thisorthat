@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
+import smoothScroll from '../utils/scroller';
 
 import API from '../api';
-import AuthContext from '../context';
+import GameContext from '../context';
 
 import Page from '../components/Page';
 import Header from '../components/Header';
@@ -10,12 +11,13 @@ import Tools from '../components/Tools';
 import Discuss from '../components/Discuss';
 import Menu from '../components/Menu';
 
+
 const Home = function({setWarning, setLoader}) {
-  const [items, setItems] = useState([]);
   const [current, setCurrent] = useState(null);
   const [discussed, setDiscussed] = useState(false);
+  const [items, setItems] = useState([]);
 
-  const token = useContext(AuthContext);
+  const token = useContext(GameContext);
 
   useEffect(() => {
     setLoader(true);
@@ -34,7 +36,7 @@ const Home = function({setWarning, setLoader}) {
       setCurrent(items[0]);
     }
 
-    if (token && items.length < 5) {
+    if (items.length < 5 && token) {
       getItems();
     }
   }, [token, items, setLoader, setWarning]);
@@ -44,11 +46,9 @@ const Home = function({setWarning, setLoader}) {
       return setDiscussed(true);
     }
 
-    document.body.scrollIntoView({ behavior: 'smooth' });
-
-    setTimeout(() => {
+    smoothScroll(document.body, () => {
       setDiscussed(false);
-    }, 600);
+    });
   }
 
   function updateItems(callback) {
@@ -62,12 +62,10 @@ const Home = function({setWarning, setLoader}) {
       return updateItems(callback);
     }
 
-    document.body.scrollIntoView({ behavior: 'smooth' });
-
-    setTimeout(() => {
+    smoothScroll(document.body, () => {
       setDiscussed(false);
-      updateItems(callback);
-    }, 600);
+      updateItems(callback)
+    });
   }
 
   return (

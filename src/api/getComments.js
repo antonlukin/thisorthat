@@ -4,6 +4,7 @@ const getComments = async (token, item) => {
   const data = new FormData();
   data.append('token', token);
   data.append('item_id', item);
+  data.append('limit', 100);
 
   const response = await axios('/getComments', {
     method: 'POST',

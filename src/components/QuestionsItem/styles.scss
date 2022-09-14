@@ -55,7 +55,7 @@
   }
 
   &.is-recent p {
-    animation: fade 0.75s forwards;
+    animation: fade-in 750ms forwards;
   }
 
   &.is-recent:hover {

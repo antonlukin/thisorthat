@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const getRecent = async (token) => {
+const getAudit = async (token) => {
   const data = new FormData();
   data.append('token', token);
   data.append('status', 'new');
 
-  const response = await axios('/getItems', {
+  const response = await axios('/getAudit', {
     method: 'POST',
     data: data,
   });
@@ -13,4 +13,4 @@ const getRecent = async (token) => {
   return response.data.result?.items;
 }
 
-export default getRecent;
+export default getAudit;

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import API from './api';
-import AuthContext from './context';
+import GameContext from './context';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -26,7 +26,7 @@ const App = function() {
   document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
 
   const [warning, setWarning] = useState(null);
-  const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(true);
   const [token, setToken] = useState(null);
 
   useEffect(() => {
@@ -61,15 +61,15 @@ const App = function() {
         <Loader />
       }
       {!warning && token &&
-        <AuthContext.Provider value={token}>
+        <GameContext.Provider value={token}>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home setLoader={setLoader} setWarning={setWarning} />} />
-              <Route path="/about" element={<About />} />
+              <Route path="/about" element={<About setLoader={setLoader} />} />
               <Route path="/admin" element={<Admin setLoader={setLoader} setWarning={setWarning} />} />
             </Routes>
           </BrowserRouter>
-        </AuthContext.Provider>
+        </GameContext.Provider>
       }
       <Background />
     </>

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const AuthContext = createContext();
+const GameContext = createContext();
 
-export default AuthContext;
+export default GameContext;

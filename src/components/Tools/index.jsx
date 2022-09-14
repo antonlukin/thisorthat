@@ -4,18 +4,31 @@ import { ReactComponent as VoteIcon } from '../../images/vote.svg';
 import { ReactComponent as VotedIcon } from '../../images/voted.svg';
 import { ReactComponent as DiscussIcon } from '../../images/discuss.svg';
 
-import AuthContext from '../../context';
+import GameContext from '../../context';
 import API from '../../api';
 
 import './styles.scss';
 
 const Tools = function({current, toggleComments}) {
   const [voted, setVoted] = useState({like: false, dislike: false});
-  const { token } = useContext(AuthContext);
+
+  const token = useContext(GameContext);
 
   useEffect(() => {
-    setVoted({ like: false, dislike: false });
-  }, [current])
+    let local = JSON.parse(localStorage.getItem('voted'));
+
+    if (local?.item !== current.item_id) {
+      local = {like: false, dislike: false};
+    }
+
+    setVoted(local);
+  }, [current]);
+
+  useEffect(() => {
+    const local = {...voted, item: current.item_id};
+
+    localStorage.setItem('voted', JSON.stringify(local));
+  }, [voted, current]);
 
   async function addFavorite() {
     setVoted({...voted, like: true});
@@ -102,6 +115,10 @@ const Tools = function({current, toggleComments}) {
 
       <button type="button" onClick={toggleComments}>
         <DiscussIcon />
+
+        {current.comments &&
+          <span></span>
+        }
       </button>
 
       <button type="button" onClick={handleDislike}>

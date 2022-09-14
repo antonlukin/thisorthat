@@ -93,4 +93,8 @@
       margin-right: 0.375rem;
     }
   }
+
+  &.is-voted {
+    animation: fade-out 500ms forwards;
+  }
 }

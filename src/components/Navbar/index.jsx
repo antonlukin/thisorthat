@@ -10,18 +10,18 @@ import resetToken from '../../utils/logout';
 import './styles.scss';
 
 const Navbar = function({setOpened}) {
-  function hideNavbar() {
-    setOpened(false);
-  }
+  function hideNavbar(e) {
+    if (e.target.tagName.toLowerCase() === 'nav') {
+      return e.stopPropagation();
+    }
 
-  function stopClick(e) {
-    e.stopPropagation();
+    setOpened(false);
   }
 
   return (
     <div className="navbar" onClick={hideNavbar}>
-      <nav onClick={stopClick}>
-        <Link to="/about" onClick={hideNavbar}>
+      <nav>
+        <Link to="/about">
           <AboutIcon />
           О проекте
         </Link>
@@ -31,7 +31,7 @@ const Navbar = function({setOpened}) {
           Модерация вопросов
         </Link>
 
-        <a href="https://t.me/thisorthat_robot" target="_blank" rel="noreferrer" onClick={hideNavbar}>
+        <a href="https://t.me/thisorthat_robot" target="_blank" rel="noreferrer">
           <ReportIcon />
           Сообщить о проблеме
         </a>

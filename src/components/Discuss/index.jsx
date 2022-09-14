@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, useContext } from 'react';
+import smoothScroll from '../../utils/scroller';
 
 import API from '../../api';
-import AuthContext from '../../context';
+import GameContext from '../../context';
 
 import DiscussItem from '../DiscussItem';
 import DiscussForm from '../DiscussForm';
@@ -9,20 +10,20 @@ import DiscussForm from '../DiscussForm';
 import './styles.scss';
 
 const Discuss = function({current}) {
-  const [comments, setComments] = useState(null);
+  const [comments, setComments] = useState([]);
   const discussRef = useRef(null);
-  const { token } = useContext(AuthContext);
+
+  const token = useContext(GameContext);
 
   useEffect(() => {
-    discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    smoothScroll(discussRef.current.scrollHeight);
   }, [comments]);
 
   useEffect(() => {
     async function getComments() {
       try {
-        // const data = await API.getComments(token, current.item_id);
-        const data = await API.getComments(token, 354225);
-        setComments(data);
+        // const data = await API.getComments(token, 354225);
+        setComments(await API.getComments(token, current.item_id));
       } catch(error) {
         setComments([]);
       }

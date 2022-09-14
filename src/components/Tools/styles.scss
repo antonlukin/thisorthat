@@ -11,6 +11,7 @@
 
   button {
     display: block;
+    position: relative;
 
     width: 1.5rem;
     height: 1.5rem;
@@ -22,6 +23,25 @@
 
     border: 0;
     transition: filter 0.375s;
+
+    span {
+      display: block;
+
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      width: 0.5rem;
+      height: 0.5rem;
+
+      background: var(--color-last);
+      outline: solid 0.125rem var(--color-field-dark);
+
+      border-radius: 50%;
+
+      transform: scale(0);
+      animation: appearance 500ms forwards;
+    }
 
     svg {
       width: 100%;

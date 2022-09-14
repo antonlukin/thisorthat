@@ -52,6 +52,6 @@
   }
 
   &.is-loaded img {
-    animation: fade 0.5s forwards;
+    animation: fade-in 500ms forwards;
   }
 }

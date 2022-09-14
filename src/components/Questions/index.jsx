@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 
 import API from '../../api';
-import AuthContext from '../../context';
+import GameContext from '../../context';
 
 import Versus from '../Versus';
 import QuestionsItem from '../QuestionsItem';
@@ -12,11 +12,11 @@ const Questions = function({current, shiftItem}) {
   const [result, setResult] = useState(null);
   const [delay, setDelay] = useState(0);
 
-  const { token } = useContext(AuthContext);
+  const token = useContext(GameContext);
   const prepared = prepareItem(current);
 
   useEffect(() => {
-    async function sendData() {
+    async function setViewed() {
       try {
         await API.setViewed(token, current.item_id, result);
       } catch (error) {
@@ -25,8 +25,7 @@ const Questions = function({current, shiftItem}) {
     }
 
     if (result) {
-      console.log('send data');
-      sendData();
+      setViewed();
     }
   }, [result, current, token]);
 
