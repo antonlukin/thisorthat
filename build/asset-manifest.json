@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7153ba16.css",
+    "main.js": "/static/js/main.c263cc69.js",
+    "static/media/ubuntu-light.woff": "/static/media/ubuntu-light.67ed9e29f664defdf7b7.woff",
+    "static/media/ubuntu-light.woff2": "/static/media/ubuntu-light.86e7feda9f740f816c8c.woff2",
+    "static/media/ubuntu-regular.woff": "/static/media/ubuntu-regular.8efd18174f24d758cb7c.woff",
+    "static/media/ubuntu-bold.woff": "/static/media/ubuntu-bold.8360c76fae3e0be0b999.woff",
+    "static/media/logo.png": "/static/media/logo.d69e43e4082f19c39a2d.png",
+    "static/media/ubuntu-regular.woff2": "/static/media/ubuntu-regular.d7115b526e4688a46904.woff2",
+    "static/media/ubuntu-bold.woff2": "/static/media/ubuntu-bold.1b4c594d906aecda540d.woff2",
+    "static/media/vote.svg": "/static/media/vote.a3d5061fb3a287c23631a5004fd50349.svg",
+    "static/media/voted.svg": "/static/media/voted.80f594c4908c8a8e6b747f9b78c1d923.svg",
+    "index.html": "/index.html",
+    "static/media/send.svg": "/static/media/send.bd17609520a374e674c8fd857de81e15.svg",
+    "static/media/discuss.svg": "/static/media/discuss.c2f19858d66fa1461a24cb0889c0ae8c.svg",
+    "static/media/about.svg": "/static/media/about.0e49f3e9bc03e3fe5a70db18288eaf7c.svg",
+    "static/media/admin.svg": "/static/media/admin.1cc957cab5f30bc04512baa5ee9f1830.svg",
+    "static/media/report.svg": "/static/media/report.50e4b7a5beefa508043e8529318e73e2.svg",
+    "static/media/decline.svg": "/static/media/decline.775cf22384f226c246acd432a34ab588.svg",
+    "static/media/logout.svg": "/static/media/logout.4673806e41956e70655b6838ed7c6e0d.svg",
+    "static/media/approve.svg": "/static/media/approve.20384a19e887e1267acc6b5895a4b455.svg",
+    "static/media/back.svg": "/static/media/back.4ab5e064aa0f1d3958a3458c5b32bb6a.svg",
+    "main.7153ba16.css.map": "/static/css/main.7153ba16.css.map",
+    "main.c263cc69.js.map": "/static/js/main.c263cc69.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7153ba16.css",
+    "static/js/main.c263cc69.js"
+  ]
+}

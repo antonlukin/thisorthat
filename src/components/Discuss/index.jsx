@@ -16,13 +16,12 @@ const Discuss = function({current}) {
   const token = useContext(GameContext);
 
   useEffect(() => {
-    smoothScroll(discussRef.current.scrollHeight);
+    smoothScroll(discussRef.current.getBoundingClientRect().bottom);
   }, [comments]);
 
   useEffect(() => {
     async function getComments() {
       try {
-        // const data = await API.getComments(token, 354225);
         setComments(await API.getComments(token, current.item_id));
       } catch(error) {
         setComments([]);
