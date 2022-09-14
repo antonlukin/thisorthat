@@ -16,6 +16,8 @@
 
   border-radius: 1.5rem;
 
+  will-change: transform;
+
   @media screen and (max-width: 767px) {
     height: calc(var(--app-height) - 10.75rem);
     font-size: 1.125rem;

@@ -28,14 +28,14 @@
       display: block;
 
       position: absolute;
-      right: 0;
-      top: 0;
+      right: -0.125rem;
+      top: -0.125rem;
 
-      width: 0.5rem;
-      height: 0.5rem;
+      width: 0.7125rem;
+      height: 0.7125rem;
 
       background: var(--color-last);
-      outline: solid 0.125rem var(--color-field-dark);
+      border: solid 0.125rem var(--color-field-dark);
 
       border-radius: 50%;
 

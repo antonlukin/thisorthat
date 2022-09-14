@@ -28,6 +28,8 @@ const App = function() {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
+    document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+
     async function getToken() {
       try {
         const data = await API.register();

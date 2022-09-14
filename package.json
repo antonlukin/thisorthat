@@ -30,7 +30,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "https://api.thisorthat.ru",
   "browserslist": {
     "production": [
       ">0.2%",
