@@ -5,7 +5,7 @@
 
   position: relative;
   width: 100%;
-  padding: 2.5rem 1rem;
+  padding: 2.5rem 1.25rem;
 
   overflow: hidden;
 
@@ -58,10 +58,6 @@
     animation: fade-in 750ms forwards;
   }
 
-  &.is-recent:hover {
-    filter: brightness(120%);
-  }
-
   &.is-recent:active p {
     transform: translateY(1px);
   }
@@ -72,5 +68,11 @@
 
   &:not(.is-recent):not(.is-picked) {
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (hover: hover) {
+    &.is-recent:hover {
+      filter: brightness(120%);
+    }
   }
 }

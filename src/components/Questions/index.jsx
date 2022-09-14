@@ -62,9 +62,7 @@ const Questions = function({current, shiftItem}) {
       return;
     }
 
-    shiftItem(() => {
-      setResult(null);
-    });
+    shiftItem(setResult);
   }
 
   return (

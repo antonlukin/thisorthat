@@ -51,20 +51,19 @@ const Home = function({setWarning, setLoader}) {
     });
   }
 
-  function updateItems(callback) {
-    setItems(items.slice(1));
-
-    return callback();
+  function updateItems(setResult) {
+    setResult(null);
+    setItems(items.filter(object => object.item_id !== current.item_id));
   }
 
-  function shiftItem(callback) {
+  function shiftItem(setResult) {
     if (!discussed) {
-      return updateItems(callback);
+      return updateItems(setResult);
     }
 
     smoothScroll(document.body, () => {
       setDiscussed(false);
-      updateItems(callback)
+      updateItems(setResult)
     });
   }
 
