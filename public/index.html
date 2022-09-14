@@ -2,7 +2,6 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#110f26" />
     <meta name="description" content="Это игра, в которой пользователи придумывают вопросы и делают непростой выбор. Решайте, какой из двух вариантов вам подходит, и смотрите, сколько человек ответили так же." />
@@ -10,6 +9,10 @@
     <link rel="icon" type="image/png" sizes="64x64" href="%PUBLIC_URL%/favicon.png">
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>То или Это — играй и определись в своих предпочтениях</title>
+
+    <script>
+      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+    </script>
   </head>
   <body>
     <noscript>Необходимо включить JavaScript для корректной работы сайта.</noscript>

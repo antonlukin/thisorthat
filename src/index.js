@@ -23,8 +23,6 @@ import './styles/animations.scss';
 import './index.scss';
 
 const App = function() {
-  document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
-
   const [warning, setWarning] = useState(null);
   const [loader, setLoader] = useState(true);
   const [token, setToken] = useState(null);
