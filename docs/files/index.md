@@ -103,7 +103,8 @@ curl --include --request GET 'https://api.thisorthat.ru/getItems?token=1:0994f52
                 "last_text": "Остаться глухим на всю жизнь",
                 "status": "approved",
                 "first_vote": 3443,
-                "last_vote": 11679
+                "last_vote": 11679,
+                "comments": null
             },
             {
                 "item_id": "5043",
@@ -111,7 +112,8 @@ curl --include --request GET 'https://api.thisorthat.ru/getItems?token=1:0994f52
                 "last_text": "Быть ранимым",
                 "status": "approved",
                 "first_vote": 7630,
-                "last_vote": 7751
+                "last_vote": 7751,
+                "comments": "available"
             }
         ]
     }
@@ -128,8 +130,10 @@ curl --include --request GET 'https://api.thisorthat.ru/getItems?token=1:0994f52
 | first_text | String  | Текст первого вопроса длиной 4-150 символов. |
 | last_text  | String  | Текст последнего вопроса длиной 4-150 символов. |
 | status     | String  | **new** — новый вопрос, <br>**approved** — вопрос прошел модерацию. |
-| first_vote | Integer |Количество ответов на первый вопрос. |
-| last_vote  | Integer |Количество ответов на последний вопрос. |
+| first_vote | Integer | Количество ответов на первый вопрос. |
+| last_vote  | Integer | Количество ответов на последний вопрос. |
+| comments   | String  | **availble**, если у вопроса есть комментарии, либо null.  |
+
 
 
 ## /getMyItems
