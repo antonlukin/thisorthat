@@ -5,7 +5,7 @@ const getItems = async (token) => {
   data.append('token', token);
   data.append('status', 'approved');
 
-  const response = await axios('/getItems', {
+  const response = await axios('https://api.thisorthat.ru/getItems', {
     method: 'POST',
     data: data,
   });

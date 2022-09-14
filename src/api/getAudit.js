@@ -5,7 +5,7 @@ const getAudit = async (token) => {
   data.append('token', token);
   data.append('status', 'new');
 
-  const response = await axios('/getAudit', {
+  const response = await axios('https://api.thisorthat.ru/getAudit', {
     method: 'POST',
     data: data,
   });

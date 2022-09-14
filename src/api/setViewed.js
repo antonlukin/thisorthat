@@ -5,7 +5,7 @@ const setViewed = async (token, item, result) => {
   data.append('token', token);
   data.append('views[' + item + ']', result);
 
-  const response = await axios.post('/setViewed', data);
+  const response = await axios.post('https://api.thisorthat.ru/setViewed', data);
 
   return response.data.result;
 }

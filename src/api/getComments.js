@@ -6,7 +6,7 @@ const getComments = async (token, item) => {
   data.append('item_id', item);
   data.append('limit', 100);
 
-  const response = await axios('/getComments', {
+  const response = await axios('https://api.thisorthat.ru/getComments', {
     method: 'POST',
     data: data,
   });

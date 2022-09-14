@@ -6,7 +6,7 @@ const setAudit = async (token, item, result) => {
   data.append('item_id', item);
   data.append('vote', result);
 
-  const response = await axios.post('/setAudit', data);
+  const response = await axios.post('https://api.thisorthat.ru/setAudit', data);
 
   return response.data.result;
 }

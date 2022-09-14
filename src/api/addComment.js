@@ -6,7 +6,7 @@ const addComment = async (token, item, message) => {
   data.append('item_id', item);
   data.append('message', message);
 
-  const response = await axios('/addComment', {
+  const response = await axios('https://api.thisorthat.ru/addComment', {
     method: 'POST',
     data: data,
   });

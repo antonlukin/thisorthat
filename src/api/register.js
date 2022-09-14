@@ -6,7 +6,7 @@ const register = async () => {
   data.append('client', 'web-react');
   data.append('uniqid', nanoid());
 
-  const response = await axios.post('/register', data);
+  const response = await axios.post('https://api.thisorthat.ru/register', data);
 
   return response.data.result?.token;
 }

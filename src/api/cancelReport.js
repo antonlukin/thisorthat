@@ -5,7 +5,7 @@ const cancelReport = async (token, item) => {
   data.append('token', token);
   data.append('item_id', item);
 
-  const response = await axios('/cancelReport', {
+  const response = await axios('https://api.thisorthat.ru/cancelReport', {
     method: 'POST',
     data: data,
   });

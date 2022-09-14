@@ -5,7 +5,7 @@ const addFavorite = async (token, item) => {
   data.append('token', token);
   data.append('item_id', item);
 
-  const response = await axios('/addFavorite', {
+  const response = await axios('https://api.thisorthat.ru/addFavorite', {
     method: 'POST',
     data: data,
   });
