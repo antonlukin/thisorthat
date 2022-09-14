@@ -1,5 +1,9 @@
 {
-  "name": "thisorthat",
+  "name": "thisorthat.ru",
+  "version": "3.0.0",
+  "description": "This or That game public repository",
+  "repository": "git@github.com:antonlukin/thisorthat.git",
+  "author": "Anton Lukin <anton@lukin.me>",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
