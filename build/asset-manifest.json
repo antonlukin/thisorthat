@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.b7e042c8.css",
+    "main.css": "/static/css/main.ac1218b9.css",
     "main.js": "/static/js/main.2efbefe1.js",
     "static/media/ubuntu-light.woff": "/static/media/ubuntu-light.67ed9e29f664defdf7b7.woff",
     "static/media/ubuntu-light.woff2": "/static/media/ubuntu-light.86e7feda9f740f816c8c.woff2",
@@ -21,11 +21,11 @@
     "static/media/logout.svg": "/static/media/logout.4673806e41956e70655b6838ed7c6e0d.svg",
     "static/media/approve.svg": "/static/media/approve.20384a19e887e1267acc6b5895a4b455.svg",
     "static/media/back.svg": "/static/media/back.4ab5e064aa0f1d3958a3458c5b32bb6a.svg",
-    "main.b7e042c8.css.map": "/static/css/main.b7e042c8.css.map",
+    "main.ac1218b9.css.map": "/static/css/main.ac1218b9.css.map",
     "main.2efbefe1.js.map": "/static/js/main.2efbefe1.js.map"
   },
   "entrypoints": [
-    "static/css/main.b7e042c8.css",
+    "static/css/main.ac1218b9.css",
     "static/js/main.2efbefe1.js"
   ]
 }
