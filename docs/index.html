@@ -21,8 +21,9 @@
     <section class="wrap">
         <article class="markdown-body" id="markdown"><h1 id="то-или-это-документация-api">То или Это: документация API</h1>
 <p>Все запросы к API должны выполняться через HTTPS и быть представлены в таком виде:</p>
-<pre><code>https://api.thisorthat.ru/&lt;method_name&gt;</code></pre><p>Для всех запросов, кроме <code>/register</code>, поддерживаются HTTP-методы <strong>GET</strong> и <strong>POST</strong>.  
-Выбор HTTP-метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.
+<pre><code>https://api.thisorthat.ru/&lt;method_name&gt;
+</code></pre>
+<p>Для всех запросов, кроме <code>/register</code>, поддерживаются HTTP-методы <strong>GET</strong> и <strong>POST</strong>.<br>Выбор HTTP-метода ложится на плечи клиента, но стоит помнить, что запросы на изменение данных не должны кэшироваться.
 Параметры запроса могут быть переданны одним из трех способов:</p>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/Query_string">URL query string</a></li>
@@ -40,7 +41,9 @@
 <p>Метод служит для регистрации клиента и получения токена авторизации.
 Регистрацию следует выполнять только через <strong>POST</strong>.</p>
 <h4 id="запрос">Запрос</h4>
-<pre><code>POST https://api.thisorthat.ru/register</code></pre><h4 id="параметры-запроса">Параметры запроса</h4>
+<pre><code>POST https://api.thisorthat.ru/register
+</code></pre>
+<h4 id="параметры-запроса">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -64,14 +67,16 @@
 <p>Все параметры запроса являются обязательными</p>
 </blockquote>
 <h4 id="пример-запроса">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;client=vkontakte&amp;uniqid=5655655&#39; &#39;https://api.thisorthat.ru/register&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;client=vkontakte&amp;uniqid=5655655&#39; &#39;https://api.thisorthat.ru/register&#39;
+</code></pre>
 <h4 id="ответ-сервера">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
         &quot;token&quot;: &quot;1:0994f52572ab3f9432c77615c104db9c&quot;
     }
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения запроса сервер возвращает параметр <code>token</code>, который представляет из себя <code>user_id</code>, отделенный двоеточием от 32-символьного хеша.</p>
 <h2 id="getitems">/getItems</h2>
 <p>Возвращает список из <strong>30</strong> вопросов, на которые пользователь ещё не ответил. Метод не возвращает отклоненные после модерации объекты.</p>
@@ -79,7 +84,9 @@
 <p>Этот метод может изменять полe базы данных.</p>
 </blockquote>
 <h4 id="запрос-1">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/getItems</code></pre><h4 id="параметры-запроса-1">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getItems
+</code></pre>
+<h4 id="параметры-запроса-1">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -103,7 +110,8 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-1">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;status=approve&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;status=approve&#39;
+</code></pre>
 <h4 id="ответ-сервера-1">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
@@ -129,7 +137,8 @@
             }
         ]
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ответ сервера содержит список объектов <code>items</code>. Клиент может перемешать вопросы после получения.</p>
 <h4 id="описание-полей-вопроса">Описание полей вопроса</h4>
 <table>
@@ -178,7 +187,9 @@
 </tbody></table>
 <h2 id="getmyitems">/getMyItems</h2>
 <p>Метод возвращает вопросы, которые добавил текущий пользователь.</p>
-<pre><code>GET|POST https://api.thisorthat.ru/getMyItems</code></pre><h4 id="параметры-запроса-2">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getMyItems
+</code></pre>
+<h4 id="параметры-запроса-2">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -207,7 +218,8 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-2">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=2&amp;offset=10&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getMyItems?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=2&amp;offset=10&#39;
+</code></pre>
 <h4 id="ответ-сервера-2">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
@@ -237,7 +249,8 @@
             &quot;total&quot;: 247
         }
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
 <h4 id="описание-полей-вопроса-1">Описание полей вопроса</h4>
 <table>
@@ -316,7 +329,9 @@
 <h2 id="additem">/addItem</h2>
 <p>Добавление нового вопроса от пользователя.</p>
 <h4 id="запрос-2">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/addItem</code></pre><h4 id="параметры-запроса-3">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addItem
+</code></pre>
+<h4 id="параметры-запроса-3">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -346,14 +361,16 @@
 <p>Все параметры запроса являются обязательными.  </p>
 </blockquote>
 <h4 id="пример-запроса-3">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;first_text=Visa&amp;last_text=Mastercard&#39; &#39;https://api.thisorthat.ru/addItem?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-3">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: {
         &quot;item_id&quot;: &quot;10000&quot;
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ответ сервера содержит <code>item_id</code> типа <code>String</code> добавленного вопроса. В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.</p>
 <h4 id="ответ-сервера-с-ошибкой">Ответ сервера с ошибкой</h4>
 <pre><code class="language-json">{
@@ -362,7 +379,8 @@
     &quot;parameters&quot;: {
         &quot;clone_id&quot;: &quot;18007&quot;
     }
-}</code></pre>
+}
+</code></pre>
 <p>В процессе добавления вопроса сервер проверяет текст на дубликаты. Если клон найден, сервер вернет ошибку и дополнительное поле <code>parameters</code>, 
 содержащее параметр <code>clone_id</code> типа <code>String</code> с идентификатором похожего вопроса.</p>
 <blockquote>
@@ -371,7 +389,9 @@
 <h2 id="setviewed">/setViewed</h2>
 <p>Метод для добавления ответов пользователя. Позволяет отправить список значений одним запросом.</p>
 <h4 id="запрос-3">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/setViewed</code></pre><h4 id="параметры-запроса-4">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/setViewed
+</code></pre>
+<h4 id="параметры-запроса-4">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -396,17 +416,21 @@
 <p>Все параметры запроса являются обязательными.  </p>
 </blockquote>
 <h4 id="пример-запроса-4">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;views[100]=first&amp;views[245]=last&amp;views[376]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;views[100]=first&amp;views[245]=last&amp;views[376]=skip&#39; &#39;https://api.thisorthat.ru/setViewed?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-4">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения сервер вернет <code>true</code>.</p>
 <h2 id="getfavorite">/getFavorite</h2>
 <p>Получение списка вопросов, добавленных текущим пользователем в избранное.</p>
 <h4 id="запрос-4">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/getFavorite</code></pre><h4 id="параметры-запроса-5">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getFavorite
+</code></pre>
+<h4 id="параметры-запроса-5">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -435,7 +459,8 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-5">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getFavorite?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=20&amp;offset=10&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getFavorite?token=1:0994f52572ab3f9432c77615c104db9c&amp;limit=20&amp;offset=10&#39;
+</code></pre>
 <h4 id="ответ-сервера-5">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
@@ -464,7 +489,8 @@
             &quot;total&quot;: 2
         }
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ответ сервера содержит список объектов <code>items</code> и список значений для пагинации <code>pages</code>.  </p>
 <h4 id="описание-полей-вопроса-2">Описание полей вопроса</h4>
 <table>
@@ -534,7 +560,9 @@
 <h2 id="addfavorite">/addFavorite</h2>
 <p>Добавление вопроса в список избранного.</p>
 <h4 id="запрос-5">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/addFavorite</code></pre><h4 id="параметры-запроса-6">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addFavorite
+</code></pre>
+<h4 id="параметры-запроса-6">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -558,17 +586,21 @@
 <p>Все параметры запроса являются обязательными.  </p>
 </blockquote>
 <h4 id="пример-запроса-6">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/addFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/addFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-6">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения, даже если вопрос уже был добавлен в избранное, сервер вернет <code>true</code>. </p>
 <h2 id="deletefavorite">/deleteFavorite</h2>
 <p>Удаление вопроса из списка избранного.</p>
 <h4 id="запрос-6">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/deleteFavorite</code></pre><h4 id="параметры-запроса-7">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/deleteFavorite
+</code></pre>
+<h4 id="параметры-запроса-7">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -592,17 +624,21 @@
 <p>Все параметры запроса являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-7">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/deleteFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/deleteFavorite?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-7">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения, даже если вопроса не было в избранном, сервер вернет <code>true</code>. </p>
 <h2 id="sendreport">/sendReport</h2>
 <p>Отправляет жалобу на конкретный вопрос.</p>
 <h4 id="запрос-7">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/sendReport</code></pre><h4 id="параметры-запроса-8">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/sendReport
+</code></pre>
+<h4 id="параметры-запроса-8">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -631,17 +667,21 @@
 <p>Все параметры запроса являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-8">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&amp;reason=typo&#39; &#39;https://api.thisorthat.ru/sendReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&amp;reason=typo&#39; &#39;https://api.thisorthat.ru/sendReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-8">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
 <h2 id="cancelreport">/cancelReport</h2>
 <p>Снимает жалобу с вопроса.</p>
 <h4 id="запрос-8">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/cancelReport</code></pre><h4 id="параметры-запроса-9">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/cancelReport
+</code></pre>
+<h4 id="параметры-запроса-9">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -665,17 +705,21 @@
 <p>Все параметры запроса являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-9">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/cancelReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=10&#39; &#39;https://api.thisorthat.ru/cancelReport?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-9">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
 <h2 id="getcomments">/getComments</h2>
 <p>Получает список комментариев к вопросу.</p>
 <h4 id="запрос-9">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/getComments</code></pre><h4 id="параметры-запроса-10">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getComments
+</code></pre>
+<h4 id="параметры-запроса-10">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -709,7 +753,8 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-10">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getComments?token=1:0994f52572ab3f9432c77615c104db9c&amp;item_id=4&amp;limit=2&amp;offset=10&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getComments?token=1:0994f52572ab3f9432c77615c104db9c&amp;item_id=4&amp;limit=2&amp;offset=10&#39;
+</code></pre>
 <h4 id="ответ-сервера-10">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
@@ -738,7 +783,8 @@
             &quot;total&quot;: 18
         }
     }
-}</code></pre>
+}
+</code></pre>
 <p>Ответ сервера содержит список объектов <code>comments</code> и список настроек пагинации <code>pages</code>. </p>
 <h4 id="описание-полей-вопроса-3">Описание полей вопроса</h4>
 <table>
@@ -808,7 +854,9 @@
 <h2 id="addcomment">/addComment</h2>
 <p>Добавление нового комментария к вопросу.</p>
 <h4 id="запрос-10">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/addComment</code></pre><h4 id="параметры-запроса-11">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/addComment
+</code></pre>
+<h4 id="параметры-запроса-11">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -842,7 +890,8 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-11">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;message=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST --data &#39;item_id=1&amp;message=Отличный комментарий&#39; &#39;https://api.thisorthat.ru/addComment?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
 <h4 id="ответ-сервера-11">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
@@ -854,7 +903,8 @@
         &quot;name&quot;: &quot;Волосатый монстр&quot;,
         &quot;avatar&quot;: &quot;https://image.thisorthat.ru/200/1&quot;
     }
-}</code></pre>
+}
+</code></pre>
 <p>В случае ошибки клиент может отобразить на своей стороне результат поля <code>description</code>.
 Между запросами на добавление комментария должно пройти минимум 20 секунд, иначе сервер вернет ошибку.</p>
 <h4 id="описание-полей-ответа">Описание полей ответа</h4>
@@ -900,7 +950,9 @@
 <h2 id="reportcomment">/reportComment</h2>
 <p>Отправляет жалобу на комментарий.</p>
 <h4 id="запрос-11">Запрос</h4>
-<pre><code>GET|POST https://api.thisorthat.ru/reportComment</code></pre><h4 id="параметры-запроса-12">Параметры запроса</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/reportComment
+</code></pre>
+<h4 id="параметры-запроса-12">Параметры запроса</h4>
 <table>
 <thead>
 <tr>
@@ -924,13 +976,129 @@
 <p>Параметры, выделенные полужирным, являются обязательными.</p>
 </blockquote>
 <h4 id="пример-запроса-12">Пример запроса</h4>
-<pre><code class="language-bash">curl --include --request POST &#39;https://api.thisorthat.ru/reportComment?token=1:0994f52572ab3f9432c77615c104db9c&amp;comment_id=1&#39;</code></pre>
+<pre><code class="language-bash">curl --include --request POST &#39;https://api.thisorthat.ru/reportComment?token=1:0994f52572ab3f9432c77615c104db9c&amp;comment_id=1&#39;
+</code></pre>
 <h4 id="ответ-сервера-12">Ответ сервера</h4>
 <pre><code class="language-json">{
     &quot;ok&quot;: true,
     &quot;result&quot;: true
-}</code></pre>
+}
+</code></pre>
 <p>В случае удачного выполнения сервер вернет <code>true</code>. </p>
+<h2 id="getaudit">/getAudit</h2>
+<p>Возвращает список из <strong>30</strong> вопросов для модерации, которые пользователь еще не видел.</p>
+<h4 id="запрос-12">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/getAudit
+</code></pre>
+<h4 id="параметры-запроса-13">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-13">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/getAudit?token=1:0994f52572ab3f9432c77615c104db9c&#39;
+</code></pre>
+<h4 id="ответ-сервера-13">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: {
+        &quot;items&quot;: [
+            {
+                &quot;item_id&quot;: &quot;1926&quot;,
+                &quot;first_text&quot;: &quot;Остаться слепым на всю жизнь&quot;,
+                &quot;last_text&quot;: &quot;Остаться глухим на всю жизнь&quot;
+            },
+            {
+                &quot;item_id&quot;: &quot;5043&quot;,
+                &quot;first_text&quot;: &quot;Быть нервным&quot;,
+                &quot;last_text&quot;: &quot;Быть ранимым&quot;
+            }
+        ]
+    }
+}
+</code></pre>
+<p>Ответ сервера содержит список объектов <code>items</code>. Клиент может перемешать вопросы после получения.</p>
+<h4 id="описание-полей-вопроса-4">Описание полей вопроса</h4>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>item_id</td>
+<td>String</td>
+<td>Уникальный идентификатор вопроса.</td>
+</tr>
+<tr>
+<td>first_text</td>
+<td>String</td>
+<td>Текст первого вопроса длиной 4-150 символов.</td>
+</tr>
+<tr>
+<td>last_text</td>
+<td>String</td>
+<td>Текст последнего вопроса длиной 4-150 символов.</td>
+</tr>
+</tbody></table>
+<h2 id="setaudit">/setAudit</h2>
+<p>Метод записывает в базу данных результат модерации для конкретного вопроса.</p>
+<h4 id="запрос-13">Запрос</h4>
+<pre><code>GET|POST https://api.thisorthat.ru/setAudit
+</code></pre>
+<h4 id="параметры-запроса-14">Параметры запроса</h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>Маска</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>token</strong></td>
+<td><code>^\d+:[a-z0-9]{32}$</code></td>
+<td>Ключ авторизации, полученный при регистрации.</td>
+</tr>
+<tr>
+<td><strong>item_id</strong></td>
+<td><code>^\d{1,11}$</code></td>
+<td>Идентификатор вопроса, прошедшего модерацию.</td>
+</tr>
+<tr>
+<td><strong>vote</strong></td>
+<td>`^(approve</td>
+<td>decline)$`</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Параметры, выделенные полужирным, являются обязательными.</p>
+</blockquote>
+<h4 id="пример-запроса-14">Пример запроса</h4>
+<pre><code class="language-bash">curl --include --request GET &#39;https://api.thisorthat.ru/setAudit?token=1:0994f52572ab3f9432c77615c104db9c&amp;item_id=1&amp;vote=approve&#39;
+</code></pre>
+<h4 id="ответ-сервера-14">Ответ сервера</h4>
+<pre><code class="language-json">{
+    &quot;ok&quot;: true,
+    &quot;result&quot;: true
+}
+</code></pre>
+<p>В случае удачного выполнения сервер вернет <code>true</code>.</p>
 </article>
     </section>
 </body>

@@ -5891,19 +5891,18 @@ makeerror@1.0.12:
   dependencies:
     tmpl "1.0.5"
 
-markdown-templator@^1.2.3:
+"markdown-templator@git+https://github.com/antonlukin/markdown-templator.git":
   version "1.2.3"
-  resolved "https://registry.yarnpkg.com/markdown-templator/-/markdown-templator-1.2.3.tgz#2507ad2cb72b3704819573a2a52008bb23e85002"
-  integrity sha512-5k1Qsa1MOxHdm1BGgQdzRUFr6RQr48ae9WwVMfDYrVWwcokVMKo9ALDRy1RhslY1Ass9NDAqzlQJkzWjxUOT4A==
+  resolved "git+https://github.com/antonlukin/markdown-templator.git#9f432afff81ed637a87eaba07c5a4a74db987e74"
   dependencies:
-    marked "^0.6.0"
-    minimist "^1.2.0"
-    ul "^5.2.0"
+    marked "^2.0.7"
+    minimist "^1.2.6"
+    ul "^5.2.15"
 
-marked@^0.6.0:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.6.3.tgz#79babad78af638ba4d522a9e715cdfdd2429e946"
-  integrity sha512-Fqa7eq+UaxfMriqzYLayfqAE40WN03jf+zHjT18/uXNuzjq3TY0XTbrAoPeqSJrAmPz11VuUA+kBPYOhHt9oOQ==
+marked@^2.0.7:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-2.1.3.tgz#bd017cef6431724fd4b27e0657f5ceb14bff3753"
+  integrity sha512-/Q+7MGzaETqifOMWYEA7HVMaZb4XbcRfaOzcSsHZEith83KGlvaSG33u0SKu89Mj5h+T8V2hM+8O45Qc5XTgwA==
 
 mdn-data@2.0.14:
   version "2.0.14"
@@ -8386,7 +8385,7 @@ typpy@^2.0.0, typpy@^2.3.4:
   dependencies:
     function.name "^1.0.3"
 
-ul@^5.2.0:
+ul@^5.2.15:
   version "5.2.15"
   resolved "https://registry.yarnpkg.com/ul/-/ul-5.2.15.tgz#426425355ae15df2d5d09b351aade26ed06dd9ed"
   integrity sha512-svLEUy8xSCip5IWnsRa0UOg+2zP0Wsj4qlbjTmX6GJSmvKMHADBuHOm1dpNkWqWPIGuVSqzUkV3Cris5JrlTRQ==

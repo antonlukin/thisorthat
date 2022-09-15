@@ -22,7 +22,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docs": "markdown-templator docs/views/index.html -p docs/files/ -o docs/"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +44,6 @@
     ]
   },
   "devDependencies": {
-    "markdown-templator": "^1.2.3"
+    "markdown-templator": "git+https://github.com/antonlukin/markdown-templator.git"
   }
 }
