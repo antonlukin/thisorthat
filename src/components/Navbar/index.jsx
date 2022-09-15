@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as AboutIcon } from '../../images/about.svg';
 import { ReactComponent as AdminIcon } from '../../images/admin.svg';
-import { ReactComponent as ReportIcon } from '../../images/report.svg';
+import { ReactComponent as ContactsIcon } from '../../images/contacts.svg';
 import { ReactComponent as LogoutIcon } from '../../images/logout.svg';
 
 import resetToken from '../../utils/logout';
@@ -31,10 +31,10 @@ const Navbar = function({setOpened}) {
           Модерация вопросов
         </Link>
 
-        <a href="https://t.me/thisorthat_robot" target="_blank" rel="noreferrer">
-          <ReportIcon />
-          Сообщить о проблеме
-        </a>
+        <Link to="/contacts">
+          <ContactsIcon />
+          Написать авторам
+        </Link>
 
         <button type="button" onClick={resetToken}>
           <LogoutIcon />

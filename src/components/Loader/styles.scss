@@ -24,4 +24,16 @@
 
     border-width: 0.125rem;
   }
+
+  &.on-feedback {
+    position: relative;
+    top: auto;
+    left: auto;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: 1rem;
+
+    border-width: 0.125rem;
+  }
 }

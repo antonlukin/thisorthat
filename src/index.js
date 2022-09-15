@@ -10,6 +10,7 @@ import GameContext from './context';
 import Home from './pages/Home';
 import About from './pages/About';
 import Admin from './pages/Admin';
+import Contacts from './pages/Contacts';
 
 import Loader from './components/Loader'
 import Warning from './components/Warning';
@@ -67,6 +68,7 @@ const App = function() {
               <Route path="/" element={<Home setLoader={setLoader} setWarning={setWarning} />} />
               <Route path="/about" element={<About setLoader={setLoader} />} />
               <Route path="/admin" element={<Admin setLoader={setLoader} setWarning={setWarning} />} />
+              <Route path="/contacts" element={<Contacts setLoader={setLoader} />} />
             </Routes>
           </BrowserRouter>
         </GameContext.Provider>

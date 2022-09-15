@@ -73,3 +73,7 @@ textarea {
     font-weight: 700;
   }
 }
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.375);
+}

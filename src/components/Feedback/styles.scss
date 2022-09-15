@@ -1,0 +1,89 @@
+.feedback {
+  display: block;
+  position: relative;
+
+  width: 100%;
+  margin: 0 0 1.5rem;
+
+  fieldset {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    margin: 1rem 0;
+    padding: 0;
+
+    border: 0;
+  }
+
+  textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 6.5rem;
+    padding: 0.625rem 2.5rem 0.625rem 0.5rem;
+
+    font-size: 1rem;
+    font-weight: 400;
+    resize: none;
+
+    background-color: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0.25rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-last);
+    }
+  }
+
+  input {
+    display: block;
+
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.625rem 0.5rem 0.625rem;
+
+    font-size: 1rem;
+    font-weight: 400;
+    resize: none;
+
+    background-color: transparent;
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0.25rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-last);
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.6875rem 2rem;
+    font-weight: 400;
+
+    background-color: var(--color-last);
+    border-radius: 0.25rem;
+
+    transition: filter 0.375s;
+
+    @media (hover: hover) {
+      &:hover {
+        filter: brightness(80%);
+      }
+    }
+  }
+
+  textarea:placeholder-shown + fieldset button {
+    cursor: not-allowed;
+    filter: brightness(80%);
+  }
+
+  @media screen and (max-width: 479px) {
+    margin: 1rem 0;
+  }
+}

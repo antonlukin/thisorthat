@@ -48,7 +48,6 @@ const DiscussForm = function({current, addComment}) {
     <form className="discuss-form" action="/" onSubmit={submitForm}>
       <fieldset>
         <TextareaAutosize
-          type="text"
           value={message}
           rows="1"
           maxLength={300}
