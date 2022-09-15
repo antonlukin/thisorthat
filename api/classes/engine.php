@@ -209,10 +209,10 @@ class engine
     protected static function sanitize_text($text)
     {
         // Remove double chars
-        $text = preg_replace('#([?!.:,:])\1+#', '$1', $text);
+        $text = preg_replace('#([?!.:,;])\1+#', '$1', $text);
 
         // Remove extra spaces
-        $text = trim(preg_replace('#\s{2,}#', '', $text));
+        $text = trim(preg_replace('/\s\s+/', ' ', $text));
 
         return $text;
     }
