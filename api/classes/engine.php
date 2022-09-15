@@ -162,7 +162,7 @@ class engine
         if (isset($request[$name]) && is_string($request[$name])) {
             $parameter = $request[$name];
 
-            if (preg_match("/{$regex}/ui", $parameter)) {
+            if (preg_match("/{$regex}/uis", $parameter)) {
                 return $parameter;
             }
         }
