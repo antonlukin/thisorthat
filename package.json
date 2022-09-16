@@ -7,7 +7,6 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",
-    "moveto": "^1.8.2",
     "nanoid": "^4.0.0",
     "particles-bg": "^2.5.5",
     "react": "^18.1.0",
