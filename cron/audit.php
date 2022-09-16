@@ -45,7 +45,7 @@ function get_items($database) {
         WHERE item_id IN (SELECT item_id FROM items, audit
         WHERE items.id = audit.item_id AND status = 'new'
         GROUP BY items.id
-        HAVING COUNT(*) > 5)";
+        HAVING COUNT(*) >= 5)";
 
     $select = $database->query($query);
     return $select->fetchAll();
