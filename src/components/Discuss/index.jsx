@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useContext } from 'react';
-import smoothScroll from '../../utils/scroller';
 
 import API from '../../api';
 import GameContext from '../../context';
@@ -16,7 +15,7 @@ const Discuss = function({current}) {
   const token = useContext(GameContext);
 
   useEffect(() => {
-    smoothScroll(discussRef.current.getBoundingClientRect().bottom);
+    discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [comments]);
 
   useEffect(() => {

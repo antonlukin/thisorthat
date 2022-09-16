@@ -38,7 +38,11 @@ class getAudit extends \engine
         $select = $database->prepare($query);
         $select->execute(compact('user_id'));
 
-        return $select->fetchAll();
+        $items = $select->fetchAll();
+
+        shuffle($items);
+
+        return array_slice($items, 0, self::$limit);
     }
 
 

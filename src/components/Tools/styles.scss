@@ -13,8 +13,9 @@
     display: block;
     position: relative;
 
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.25rem;
 
     background-repeat: no-repeat;
     background-color: transparent;
@@ -28,8 +29,8 @@
       display: block;
 
       position: absolute;
-      right: -0.125rem;
-      top: -0.125rem;
+      right: 0.125rem;
+      top: 0.125rem;
 
       width: 0.7125rem;
       height: 0.7125rem;
@@ -57,7 +58,7 @@
     }
 
     &:nth-child(2) {
-      padding: 0.175rem;
+      padding: 0.425rem;
     }
 
     @media (hover: hover) {

@@ -52,8 +52,10 @@ const Home = function({setWarning, setLoader}) {
   }
 
   function updateItems(setResult) {
-    setResult(null);
     setItems(items.filter(object => object.item_id !== current.item_id));
+
+    setResult(null);
+    setDiscussed(false);
   }
 
   function shiftItem(setResult) {
@@ -62,8 +64,7 @@ const Home = function({setWarning, setLoader}) {
     }
 
     smoothScroll(document.body, () => {
-      setDiscussed(false);
-      updateItems(setResult)
+      return updateItems(setResult);
     });
   }
 
@@ -73,7 +74,7 @@ const Home = function({setWarning, setLoader}) {
         <>
           <Menu />
           <Page>
-            <Header />
+            <Header current={current} />
             <Questions current={current} shiftItem={shiftItem} />
             <Tools current={current} toggleComments={toggleComments} />
 
