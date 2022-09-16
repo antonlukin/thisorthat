@@ -18,7 +18,7 @@ class getAudit extends \engine
     /**
      * Get items limit
      */
-    private static $limit = 50;
+    private static $limit = 30;
 
 
     /**
@@ -33,7 +33,7 @@ class getAudit extends \engine
             FROM items LEFT JOIN audit
             ON (items.id = audit.item_id AND audit.user_id = :user_id)
             WHERE (audit.id IS NULL) AND status = 'new'
-            LIMIT " . self::$limit;
+            LIMIT 300";
 
         $select = $database->prepare($query);
         $select->execute(compact('user_id'));
