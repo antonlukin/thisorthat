@@ -16,7 +16,7 @@ const Warning = function({children, position, extra}) {
       <span>{children}</span>
 
       {extra &&
-        <span>Попробуйте обновить страницу или сбросить токен.</span>
+        <span>Попробуйте обновить страницу.</span>
       }
     </p>
   );

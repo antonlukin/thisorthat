@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Admin from './pages/Admin';
 import Contacts from './pages/Contacts';
+import Notfound from './pages/Notfound';
 
 import Loader from './components/Loader'
 import Warning from './components/Warning';
@@ -55,7 +56,7 @@ const App = function() {
       {warning &&
         <>
           <Logout />
-          <Warning position="on-welcome" extra={true}>{warning}</Warning>
+          <Warning position="on-fullscreen" extra={true}>{warning}</Warning>
         </>
       }
       {!warning && loader &&
@@ -65,6 +66,7 @@ const App = function() {
         <GameContext.Provider value={token}>
           <BrowserRouter>
             <Routes>
+              <Route path='*' element={<Notfound setLoader={setLoader} />} />
               <Route path="/" element={<Home setLoader={setLoader} setWarning={setWarning} />} />
               <Route path="/about" element={<About setLoader={setLoader} />} />
               <Route path="/admin" element={<Admin setLoader={setLoader} setWarning={setWarning} />} />
