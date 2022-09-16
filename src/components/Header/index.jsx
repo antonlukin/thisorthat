@@ -7,12 +7,16 @@ import Logo from '../../images/logo.png';
 
 import './styles.scss';
 
-const Header = function({current}) {
+const Header = function({current, setCurrent}) {
   const token = useContext(GameContext);
 
   async function setViewed() {
+    const item = current.item_id;
+
+    setCurrent(null);
+
     try {
-      await API.setViewed(token, current.item_id, 'skip');
+      await API.setViewed(token, item, 'skip');
     } catch (error) {
       console.error(error);
     }

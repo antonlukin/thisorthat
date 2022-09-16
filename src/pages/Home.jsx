@@ -74,7 +74,7 @@ const Home = function({setWarning, setLoader}) {
         <>
           <Menu />
           <Page>
-            <Header current={current} />
+            <Header current={current} setCurrent={setCurrent} />
             <Questions current={current} shiftItem={shiftItem} />
             <Tools current={current} toggleComments={toggleComments} />
 
