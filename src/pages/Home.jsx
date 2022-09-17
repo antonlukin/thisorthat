@@ -73,8 +73,8 @@ const Home = function({setWarning, setLoader}) {
       {current &&
         <>
           <Menu />
-          <Page>
-            <Header current={current} setCurrent={setCurrent} />
+          <Page >
+            <Header current={current} />
             <Questions current={current} shiftItem={shiftItem} />
             <Tools current={current} toggleComments={toggleComments} />
 
