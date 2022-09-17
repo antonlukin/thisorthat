@@ -50,6 +50,25 @@ class addItem extends \engine
 
 
     /**
+     * Find recent questions for user
+     */
+    private static function check_flood($user_id)
+    {
+        $database = parent::get_database();
+
+        // The query to find recent items
+        $query = "SELECT * FROM items
+            WHERE created > DATE_SUB(NOW(), INTERVAL 24 HOUR)
+            AND user_id = :user_id LIMIT 1";
+
+        $select = $database->prepare($query);
+        $select->execute(compact('user_id'));
+
+        return $select->fetchColumn();
+    }
+
+
+    /**
      * Insert item to database
      */
     private static function insert_item($user_id, $first_text, $last_text) {
@@ -92,6 +111,13 @@ class addItem extends \engine
         // Stop working on bad words
         if ($badwords === true) {
             parent::show_error('Текст вопроса содержит нецензурную лексику', 400);
+        }
+
+        // Check flood
+        $flood = self::check_flood($user_id);
+
+        if ($flood !== false) {
+            parent::show_error('Нельзя отправлять вопросы чаще, чем раз в день', 400);
         }
 
         $clone_id = self::search_clone($question);
