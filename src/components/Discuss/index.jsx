@@ -15,7 +15,13 @@ const Discuss = function({current}) {
   const token = useContext(GameContext);
 
   useEffect(() => {
-    discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
+  useEffect(() => {
+    if (comments.length > 0) {
+      discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
   }, [comments]);
 
   useEffect(() => {
