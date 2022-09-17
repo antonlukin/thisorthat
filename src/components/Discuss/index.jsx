@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useContext } from 'react';
+import smoothScroll from '../../utils/scroller';
 
 import API from '../../api';
 import GameContext from '../../context';
@@ -20,7 +21,7 @@ const Discuss = function({current}) {
 
   useEffect(() => {
     if (comments.length > 0) {
-      discussRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      smoothScroll(document.body.scrollHeight);
     }
   }, [comments]);
 
