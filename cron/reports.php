@@ -44,7 +44,7 @@ function get_items($database) {
     $query = "SELECT items.id FROM reports, items
         WHERE items.id = reports.item_id
         AND items.status <> 'rejected'
-        GROUP BY item_id HAVING COUNT(*) > 3";
+        GROUP BY item_id HAVING COUNT(*) > 2";
 
     $select = $database->query($query);
     return $select->fetchAll();
