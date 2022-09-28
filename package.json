@@ -6,6 +6,7 @@
   "author": "Anton Lukin <anton@lukin.me>",
   "license": "MIT",
   "dependencies": {
+    "adorable-avatars": "^0.5.0",
     "axios": "^0.27.2",
     "nanoid": "^4.0.0",
     "particles-bg": "^2.5.5",
