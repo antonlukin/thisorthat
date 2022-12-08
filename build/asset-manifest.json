@@ -1,15 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.a2a52730.css",
-    "main.js": "/static/js/main.0c8e95a2.js",
+    "main.js": "/static/js/main.a3f20269.js",
     "static/media/ubuntu-regular.woff": "/static/media/ubuntu-regular.8efd18174f24d758cb7c.woff",
     "static/media/ubuntu-bold.woff": "/static/media/ubuntu-bold.8360c76fae3e0be0b999.woff",
     "static/media/logo.png": "/static/media/logo.d69e43e4082f19c39a2d.png",
     "static/media/ubuntu-regular.woff2": "/static/media/ubuntu-regular.d7115b526e4688a46904.woff2",
     "static/media/ubuntu-bold.woff2": "/static/media/ubuntu-bold.1b4c594d906aecda540d.woff2",
-    "static/media/vote.svg": "/static/media/vote.a3d5061fb3a287c23631a5004fd50349.svg",
     "index.html": "/index.html",
+    "static/media/vote.svg": "/static/media/vote.a3d5061fb3a287c23631a5004fd50349.svg",
     "static/media/voted.svg": "/static/media/voted.80f594c4908c8a8e6b747f9b78c1d923.svg",
+    "static/media/catalog.svg": "/static/media/catalog.9de5fd136e3dcc4e4f8bd3bf5b6d72df.svg",
     "static/media/contacts.svg": "/static/media/contacts.f5ca7a6c4cf2337eac645e8e3451ac38.svg",
     "static/media/send.svg": "/static/media/send.bd17609520a374e674c8fd857de81e15.svg",
     "static/media/discuss.svg": "/static/media/discuss.c2f19858d66fa1461a24cb0889c0ae8c.svg",
@@ -20,10 +21,10 @@
     "static/media/approve.svg": "/static/media/approve.20384a19e887e1267acc6b5895a4b455.svg",
     "static/media/back.svg": "/static/media/back.4ab5e064aa0f1d3958a3458c5b32bb6a.svg",
     "main.a2a52730.css.map": "/static/css/main.a2a52730.css.map",
-    "main.0c8e95a2.js.map": "/static/js/main.0c8e95a2.js.map"
+    "main.a3f20269.js.map": "/static/js/main.a3f20269.js.map"
   },
   "entrypoints": [
     "static/css/main.a2a52730.css",
-    "static/js/main.0c8e95a2.js"
+    "static/js/main.a3f20269.js"
   ]
 }
