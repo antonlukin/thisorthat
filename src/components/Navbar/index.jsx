@@ -4,6 +4,7 @@ import { ReactComponent as AboutIcon } from '../../images/about.svg';
 import { ReactComponent as AdminIcon } from '../../images/admin.svg';
 import { ReactComponent as ContactsIcon } from '../../images/contacts.svg';
 import { ReactComponent as LogoutIcon } from '../../images/logout.svg';
+import { ReactComponent as CatalogIcon } from '../../images/catalog.svg';
 
 import resetToken from '../../utils/logout';
 
@@ -25,6 +26,11 @@ const Navbar = function({setOpened}) {
           <AboutIcon />
           О проекте
         </Link>
+
+        <a href="https://play.google.com/store/apps/details?id=com.svobnick.thisorthat" target="_blank" rel="noreferrer">
+          <CatalogIcon />
+          Скачать на Android
+        </a>
 
         <Link to="/admin">
           <AdminIcon />
