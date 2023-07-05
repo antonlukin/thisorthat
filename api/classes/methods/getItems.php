@@ -96,13 +96,15 @@ class getItems extends \engine
             $limit = self::$limit - count($items);
 
             // The query to get only certain user non-answered items from given section
-            $query = "SELECT items.id AS item_id, items.first_text, items.last_text, items.status,
-                IF(comments.id IS NULL, NULL, 'available') AS comments
+            $query = "SELECT items.id AS item_id, ANY_VALUE(items.first_text) AS first_text,
+                ANY_VALUE(items.last_text) AS last_text, ANY_VALUE(items.status) AS status,
+                IF(COUNT(comments.id) < 1, NULL, 'available') AS comments
                 FROM items LEFT JOIN views
                 ON (items.id = views.item_id AND views.user_id = :user_id)
                 LEFT JOIN comments
                 ON (items.id = comments.item_id)
                 WHERE (views.id IS NULL) AND items.section = :section AND {$condition}
+                GROUP BY items.id
                 LIMIT {$limit}";
 
             $select = $database->prepare($query);
