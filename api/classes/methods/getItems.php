@@ -92,41 +92,39 @@ class getItems extends \engine
             $section = 1;
         }
 
-        for ($i = 0; $i < parent::$sections; $i++) {
-            $limit = self::$limit - count($items);
+        $limit = self::$limit - count($items);
 
-            // The query to get only certain user non-answered items from given section
-            $query = "SELECT items.id AS item_id, ANY_VALUE(items.first_text) AS first_text,
-                ANY_VALUE(items.last_text) AS last_text, ANY_VALUE(items.status) AS status,
-                IF(COUNT(comments.id) < 1, NULL, 'available') AS comments
-                FROM items LEFT JOIN views
-                ON (items.id = views.item_id AND views.user_id = :user_id)
-                LEFT JOIN comments
-                ON (items.id = comments.item_id)
-                WHERE (views.id IS NULL) AND items.section = :section AND {$condition}
-                GROUP BY items.id
-                LIMIT {$limit}";
+        // The query to get only certain user non-answered items from given section
+        $query = "SELECT items.id AS item_id, ANY_VALUE(items.first_text) AS first_text,
+            ANY_VALUE(items.last_text) AS last_text, ANY_VALUE(items.status) AS status,
+            IF(COUNT(comments.id) < 1, NULL, 'available') AS comments
+            FROM items LEFT JOIN views
+            ON (items.id = views.item_id AND views.user_id = :user_id)
+            LEFT JOIN comments
+            ON (items.id = comments.item_id)
+            WHERE (views.id IS NULL) AND items.section = :section AND {$condition}
+            GROUP BY items.id
+            LIMIT {$limit}";
 
-            $select = $database->prepare($query);
-            $select->execute(compact('user_id', 'section', 'status'));
+        $select = $database->prepare($query);
+        $select->execute(compact('user_id', 'section', 'status'));
 
-            $items = $items + $select->fetchAll();
+        $items = $items + $select->fetchAll();
 
-            // Break if already enough items
-            if (count($items) >= self::$limit) {
-                break;
-            }
-
-            $section = intval($section) + 1;
-
-            // Reset section value if too big
-            if ($section > parent::$sections) {
-                $section = 1;
-            }
-
-            // We should replace user section now
-            self::set_section($user_id, $section);
+        // Break if already enough items
+        if (count($items) >= self::$limit) {
+            return $items;
         }
+
+        $section = intval($section) + 1;
+
+        // Reset section value if too big
+        if ($section > parent::$sections) {
+            $section = 1;
+        }
+
+        // We should replace user section now
+        self::set_section($user_id, $section);
 
         return $items;
     }
