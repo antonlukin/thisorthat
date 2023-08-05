@@ -119,6 +119,16 @@ Flight::route('GET|POST /getComments', [
 
 
 /**
+ * Get users' comments by
+ *
+ * @link https://docs.thisorthat.ru/#getmycomments
+ */
+Flight::route('GET|POST /getMyComments', [
+    'methods\getMyComments', 'run_task'
+], true);
+
+
+/**
  * Add comment to item
  *
  * @link https://docs.thisorthat.ru/#addcomment
