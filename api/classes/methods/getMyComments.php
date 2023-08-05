@@ -16,6 +16,19 @@ namespace methods;
 class getMyComments extends \engine
 {
     /**
+     * Add user avatars to comments
+     */
+    private static function add_avatar($comments, $user_id)
+    {
+        foreach ($comments as &$comment) {
+            $comment['avatar'] = parent::$avatars . $user_id;
+        }
+
+        return $comments;
+    }
+
+
+    /**
      * Get comments
      */
     private static function get_comments($user_id)
@@ -46,6 +59,9 @@ class getMyComments extends \engine
 
         // Get comments
         $comments = self::get_comments($user_id);
+
+        // Add avatar to comments
+        $comments = self::add_avatar($comments, $user_id);
 
         parent::show_success(compact('comments'));
     }

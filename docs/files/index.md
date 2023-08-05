@@ -664,19 +664,22 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyComments?token=1:09
                 "comment_id": "46",
                 "parent": "0",
                 "message": "Отличный вопрос",
-                "item_id": "89651"
+                "item_id": "89651",
+                "avatar": "https://image.thisorthat.ru/100/1"
               },
               {
                 "comment_id": "47",
                 "parent": "0",
                 "message": "Не знаю, что и сказать",
-                "item_id": "89651"
+                "item_id": "89651",
+                "avatar": "https://image.thisorthat.ru/100/1"
               },
               {
                 "comment_id": "48",
                 "parent": "0",
                 "message": "Прекрасно написано",
-                "item_id": "93835"
+                "item_id": "93835",
+                "avatar": "https://image.thisorthat.ru/100/1"
               }
         ]
     }
@@ -692,8 +695,8 @@ curl --include --request GET 'https://api.thisorthat.ru/getMyComments?token=1:09
 | comment_id | String  | Уникальный идентификатор комментария. |
 | parent     | String  | Идентификатор родительского комментария. <br>Если комментарий первый в ветке, значение равно _0_. |
 | message    | String  | Текст комментария длиной 1-300 символов. |
-| avatar     | String  | Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером _200x200_. |
 | item_id    | String  | Идентификатор вопроса. |
+| avatar     | String  | Ссылка на уникальный аватар пользователя. <br>Изображение в формате png размером _200x200_. |
 
 
 ## /addComment
