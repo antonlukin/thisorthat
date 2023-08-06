@@ -38,6 +38,18 @@ Flight::route('GET|POST /getMyItems', [
 ], true);
 
 
+
+/**
+ * Use this method to get items that the current user has commented
+ *
+ * @link https://docs.thisorthat.ru/#getcommenteditems
+ */
+Flight::route('GET|POST /getCommentedItems', [
+    'methods\getCommentedItems', 'run_task'
+], true);
+
+
+
 /**
  * Add new item with first and last texts
  *
