@@ -76,12 +76,12 @@ class getCommentedItems extends \engine
             ANY_VALUE(first_text) AS first_text,
             ANY_VALUE(last_text) AS last_text,
             ANY_VALUE(status) AS status,
-            MAX(comments.id) AS comments_id
+            MAX(comments.id) AS comment_id
             FROM comments
             LEFT JOIN items ON comments.item_id = items.id
             WHERE comments.user_id = :user_id
             GROUP BY items.id
-            ORDER BY comments_id DESC
+            ORDER BY comment_id DESC
             LIMIT :limit OFFSET :offset";
 
         $select = $database->prepare($query);
