@@ -11,6 +11,8 @@ import ModerationItem from '../components/ModerationItem';
 
 const Admin = function({setWarning, setLoader}) {
   const [items, setItems] = useState([]);
+  const [storage, setStorage] = useState({});
+  const [watched, setWatched] = useState(false);
 
   const token = useContext(GameContext);
 
@@ -18,48 +20,72 @@ const Admin = function({setWarning, setLoader}) {
     setLoader(true);
 
     async function getItems() {
+      const updated = storage;
+
       try {
         const data = await API.getAudit(token);
-        setItems(items.concat(data));
+
+        data.forEach(item => {
+          if (!updated[item.item_id]) {
+            updated[item.item_id] = item;
+          }
+        });
+
+        if (data.length < 10) {
+          setWatched(true);
+        }
+
+        setStorage(updated);
+        setItems(Object.keys(updated).map((key) => updated[key]));
       } catch (error) {
         setWarning('Не удалось загрузить вопросы. Попробуйте обновить страницу.');
       }
     }
 
-    if (items.length > 0) {
+    if (watched || items.length > 0) {
       setLoader(false);
     }
 
-    if (items.length < 5) {
+    if (!watched && items.length < 10) {
       getItems();
     }
-  }, [token, items, setLoader, setWarning]);
+  }, [token, items, storage, watched, setLoader, setWarning]);
 
   function removeItem(id) {
-    setItems(items.filter(object => object.item_id !== id));
+    const updated = storage;
+    delete updated[id];
+
+    setStorage(updated);
+    setItems(Object.keys(updated).map((key) => updated[key]));
   }
 
   return (
     <>
-      {items.length > 0 &&
-        <Page>
-          <Backlink>Модерация вопросов</Backlink>
+      <Page>
+        <Backlink>Модерация вопросов</Backlink>
 
-          <Content>
-            <p>
-              В этом разделе отображаются новые вопросы от пользователей.
-              Вы можете принять участие в модерации.
-              Голосуйте за понравившиеся вопросы, и они появятся в основном разделе.
-            </p>
-          </Content>
+        <Content>
+          <p>
+            В этом разделе отображаются новые вопросы от пользователей.
+            Вы можете принять участие в модерации.
+            Голосуйте за понравившиеся вопросы, и они появятся в основном разделе.
+          </p>
+        </Content>
 
+        {items.length > 0 &&
           <Moderation>
-            {items && items.slice(0, 8).map((item) =>
+            {items && items.map((item) =>
               <ModerationItem item={item} removeItem={removeItem} key={item.item_id} />
             )}
           </Moderation>
-        </Page>
-      }
+        }
+
+        {items.length === 0 && watched &&
+          <p>
+            <strong>Вы промодерировали все вопросы.</strong>
+          </p>
+        }
+      </Page>
     </>
   );
 }
