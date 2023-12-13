@@ -25,7 +25,7 @@ const About = function({setLoader}) {
         </p>
 
         <p>
-          Сейчас вы можете задать свой вопрос только в приложении под <a href="https://play.google.com/store/apps/details?id=com.svobnick.thisorthat" target="_blank" rel="noreferrer">Android</a>.
+          Сейчас вы можете задать свой вопрос только в приложениях под <a href="https://play.google.com/store/apps/details?id=com.svobnick.thisorthat" target="_blank" rel="noreferrer">Android</a> или <a href="https://apps.apple.com/us/app/id963727722" target="_blank" rel="noreferrer">iOS</a>.
         </p>
 
         <p>

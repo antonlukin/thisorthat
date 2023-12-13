@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.a2a52730.css",
-    "main.js": "/static/js/main.ab828f38.js",
+    "main.css": "/static/css/main.d187c429.css",
+    "main.js": "/static/js/main.866b1a0c.js",
     "static/media/ubuntu-regular.woff": "/static/media/ubuntu-regular.8efd18174f24d758cb7c.woff",
     "static/media/ubuntu-bold.woff": "/static/media/ubuntu-bold.8360c76fae3e0be0b999.woff",
     "static/media/logo.png": "/static/media/logo.d69e43e4082f19c39a2d.png",
@@ -10,7 +10,8 @@
     "index.html": "/index.html",
     "static/media/vote.svg": "/static/media/vote.a3d5061fb3a287c23631a5004fd50349.svg",
     "static/media/voted.svg": "/static/media/voted.80f594c4908c8a8e6b747f9b78c1d923.svg",
-    "static/media/catalog.svg": "/static/media/catalog.9de5fd136e3dcc4e4f8bd3bf5b6d72df.svg",
+    "static/media/googlestore.svg": "/static/media/googlestore.9de5fd136e3dcc4e4f8bd3bf5b6d72df.svg",
+    "static/media/appstore.svg": "/static/media/appstore.7fb6f34c7d44713f6137ef74fd9fe9d6.svg",
     "static/media/contacts.svg": "/static/media/contacts.f5ca7a6c4cf2337eac645e8e3451ac38.svg",
     "static/media/send.svg": "/static/media/send.bd17609520a374e674c8fd857de81e15.svg",
     "static/media/discuss.svg": "/static/media/discuss.c2f19858d66fa1461a24cb0889c0ae8c.svg",
@@ -20,11 +21,11 @@
     "static/media/logout.svg": "/static/media/logout.4673806e41956e70655b6838ed7c6e0d.svg",
     "static/media/approve.svg": "/static/media/approve.20384a19e887e1267acc6b5895a4b455.svg",
     "static/media/back.svg": "/static/media/back.4ab5e064aa0f1d3958a3458c5b32bb6a.svg",
-    "main.a2a52730.css.map": "/static/css/main.a2a52730.css.map",
-    "main.ab828f38.js.map": "/static/js/main.ab828f38.js.map"
+    "main.d187c429.css.map": "/static/css/main.d187c429.css.map",
+    "main.866b1a0c.js.map": "/static/js/main.866b1a0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.a2a52730.css",
-    "static/js/main.ab828f38.js"
+    "static/css/main.d187c429.css",
+    "static/js/main.866b1a0c.js"
   ]
 }

@@ -4,7 +4,8 @@ import { ReactComponent as AboutIcon } from '../../images/about.svg';
 import { ReactComponent as AdminIcon } from '../../images/admin.svg';
 import { ReactComponent as ContactsIcon } from '../../images/contacts.svg';
 import { ReactComponent as LogoutIcon } from '../../images/logout.svg';
-import { ReactComponent as CatalogIcon } from '../../images/catalog.svg';
+import { ReactComponent as GoogleStoreIcon } from '../../images/googlestore.svg';
+import { ReactComponent as AppStoreIcon } from '../../images/appstore.svg';
 
 import resetToken from '../../utils/logout';
 
@@ -28,8 +29,13 @@ const Navbar = function({setOpened}) {
         </Link>
 
         <a href="https://play.google.com/store/apps/details?id=com.svobnick.thisorthat" target="_blank" rel="noreferrer">
-          <CatalogIcon />
+          <GoogleStoreIcon />
           Скачать на Android
+        </a>
+
+        <a href="https://apps.apple.com/us/app/id963727722" target="_blank" rel="noreferrer">
+          <AppStoreIcon />
+          Скачать на iOS
         </a>
 
         <Link to="/admin">
