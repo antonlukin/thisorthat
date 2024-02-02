@@ -9,6 +9,10 @@ const setAudit = async (token, item, result) => {
 
   const response = await axios.post(API_URL + '/setAudit', data);
 
+  if ('umami' in window) {
+    window.umami.track('set-audit', {'item': item});
+  }
+
   return response.data.result;
 }
 

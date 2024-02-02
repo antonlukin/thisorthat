@@ -12,6 +12,10 @@ const addComment = async (token, item, message) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('add-comment', {'item': item});
+  }
+
   return response.data.result;
 }
 

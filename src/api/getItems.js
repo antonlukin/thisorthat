@@ -11,6 +11,11 @@ const getItems = async (token) => {
     data: data,
   });
 
+
+  if ('umami' in window) {
+    window.umami.track('get-items');
+  }
+
   return response.data.result?.items;
 }
 

@@ -12,6 +12,10 @@ const sendReport = async (token, item) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('send-report', {'item': item});
+  }
+
   return response.data.result;
 }
 

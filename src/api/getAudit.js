@@ -11,6 +11,10 @@ const getAudit = async (token) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('get-audit');
+  }
+
   return response.data.result?.items;
 }
 
