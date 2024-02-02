@@ -11,6 +11,10 @@ const cancelReport = async (token, item) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('cancel-report', {'item': item});
+  }
+
   return response.data.result;
 }
 

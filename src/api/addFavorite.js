@@ -11,6 +11,10 @@ const addFavorite = async (token, item) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('add-favorite', {'item': item});
+  }
+
   return response.data.result;
 }
 

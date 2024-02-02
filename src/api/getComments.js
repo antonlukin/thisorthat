@@ -12,6 +12,10 @@ const getComments = async (token, item) => {
     data: data,
   });
 
+  if ('umami' in window) {
+    window.umami.track('get-comments', {'item': item});
+  }
+
   return response.data.result?.comments;
 }
 

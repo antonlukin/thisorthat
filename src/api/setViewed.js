@@ -8,6 +8,10 @@ const setViewed = async (token, item, result) => {
 
   const response = await axios.post(API_URL + '/setViewed', data);
 
+  if ('umami' in window) {
+    window.umami.track('set-viewed', {'item': item});
+  }
+
   return response.data.result;
 }
 
