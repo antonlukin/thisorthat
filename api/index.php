@@ -34,7 +34,7 @@ Flight::path(__DIR__ . '/classes/');
 /**
  * Remap default errors
  */
-Flight::map('error', function (Exception $exception) {
+Flight::map('error', function (Throwable $exception) {
     $message = ['ok' => false, 'description' => 'Ошибка сервера'];
 
     Flight::json($message, 500, true, 'utf-8', JSON_UNESCAPED_UNICODE);

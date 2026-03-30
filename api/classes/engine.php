@@ -192,7 +192,11 @@ class engine
      */
     protected static function has_badwords($text)
     {
-        $badwords = Censure\Censure::parse($text);
+        try {
+            $badwords = Censure\Censure::parse($text);
+        } catch (Throwable $exception) {
+            return false;
+        }
 
         // On error this method returns int error code
         if ($badwords === false || !is_string($badwords)) {
